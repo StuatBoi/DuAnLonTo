@@ -1,0 +1,446 @@
+/* ==========================================================================
+   CINEVERSE GENERAL STYLE
+   ========================================================================== */
+.root-container {
+    -fx-background-color: #0b0b0c;
+    -fx-font-family: 'Segoe UI', Helvetica, Arial, sans-serif;
+}
+
+/* ScrollPane Custmization */
+.scroll-pane {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+}
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+/* ==========================================================================
+   NAVIGATION BAR
+   ========================================================================== */
+.navbar {
+    -fx-background-color: #121214;
+    -fx-padding: 15px 40px;
+    -fx-border-color: #1f1f23;
+    -fx-border-width: 0 0 1px 0;
+}
+
+.logo {
+    -fx-text-fill: #e50914;
+    -fx-font-size: 22px;
+    -fx-font-weight: 900;
+    -fx-letter-spacing: 2px;
+}
+
+.nav-item {
+    -fx-text-fill: #9898a0;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-padding: 0 15px;
+    -fx-cursor: hand;
+}
+.nav-item:hover {
+    -fx-text-fill: #ffffff;
+}
+.nav-active {
+    -fx-text-fill: #ffffff;
+    -fx-border-color: #e50914;
+    -fx-border-width: 0 0 2px 0;
+    -fx-padding: 0 15px 5px 15px;
+}
+
+/* Search Bar */
+.search-bar {
+    -fx-background-color: #1a1a1e;
+    -fx-background-radius: 20px;
+    -fx-padding: 6px 14px;
+    -fx-border-color: #2a2a30;
+    -fx-border-radius: 20px;
+}
+.search-icon {
+    -fx-text-fill: #66666c;
+    -fx-font-size: 14px;
+}
+.search-field {
+    -fx-background-color: transparent;
+    -fx-text-fill: #ffffff;
+    -fx-prompt-text-fill: #56565c;
+    -fx-font-size: 13px;
+    -fx-pref-width: 180px;
+}
+
+/* Buttons */
+.btn-login {
+    -fx-background-color: transparent;
+    -fx-text-fill: #ffffff;
+    -fx-border-color: #3a3a40;
+    -fx-border-radius: 6px;
+    -fx-background-radius: 6px;
+    -fx-padding: 8px 18px;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+}
+.btn-login:hover {
+    -fx-background-color: #1a1a1e;
+    -fx-border-color: #5a5a60;
+}
+
+.btn-primary {
+    -fx-background-color: #e50914;
+    -fx-text-fill: #ffffff;
+    -fx-font-weight: bold;
+    -fx-padding: 10px 24px;
+    -fx-background-radius: 6px;
+    -fx-cursor: hand;
+}
+.btn-primary:hover {
+    -fx-background-color: #b80710;
+}
+
+/* ==========================================================================
+   HERO SECTION
+   ========================================================================== */
+.hero-section {
+    -fx-background-color: #121214;
+}
+.hero-bg {
+    -fx-background-color: linear-gradient(to right, #0b0b0c 10%, transparent 100%);
+}
+.hero-title-white {
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 38px;
+    -fx-font-weight: 900;
+}
+.hero-title-red {
+    -fx-text-fill: #e50914;
+    -fx-font-size: 38px;
+    -fx-font-weight: 900;
+}
+.hero-subtitle {
+    -fx-text-fill: #9898a0;
+    -fx-font-size: 14px;
+    -fx-line-spacing: 5px;
+}
+
+/* Badges */
+.badge-hot {
+    -fx-background-color: #e50914;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-font-size: 10px;
+    -fx-padding: 2px 6px;
+    -fx-background-radius: 3px;
+}
+.badge-year {
+    -fx-background-color: #2a2a30;
+    -fx-text-fill: #9898a0;
+    -fx-font-weight: bold;
+    -fx-font-size: 10px;
+    -fx-padding: 2px 6px;
+    -fx-background-radius: 3px;
+}
+
+/* Featured Card */
+.featured-card {
+    -fx-background-color: #1a1a1e;
+    -fx-border-color: #2a2a30;
+    -fx-border-radius: 12px;
+    -fx-background-radius: 12px;
+    -fx-padding: 15px;
+}
+.rating-badge {
+    -fx-text-fill: #ffb800;
+    -fx-font-weight: bold;
+    -fx-font-size: 13px;
+}
+.featured-icon {
+    -fx-font-size: 40px;
+}
+.featured-label {
+    -fx-text-fill: #ffffff;
+    -fx-font-weight: bold;
+    -fx-font-size: 16px;
+}
+.featured-sub {
+    -fx-text-fill: #66666c;
+    -fx-font-size: 12px;
+}
+
+/* ==========================================================================
+   MOVIE SECTION & CARDS
+   ========================================================================== */
+.section {
+    -fx-padding: 30px 40px;
+}
+.section-title {
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+}
+.see-all {
+    -fx-text-fill: #e50914;
+    -fx-font-size: 13px;
+    -fx-cursor: hand;
+}
+
+.movie-card {
+    -fx-background-color: #121214;
+    -fx-background-radius: 8px;
+    -fx-border-radius: 8px;
+    -fx-border-color: #1f1f23;
+    -fx-cursor: hand;
+    -fx-padding: 8px;
+}
+.movie-card:hover {
+    -fx-border-color: #3a3a40;
+    -fx-transform: scale(1.02);
+}
+.movie-thumb {
+    -fx-background-color: #1a1a1e;
+    -fx-background-radius: 6px;
+}
+.thumb-img {
+    -fx-background-radius: 6px;
+}
+
+/* Badges on Thumbs */
+.quality-badge {
+    -fx-background-color: #00bcd4;
+    -fx-text-fill: white;
+    -fx-font-size: 10px;
+    -fx-font-weight: bold;
+    -fx-padding: 3px 6px;
+    -fx-background-radius: 4px;
+    -fx-alignment: top-left;
+    /* Dùng translate để căn trên StackPane */
+    -fx-translate-x: 8px;
+    -fx-translate-y: 8px;
+}
+.quality-cam { -fx-background-color: #ff9800; }
+.quality-fhd { -fx-background-color: #4caf50; }
+
+.star-badge {
+    -fx-background-color: rgba(0, 0, 0, 0.75);
+    -fx-text-fill: #ffb800;
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+    -fx-padding: 3px 6px;
+    -fx-background-radius: 4px;
+    -fx-translate-x: 130px;
+    -fx-translate-y: 8px;
+}
+
+.movie-info {
+    -fx-padding: 8px 4px 2px 4px;
+}
+.movie-title {
+    -fx-text-fill: #ffffff;
+    -fx-font-weight: bold;
+    -fx-font-size: 13px;
+}
+.movie-meta {
+    -fx-text-fill: #66666c;
+    -fx-font-size: 11px;
+}
+
+/* ==========================================================================
+   ACCOUNT PAGE EXTRA COMPONENTS
+   ========================================================================== */
+.account-title {
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 28px;
+    -fx-font-weight: 800;
+}
+.profile-card {
+    -fx-background-color: #121214;
+    -fx-border-color: #1f1f23;
+    -fx-border-radius: 12px;
+    -fx-background-radius: 12px;
+    -fx-padding: 30px 20px;
+}
+.avatar-container {
+    -fx-background-color: #1a1a1e;
+    -fx-background-radius: 60px;
+    -fx-border-color: #333339;
+    -fx-border-radius: 60px;
+    -fx-border-width: 2px;
+}
+.avatar-icon {
+    -fx-font-size: 50px;
+}
+.profile-name {
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+}
+
+/* Extra Action Buttons */
+.btn-outline {
+    -fx-background-color: transparent;
+    -fx-text-fill: #ffffff;
+    -fx-border-color: #3a3a40;
+    -fx-border-radius: 6px;
+    -fx-background-radius: 6px;
+    -fx-padding: 10px 20px;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+}
+.btn-outline:hover {
+    -fx-background-color: #1a1a1e;
+    -fx-border-color: #5a5a60;
+}
+
+.btn-danger {
+    -fx-background-color: transparent;
+    -fx-text-fill: #ff4a4a;
+    -fx-border-color: #ff4a4a;
+    -fx-border-radius: 6px;
+    -fx-background-radius: 6px;
+    -fx-padding: 10px 20px;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+}
+.btn-danger:hover {
+    -fx-background-color: rgba(255, 74, 74, 0.1);
+}
+
+/* History Table Styles */
+.history-table {
+    -fx-base: #111111;
+    -fx-control-inner-background: #1a1a1e;
+    -fx-background-color: #1a1a1e;
+    -fx-table-cell-border-color: #2a2a30;
+    -fx-table-header-border-color: #2a2a30;
+    -fx-background-radius: 8px;
+    -fx-border-radius: 8px;
+    -fx-border-color: #2a2a30;
+    -fx-padding: 0;
+}
+.history-table .column-header, .history-table .filler {
+    -fx-background-color: #222226;
+    -fx-size: 42px;
+    -fx-border-color: #2a2a30;
+    -fx-border-width: 0 1px 1px 0;
+}
+.history-table .column-header .label {
+    -fx-text-fill: #9898a0;
+    -fx-font-weight: bold;
+    -fx-font-size: 13px;
+}
+.history-table .table-row-cell {
+    -fx-background-color: transparent;
+    -fx-cell-size: 45px;
+}
+.history-table .table-row-cell:filled:hover {
+    -fx-background-color: #26262b;
+}
+.history-table .table-cell {
+    -fx-text-fill: #e2e2e8;
+    -fx-font-size: 13px;
+    -fx-padding: 0 10px;
+}
+
+/* ==========================================================================
+   FOOTER
+   ========================================================================== */
+.footer {
+    -fx-background-color: #0b0b0c;
+    -fx-padding: 30px 40px;
+    -fx-border-color: #1f1f23;
+    -fx-border-width: 1px 0 0 0;
+}
+.footer-logo {
+    -fx-text-fill: #44444a;
+    -fx-font-size: 16px;
+    -fx-font-weight: 800;
+}
+.footer-copy {
+    -fx-text-fill: #44444a;
+    -fx-font-size: 12px;
+    -fx-padding: 0 0 0 10px;
+}
+.social-icon {
+    -fx-text-fill: #66666c;
+    -fx-font-size: 16px;
+    -fx-cursor: hand;
+}
+.social-icon:hover {
+    -fx-text-fill: #ffffff;
+}
+
+
+/* ==========================================================================
+   AUTH PAGES STYLE (LOGIN & REGISTER)
+   ========================================================================== */
+.auth-root {
+    -fx-background-color: rgba(0,0,0,0.82);
+    /* Có thể dùng ảnh nền điện ảnh mờ nếu muốn: */
+    /* -fx-background-image: url('https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=1000'); */
+    -fx-background-size: cover;
+    -fx-background-position: center;
+}
+
+.auth-overlay {
+    -fx-background-color: rgba(11, 11, 12, 0.85); /* Tạo lớp phủ tối mịn */
+    -fx-padding: 20px;
+}
+
+.auth-container {
+    -fx-background-color: #121214;
+    -fx-border-color: #1f1f23;
+    -fx-border-width: 1px;
+    -fx-border-radius: 12px;
+    -fx-background-radius: 12px;
+    /* Hiệu ứng bóng đổ nhẹ mịn màng hợp tông dark */
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 30, 0, 0, 0);
+}
+
+.auth-title {
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 24px;
+    -fx-font-weight: 800;
+}
+
+.auth-subtitle {
+    -fx-text-fill: #66666c;
+    -fx-font-size: 13px;
+}
+
+.auth-link {
+    -fx-text-fill: #9898a0;
+    -fx-underline: false;
+}
+.auth-link:hover {
+    -fx-text-fill: #ffffff;
+    -fx-underline: true;
+}
+
+/* Tùy chỉnh CheckBox để hợp tông */
+.auth-checkbox {
+    -fx-text-fill: #9898a0;
+    -fx-cursor: hand;
+}
+.auth-checkbox .box {
+    -fx-background-color: #1a1a1e;
+    -fx-border-color: #2a2a30;
+    -fx-border-radius: 3px;
+    -fx-background-radius: 3px;
+}
+.auth-checkbox:focused .box {
+    -fx-border-color: #e50914;
+}
+/* 1. Ẩn hoàn toàn hình dấu tích (mũi tên v) khi được chọn */
+.auth-checkbox:selected .box .mark {
+    -fx-shape: ""; /* Xóa bỏ hình dáng dấu tích */
+    -fx-background-color: transparent; /* Làm trong suốt dấu tích */
+}
+
+/* 2. Tùy chọn: Thay đổi màu nền của ô vuông khi được chọn để người dùng biết là đã kích hoạt */
+.auth-checkbox:selected .box {
+     /* Đổi thành màu đỏ thương hiệu Cineverse của bạn */
+    -fx-border-color: #e50914;
+}
+.auth-checkbox .mark {
+    -fx-background-color: white;
+}

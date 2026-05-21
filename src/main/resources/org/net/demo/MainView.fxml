@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox styleClass="root-container" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.net.demo.MainController">
+
+    <!-- ═══════════════════════════════ NAV BAR ═══════════════════════════════ -->
+    <HBox alignment="CENTER_LEFT" styleClass="navbar">
+        <Label styleClass="logo" text="CINEVERSE" />
+
+        <HBox alignment="CENTER_LEFT" styleClass="nav-links">
+            <HBox.margin><Insets left="32" /></HBox.margin>
+            <Label fx:id="navHome" onMouseClicked="#onHomePageClick" styleClass="nav-item, nav-active" text="Trang chủ" />
+            <Label fx:id="navAccount" onMouseClicked="#onAccountClick" styleClass="nav-item" text="Tài Khoản" />
+        </HBox>
+
+        <Region HBox.hgrow="ALWAYS" />
+
+        <!-- Search -->
+        <HBox alignment="CENTER_LEFT" styleClass="search-bar">
+            <Label styleClass="search-icon" text="🔍" />
+            <TextField promptText="Tìm phim..." styleClass="search-field" />
+        </HBox>
+        <Button onAction="#onLoginClicked" onZoomFinished="#onLoginClicked" styleClass="btn-login" text="Đăng nhập">
+            <HBox.margin><Insets left="14" /></HBox.margin>
+        </Button>
+    </HBox>
+
+    <!-- ═══════════════════════════════ SCROLLABLE CONTENT ═══════════════════════════════ -->
+    <ScrollPane fitToWidth="true" styleClass="scroll-pane" VBox.vgrow="ALWAYS">
+        <StackPane fx:id = "page">
+            <children>
+
+                <!-- ════════════════════ TRANG CHỦ (HOME PAGE) ════════════════════ -->
+                <VBox fx:id="homeView" managed="true">
+                    <!-- ─── HERO SECTION ─── -->
+                    <StackPane minHeight="420" prefHeight="482.0" prefWidth="991.0" styleClass="hero-section">
+                        <VBox maxWidth="1.7976931348623157E308" styleClass="hero-bg" />
+                        <HBox alignment="CENTER" spacing="60" styleClass="hero-content">
+                            <HBox.margin>
+                                <Insets bottom="40" left="60" right="60" top="40" />
+                            </HBox.margin>
+                            <VBox alignment="CENTER_LEFT" spacing="14" HBox.hgrow="ALWAYS">
+                                <HBox spacing="8">
+                                    <Label styleClass="badge-hot" text="HOT" />
+                                    <Label styleClass="badge-year" text="2024" />
+                                </HBox>
+                                <VBox spacing="0">
+                                    <Label styleClass="hero-title-white" text="KHÁM PHÁ THẾ GIỚI" wrapText="true" />
+                                    <Label styleClass="hero-title-red" text="ĐIỆN ẢNH" wrapText="true" />
+                                </VBox>
+                                <Label maxWidth="440" styleClass="hero-subtitle" text="Hàng ngàn bộ phim bom tấn, phim bộ hấp dẫn đang chờ bạn khám phá. Cập nhật liên tục mỗi ngày." wrapText="true" />
+                                <HBox spacing="12">
+                                    <Button styleClass="btn-primary" text="ĐẶT VÉ" />
+                                </HBox>
+                            </VBox>
+                            <VBox alignment="CENTER" maxWidth="240" minWidth="200" styleClass="featured-card">
+                                <Label alignment="CENTER_RIGHT" styleClass="rating-badge" text="★ 8.2" />
+                                <VBox alignment="CENTER" spacing="10" styleClass="featured-inner" VBox.vgrow="ALWAYS">
+                                    <Label styleClass="featured-icon" text="🎬" />
+                                    <Label styleClass="featured-label" text="FEATURED" />
+                                    <Label styleClass="featured-sub" text="Phim nổi bật" />
+                                </VBox>
+                            </VBox>
+                        </HBox>
+                    </StackPane>
+
+                    <!-- ─── TRENDING SECTION ─── -->
+                    <VBox spacing="18" styleClass="section">
+                        <HBox alignment="CENTER_LEFT">
+                            <Label styleClass="section-title" text="📈 PHIM THỊNH HÀNH" />
+                            <Region HBox.hgrow="ALWAYS" />
+                            <Label styleClass="see-all" text="Xem tất cả ›" />
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" spacing="14">
+                            <!-- Card 1 -->
+                            <VBox fx:id="card1" styleClass="movie-card">
+                                <StackPane styleClass="movie-thumb" VBox.vgrow="ALWAYS">
+                                    <ImageView fx:id="thumb1" fitHeight="240" fitWidth="175" preserveRatio="true" styleClass="thumb-img">
+                                        <image>
+                                            <Image backgroundLoading="true" url="https://image.tmdb.org/t/p/w300/1XDDXPXGiI8id7MrUxK36ke7gkX.jpg" />
+                                        </image>
+                                    </ImageView>
+                                    <Label styleClass="quality-badge" text="HD" />
+                                    <Label styleClass="star-badge" text="★ 8.5" />
+                                </StackPane>
+                                <VBox spacing="3" styleClass="movie-info">
+                                    <Label styleClass="movie-title" text="Cuộc Chiến Vương Quyền" wrapText="true" />
+                                    <Label styleClass="movie-meta" text="Hành động • 2024" />
+                                </VBox>
+                            </VBox>
+                            <!-- Card 2 -->
+                            <VBox styleClass="movie-card">
+                                <StackPane styleClass="movie-thumb" VBox.vgrow="ALWAYS">
+                                    <ImageView fitHeight="240" fitWidth="175" preserveRatio="true">
+                                        <image>
+                                            <Image backgroundLoading="true" url="https://image.tmdb.org/t/p/w300/d5NXSklXo0qyIYkgV94XAgMIckC.jpg" />
+                                        </image>
+                                    </ImageView>
+                                    <Label styleClass="quality-badge quality-cam" text="CAM" />
+                                    <Label styleClass="star-badge" text="★ 7.8" />
+                                </StackPane>
+                                <VBox spacing="3" styleClass="movie-info">
+                                    <Label styleClass="movie-title" text="Bóng Ma Quái Khứ" wrapText="true" />
+                                    <Label styleClass="movie-meta" text="Kinh dị • 2024" />
+                                </VBox>
+                            </VBox>
+                            <!-- Card 3 -->
+                            <VBox styleClass="movie-card">
+                                <StackPane styleClass="movie-thumb" VBox.vgrow="ALWAYS">
+                                    <ImageView fitHeight="240" fitWidth="175" preserveRatio="true">
+                                        <image>
+                                            <Image url="https://image.tmdb.org/t/p/w300/fiVW06jE7z9F3EpbGgtpBwiwn8U.jpg" />
+                                        </image>
+                                    </ImageView>
+                                    <Label styleClass="quality-badge" text="HD" />
+                                    <Label styleClass="star-badge" text="★ 8.9" />
+                                </StackPane>
+                                <VBox spacing="3" styleClass="movie-info">
+                                    <Label styleClass="movie-title" text="Mùa Hè Năm Ấy" wrapText="true" />
+                                    <Label styleClass="movie-meta" text="Tình cảm • 2024" />
+                                </VBox>
+                            </VBox>
+                            <!-- Card 4 -->
+                            <VBox styleClass="movie-card">
+                                <StackPane styleClass="movie-thumb" VBox.vgrow="ALWAYS">
+                                    <ImageView fitHeight="240" fitWidth="175" preserveRatio="true">
+                                        <image>
+                                            <Image backgroundLoading="true" url="https://image.tmdb.org/t/p/w300/qNBAXBIQlnOThrVvA6mA2B5ggV6.jpg" />
+                                        </image>
+                                    </ImageView>
+                                    <Label styleClass="quality-badge" text="HD" />
+                                    <Label styleClass="star-badge" text="★ 9.1" />
+                                </StackPane>
+                                <VBox spacing="3" styleClass="movie-info">
+                                    <Label styleClass="movie-title" text="Vượt Ngàn Hà" wrapText="true" />
+                                    <Label styleClass="movie-meta" text="Viễn tưởng • 2024" />
+                                </VBox>
+                            </VBox>
+                            <!-- Card 5 -->
+                            <VBox styleClass="movie-card">
+                                <StackPane styleClass="movie-thumb" VBox.vgrow="ALWAYS">
+                                    <ImageView fitHeight="240" fitWidth="175" preserveRatio="true">
+                                        <image>
+                                            <Image backgroundLoading="true" url="https://image.tmdb.org/t/p/w300/8Gxv8gSFCU0XGDykEGv7zR1n2ua.jpg" />
+                                        </image>
+                                    </ImageView>
+                                    <Label styleClass="quality-badge quality-fhd" text="FHD" />
+                                    <Label styleClass="star-badge" text="★ 8.3" />
+                                </StackPane>
+                                <VBox spacing="3" styleClass="movie-info">
+                                    <Label styleClass="movie-title" text="Hiệp Sĩ Bóng Đêm" wrapText="true" />
+                                    <Label styleClass="movie-meta" text="Hành động • 2023" />
+                                </VBox>
+                            </VBox>
+                        </HBox>
+                    </VBox>
+                </VBox>
+
+                <!-- ════════════════════ TRANG TÀI KHOẢN (ACCOUNT PAGE) ════════════════════ -->
+                <VBox fx:id="accountView" managed="false" spacing="30" styleClass="section" visible="false">
+                    <padding>
+                        <Insets bottom="40" left="60" right="60" top="40" />
+                    </padding>
+
+                    <VBox spacing="5">
+                        <Label styleClass="account-title" text="THÔNG TIN TÀI KHOẢN" />
+                        <Label styleClass="hero-subtitle" text="Quản lý thông tin cá nhân và lịch sử đặt vé của bạn tại Cineverse." />
+                    </VBox>
+
+                    <HBox alignment="TOP_LEFT" spacing="40">
+                        <!-- Panel Trái: Profile Card -->
+                        <VBox alignment="TOP_CENTER" prefWidth="320" spacing="20" styleClass="profile-card">
+                            <StackPane maxWidth="120" prefHeight="120" prefWidth="120" styleClass="avatar-container">
+                                <Label styleClass="avatar-icon" text="👤" />
+                            </StackPane>
+
+                            <VBox alignment="CENTER_LEFT" fillWidth="true" spacing="15">
+                                <VBox spacing="2">
+                                    <Label styleClass="movie-meta" text="Họ và tên" />
+                                    <Label styleClass="profile-name" text="Nguyễn Văn A" />
+                                </VBox>
+                                <VBox spacing="2">
+                                    <Label styleClass="movie-meta" text="Email" />
+                                    <Label styleClass="hero-subtitle" text="nguyenvana@gmail.com" />
+                                </VBox>
+                                <VBox spacing="2">
+                                    <Label styleClass="movie-meta" text="Hạng thành viên" />
+                                    <Label style="-fx-font-size: 11px; -fx-padding: 4 10 4 10;" styleClass="badge-hot" text="VIP MEMBER" />
+                                </VBox>
+                            </VBox>
+
+                            <Region VBox.vgrow="ALWAYS" />
+
+                            <VBox fillWidth="true" spacing="10">
+                                <Button maxWidth="1.7976931348623157E308" styleClass="btn-primary" text="Cập Nhật Thông Tin" />
+                                <Button maxWidth="1.7976931348623157E308" styleClass="btn-outline" text="Đổi Mật Khẩu" />
+                                <Button maxWidth="1.7976931348623157E308" styleClass="btn-danger" text="Đăng Xuất" />
+                            </VBox>
+                        </VBox>
+
+                        <!-- Panel Phải: Lịch sử đặt vé -->
+                        <VBox spacing="15" HBox.hgrow="ALWAYS">
+                            <Label styleClass="section-title" text="🎟️ LỊCH SỬ ĐẶT VÉ GẦN ĐÂY" />
+
+                            <TableView fx:id="ticketHistoryTable" prefHeight="350" styleClass="history-table">
+                                <columns>
+                                    <TableColumn fx:id="colMovie" prefWidth="250" text="Tên Phim" />
+                                    <TableColumn fx:id="colDate" prefWidth="120" text="Ngày Chiếu" />
+                                    <TableColumn fx:id="colSeat" prefWidth="100" text="Ghế" />
+                                    <TableColumn fx:id="colPrice" prefWidth="120" text="Tổng Tiền" />
+                                </columns>
+                                <columnResizePolicy>
+                                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                </columnResizePolicy>
+                            </TableView>
+                        </VBox>
+                    </HBox>
+                </VBox>
+
+            </children>
+
+        </StackPane>
+    </ScrollPane>
+
+    <!-- ═══════════════════════════════ FOOTER ═══════════════════════════════ -->
+    <HBox alignment="CENTER_LEFT" styleClass="footer">
+        <Label styleClass="footer-logo" text="CINEVERSE" />
+        <Label styleClass="footer-copy" text=" © 2024 All rights reserved" />
+        <Region HBox.hgrow="ALWAYS" />
+        <HBox spacing="16">
+            <Label styleClass="social-icon" text="f" />
+            <Label styleClass="social-icon" text="𝕏" />
+            <Label styleClass="social-icon" text="◎" />
+        </HBox>
+    </HBox>
+</VBox>
