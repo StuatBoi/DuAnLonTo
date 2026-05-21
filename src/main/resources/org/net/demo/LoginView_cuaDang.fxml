@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<StackPane styleClass="auth-root" stylesheets="@styles-1.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.LoginController">
+    
+    <VBox alignment="CENTER" styleClass="auth-overlay">
+        
+        <Label style="-fx-font-size: 32px; -fx-margin-bottom: 10px;" styleClass="logo" text="CINEVERSE" />
+        
+        <VBox fx:id="loginContainer" alignment="TOP_CENTER" maxWidth="400" spacing="25" styleClass="auth-container">
+            <padding>
+                <Insets bottom="40" left="45" right="45" top="40" />
+            </padding>
+            
+            <VBox alignment="CENTER" spacing="6">
+                <Label styleClass="auth-title" text="Đăng Nhập" />
+                <Label styleClass="auth-subtitle" text="Chào mừng bạn trở lại với không gian điện ảnh" />
+            </VBox>
+            
+            <VBox fillWidth="true" spacing="16">
+                <VBox spacing="6">
+                    <Label styleClass="movie-meta" text="Địa chỉ Email" />
+                    <HBox alignment="CENTER_LEFT" style="-fx-background-radius: 6px; -fx-border-radius: 6px; -fx-padding: 10px 14px;" styleClass="search-bar">
+                        <Label style="-fx-font-size: 14px;" styleClass="search-icon" text="✉ " />
+                        <TextField fx:id="emailField" promptText="name@example.com" style="-fx-font-size: 14px;" styleClass="search-field" HBox.hgrow="ALWAYS" />
+                    </HBox>
+                </VBox>
+                
+                <VBox spacing="6">
+                    <HBox alignment="CENTER_LEFT">
+                        <Label styleClass="movie-meta" text="Mật khẩu" />
+                        <Region HBox.hgrow="ALWAYS" />
+                        <Hyperlink style="-fx-font-size: 11px; -fx-padding: 0;" styleClass="auth-link" text="Quên mật khẩu?" />
+                    </HBox>
+                    <HBox alignment="CENTER_LEFT" style="-fx-background-radius: 6px; -fx-border-radius: 6px; -fx-padding: 10px 14px;" styleClass="search-bar">
+                        <Label style="-fx-font-size: 14px;" styleClass="search-icon" text="🔒 " />
+                        <PasswordField fx:id="passwordField" promptText="••••••••" style="-fx-font-size: 14px;" styleClass="search-field" HBox.hgrow="ALWAYS" />
+                    </HBox>
+                </VBox>
+            </VBox>
+            
+            <VBox alignment="CENTER" fillWidth="true" spacing="16">
+                <Button fx:id="btnLogin" maxWidth="1.7976931348623157E308" style="-fx-padding: 12px 24px; -fx-font-size: 14px;" styleClass="btn-primary" text="ĐĂNG NHẬP" />
+                
+                <HBox alignment="CENTER" spacing="6">
+                    <Label style="-fx-font-size: 13px;" styleClass="movie-meta" text="Bạn mới biết đến Cineverse?" />
+                    <Hyperlink fx:id="linkRegister" style="-fx-font-weight: bold; -fx-font-size: 13px; -fx-padding: 0;" styleClass="see-all" text="Đăng ký ngay" />
+                </HBox>
+            </VBox>
+        </VBox> <VBox fx:id="registerContainer" alignment="TOP_CENTER" maxWidth="400" spacing="25" styleClass="auth-container" visible="false" managed="false">
+            <padding>
+                <Insets bottom="40" left="45" right="45" top="40" />
+            </padding>
+            
+            <VBox alignment="CENTER" spacing="6">
+                <Label styleClass="auth-title" text="Đăng Ký Tài Khoản" />
+                <Label styleClass="auth-subtitle" text="Tham gia cùng chúng tôi để trải nghiệm điện ảnh đỉnh cao" />
+            </VBox>
+            
+            <VBox fillWidth="true" spacing="16">
+                <VBox spacing="6">
+                    <Label styleClass="movie-meta" text="Họ và tên" />
+                    <HBox alignment="CENTER_LEFT" style="-fx-background-radius: 6px; -fx-border-radius: 6px; -fx-padding: 10px 14px;" styleClass="search-bar">
+                        <Label style="-fx-font-size: 14px;" styleClass="search-icon" text="👤 " />
+                        <TextField fx:id="regNameField" promptText="Nguyễn Văn A" style="-fx-font-size: 14px;" styleClass="search-field" HBox.hgrow="ALWAYS" />
+                    </HBox>
+                </VBox>
+
+                <VBox spacing="6">
+                    <Label styleClass="movie-meta" text="Địa chỉ Email" />
+                    <HBox alignment="CENTER_LEFT" style="-fx-background-radius: 6px; -fx-border-radius: 6px; -fx-padding: 10px 14px;" styleClass="search-bar">
+                        <Label style="-fx-font-size: 14px;" styleClass="search-icon" text="✉ " />
+                        <TextField fx:id="regEmailField" promptText="name@example.com" style="-fx-font-size: 14px;" styleClass="search-field" HBox.hgrow="ALWAYS" />
+                    </HBox>
+                </VBox>
+                
+                <VBox spacing="6">
+                    <Label styleClass="movie-meta" text="Mật khẩu" />
+                    <HBox alignment="CENTER_LEFT" style="-fx-background-radius: 6px; -fx-border-radius: 6px; -fx-padding: 10px 14px;" styleClass="search-bar">
+                        <Label style="-fx-font-size: 14px;" styleClass="search-icon" text="🔒 " />
+                        <PasswordField fx:id="regPasswordField" promptText="Tối thiểu 8 ký tự" style="-fx-font-size: 14px;" styleClass="search-field" HBox.hgrow="ALWAYS" />
+                    </HBox>
+                </VBox>
+
+                <VBox spacing="6">
+                    <Label styleClass="movie-meta" text="Xác nhận mật khẩu" />
+                    <HBox alignment="CENTER_LEFT" style="-fx-background-radius: 6px; -fx-border-radius: 6px; -fx-padding: 10px 14px;" styleClass="search-bar">
+                        <Label style="-fx-font-size: 14px;" styleClass="search-icon" text="✔️ " />
+                        <PasswordField fx:id="regConfirmPasswordField" promptText="Nhập lại mật khẩu" style="-fx-font-size: 14px;" styleClass="search-field" HBox.hgrow="ALWAYS" />
+                    </HBox>
+                </VBox>
+            </VBox>
+            
+            <VBox alignment="CENTER" fillWidth="true" spacing="16">
+                <Button fx:id="btnRegister" maxWidth="1.7976931348623157E308" style="-fx-padding: 12px 24px; -fx-font-size: 14px;" styleClass="btn-primary" text="ĐĂNG KÝ" />
+                
+                <HBox alignment="CENTER" spacing="6">
+                    <Label style="-fx-font-size: 13px;" styleClass="movie-meta" text="Đã có tài khoản?" />
+                    <Hyperlink fx:id="linkLogin" style="-fx-font-weight: bold; -fx-font-size: 13px; -fx-padding: 0;" styleClass="see-all" text="Đăng nhập ngay" />
+                </HBox>
+            </VBox>
+        </VBox> </VBox>
+</StackPane>
