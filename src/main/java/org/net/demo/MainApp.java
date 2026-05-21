@@ -23,6 +23,8 @@ public class MainApp extends Application {
 
     public static void main(String[] args) {
         System.out.println("dm Hoang Anh");
+        System.out.println("DM Hai Dang");
         launch(args);
     }
+
 }
