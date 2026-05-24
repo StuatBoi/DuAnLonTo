@@ -1,121 +1,207 @@
 package org.net.demo;
 
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.geometry.Pos;
+
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.scene.image.ImageView;
+
 import javafx.scene.layout.VBox;
 import javafx.scene.control.Label;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.HashMap;
 import java.util.ResourceBundle;
 import javafx.scene.control.Hyperlink;
-import javafx.fxml.FXML;
+
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.layout.StackPane;
 
 public class MainController{
 
-    @FXML private TextField searchField;
-    @FXML private Button btnLogin;
-    @FXML private VBox homeView;
-    @FXML private VBox accountView;
-    @FXML private Label navHome;
-    @FXML private Label navAccount;
-    @FXML private Hyperlink linkGoToRegister;
-    @FXML private Hyperlink linkGoToLogin;
-    @FXML private Hyperlink linkRegister;
+     @FXML
+    private Button btnLogin;
 
     @FXML
-    public void initialize(URL location, ResourceBundle resources) {
-        // Hover effects are handled purely via CSS.
-        // Add any dynamic data-loading logic here.
-        System.out.println("CineVerse UI loaded successfully.");
-    }
+    private Label navAccount;
 
     @FXML
-    public void onLoginClicked(){
-        System.out.println("Login button clicked");
-        try {
-            // 1. Tải giao diện Login lên
-            Parent loginView = FXMLLoader.load(getClass().getResource("/org/net/demo/LoginView.fxml"));
-
-            // Đặt ID cho loginView để lát nữa ta dễ dàng tìm và xóa nó đi khi chuyển trang
-            loginView.setId("dynamicLoginView");
-
-            // 2. Ẩn tạm thời các view gốc đi
-            homeView.setVisible(false);
-            homeView.setManaged(false);
-            accountView.setVisible(false);
-            accountView.setManaged(false);
-
-            // 3. Xóa màn hình login cũ nếu có trước khi add màn hình mới (tránh trùng lặp)
-            page.getChildren().removeIf(node -> "dynamicLoginView".equals(node.getId()));
-
-            // 4. Thêm loginView vào StackPane
-            page.getChildren().add(loginView);
-            StackPane.setAlignment(loginView, Pos.CENTER);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-
-    @FXML
-    public void onWatchNow() {
-        System.out.println("Watch now clicked");
-        // TODO: navigate to featured movie
-    }
-
-    @FXML
-    public void onDetail() {
-        System.out.println("Chi tiết clicked");
-        // TODO: open movie detail view
-    }
-    @FXML
-    public void onHomePageClick(){
-        page.getChildren().removeIf(node -> "dynamicLoginView".equals(node.getId()));
-
-        // 2. Hiện lại trang chủ
-        homeView.setVisible(true);
-        homeView.setManaged(true);
-
-        // 3. Ẩn trang tài khoản
-        accountView.setVisible(false);
-        accountView.setManaged(false);
-
-        // 4. Đổi trạng thái active cho Menu
-        if (!navHome.getStyleClass().contains("nav-active")) {
-            navHome.getStyleClass().add("nav-active");
-        }
-        navAccount.getStyleClass().remove("nav-active");
-    }
-   @FXML
-           public void onAccountClick() {
-       page.getChildren().removeIf(node -> "dynamicLoginView".equals(node.getId()));
-
-       // 2. Ẩn trang chủ
-       homeView.setVisible(false);
-       homeView.setManaged(false);
-
-       // 3. Hiện lại trang tài khoản
-       accountView.setVisible(true);
-       accountView.setManaged(true);
-
-       // 4. Đổi trạng thái active cho Menu
-       if (!navAccount.getStyleClass().contains("nav-active")) {
-           navAccount.getStyleClass().add("nav-active");
-       }
-       navHome.getStyleClass().remove("nav-active");
-   }
+    private Label navHome;
 
     @FXML
     private StackPane page;
+
+    @FXML
+    private TextField searchField;
+
+
+    private HashMap<String, Controller> Controllers= new HashMap<String,Controller>();
+
+    private HashMap<String,Parent> Pages =new HashMap<String,Parent>();
+
+    
+
+    @FXML
+ void initialize() {
+       
+        System.out.println("CineVerse UI loaded successfully.!!!!!!!!!!!!!!!!!!!");
+
+        //Gán trang
+        try 
+        {
+        AttachPage("HomeView.fxml");
+        AttachPage("AccountView.fxml");
+        AttachPage("LoginView_cuaDang.fxml");
+
+        System.out.print("attaching finished");
+
+        }
+        catch(IOException e)
+        {
+            e.printStackTrace();
+        }
+        
+        //gán chức năng cho nút
+        btnLogin.setOnAction(event -> 
+            {
+                showPage(getPage("loginView"));
+                setActiveAccountButton(false);
+                setActiveHomeButton(false);
+            }
+        );
+        navHome.setOnMouseClicked(event-> 
+            {
+                showPage(getPage("homeView"));
+                setActiveAccountButton(false);
+                setActiveHomeButton(true);
+            }
+        );
+        navAccount.setOnMouseClicked(event->
+            {
+                showPage(getPage("accountView"));
+                setActiveAccountButton(true);
+                setActiveHomeButton(false);
+            }
+        );
+        searchField.setOnMouseClicked(event->
+            {
+                showPage(getPage("searchView"));
+                setActiveAccountButton(false);
+                setActiveAccountButton(false);
+            }
+        );
+
+        //
+        showDefaultPage(getPage("homeView"));
+
+    }
+
+    public void AttachPage  (String fxmlpath) throws IOException
+    {
+        FXMLLoader loader= new FXMLLoader(getClass().getResource(fxmlpath));
+        Parent node = loader.load();
+        page.getChildren().add(node);
+        node.setVisible(false);
+        node.setManaged(false);
+        Controller controller = loader.getController();
+        Controllers.put(node.getId(),controller);
+        Pages.put(node.getId(),node);
+        controller.getMainController(this);
+        controller.OnAttached();
+
+    }
+
+    public void showPage(Parent Npage)
+    {
+        
+        if(Npage==null)
+        {
+            System.err.println("null page");
+            return;
+        }
+        for(Node node : page.getChildren())
+    {
+      node.setVisible(false);
+      node.setManaged(false);
+    }
+        Npage.toFront();
+        Npage.setVisible(true);
+        Npage.setManaged(true);
+        System.out.print(Npage.getId());
+    }
+
+
+    public void setActiveHomeButton(boolean value)
+    {
+        if(value)
+        {
+            if(!navHome.getStyleClass().contains("nav-active"))
+            {
+                navHome.getStyleClass().add("nav-active");
+            }
+        }
+        else
+        {
+            if(navHome.getStyleClass().contains("nav-active"))
+            {
+                navHome.getStyleClass().remove("nav-active");
+            }
+        }
+        System.out.println("set active home button "+ value);
+
+        
+    }
+
+    public void setActiveAccountButton(boolean value)
+    {
+        if(value)
+        {
+            if(!navAccount.getStyleClass().contains("nav-active"))
+            {
+                navAccount.getStyleClass().add("nav-active");
+            }
+        }
+        else
+        {
+            if(navAccount.getStyleClass().contains("nav-active"))
+            {
+                navAccount.getStyleClass().remove("nav-active");
+            }
+        }
+        System.out.println("set active account button "+ value);
+
+        
+
+        
+    }
+
+    public Parent getPage(String pageID)
+    {
+     if(Pages.containsKey(pageID))
+     {
+        return Pages.get(pageID);
+     }
+     else return null;
+    }
+
+    public Controller getController(String pageID)
+    {
+     if(Controllers.containsKey(pageID))
+     {
+        return Controllers.get(pageID);
+     }
+     else return null;
+    }
+
+private void showDefaultPage(Parent defaultPage)
+{
+    showPage(defaultPage);
+}
+
+
+
     }
 
 

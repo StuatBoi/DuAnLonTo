@@ -10,8 +10,9 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/net/demo/MainView.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("MainView_Edited.fxml"));
         Parent root = loader.load();
+        
 
         Scene scene = new Scene(root, 1280, 820);
         stage.setTitle("CineVerse — Khám Phá Thế Giới Điện Ảnh");
@@ -19,6 +20,7 @@ public class MainApp extends Application {
         stage.setMinWidth(900);
         stage.setMinHeight(600);
         stage.show();
+        
     }
 
     public static void main(String[] args) {
