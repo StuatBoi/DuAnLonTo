@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox styleClass="root-container" stylesheets="@styles1.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.net.demo.MainController">
+
+    <HBox alignment="CENTER_LEFT" styleClass="navbar">
+        <Label styleClass="logo" text="CINEVERSE" />
+
+        <HBox alignment="CENTER_LEFT" styleClass="nav-links">
+            <HBox.margin><Insets left="32" /></HBox.margin>
+            <Label fx:id="navHome" styleClass="nav-item, nav-active" text="Trang chủ" />
+            <Label fx:id="navAccount" styleClass="nav-item" text="Tài Khoản" />
+        </HBox>
+
+        <Region HBox.hgrow="ALWAYS" />
+
+        <HBox alignment="CENTER_LEFT" styleClass="search-bar">
+            <Label styleClass="search-icon" text="🔍" />
+            <TextField fx:id="searchField" promptText="Tìm phim..." styleClass="search-field" />
+        </HBox>
+        <Button fx:id="btnLogin" styleClass="btn-login" text="Đăng nhập">
+            <HBox.margin><Insets left="14" /></HBox.margin>
+        </Button>
+    </HBox>
+
+    <ScrollPane fitToWidth="true" styleClass="scroll-pane" VBox.vgrow="ALWAYS">
+        <StackPane fx:id="page">
+            <children>
+                </children>
+        </StackPane>
+    </ScrollPane>
+
+    <HBox alignment="CENTER_LEFT" styleClass="footer">
+        <Label styleClass="footer-logo" text="CINEVERSE" />
+        <Label styleClass="footer-copy" text=" © 2024 All rights reserved" />
+        <Region HBox.hgrow="ALWAYS" />
+        <HBox spacing="16">
+            <Label styleClass="social-icon" text="f" />
+            <Label styleClass="social-icon" text="𝕏" />
+            <Label styleClass="social-icon" text="◎" />
+        </HBox>
+    </HBox>
+</VBox>

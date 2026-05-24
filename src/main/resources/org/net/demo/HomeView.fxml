@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox id="homeView" fx:id="homeView" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.net.demo.HomeController">
+    <StackPane minHeight="420" prefHeight="482.0" prefWidth="991.0" styleClass="hero-section">
+        <VBox maxWidth="1.7976931348623157E308" styleClass="hero-bg" />
+       
+        <HBox alignment="CENTER" spacing="60" styleClass="hero-content">
+            <HBox.margin>
+                <Insets bottom="40" left="60" right="60" top="40" />
+            </HBox.margin>
+   
+            <VBox alignment="CENTER_LEFT" spacing="14" HBox.hgrow="ALWAYS">
+                <HBox spacing="8">
+                    <Label styleClass="badge-hot" text="HOT" />
+                    <Label styleClass="badge-year" text="2024" />
+                </HBox>
+                             
+                <VBox spacing="0">
+                    <Label styleClass="hero-title-white" text="KHÁM PHÁ THẾ GIỚI" wrapText="true" />
+                    <Label styleClass="hero-title-red" text="ĐIỆN ẢNH" wrapText="true" />
+                </VBox>
+                <Label maxWidth="440" styleClass="hero-subtitle" text="Hàng ngàn bộ phim bom tấn, phim bộ hấp dẫn đang chờ bạn khám phá. Cập nhật liên tục mỗi ngày." wrapText="true" />
+                <HBox spacing="12">
+                    <Button styleClass="btn-primary" text="ĐẶT VÉ" />
+                </HBox>
+            </VBox>
+            <VBox alignment="CENTER" maxWidth="240" minWidth="200" styleClass="featured-card">
+                <Label alignment="CENTER_RIGHT" styleClass="rating-badge" text="★ 8.2" />
+                <VBox alignment="CENTER" spacing="10" styleClass="featured-inner" VBox.vgrow="ALWAYS">
+                    <Label styleClass="featured-icon" text="🎬" />
+                    <Label styleClass="featured-label" text="FEATURED" />
+                    <Label styleClass="featured-sub" text="Phim nổi bật" />
+                </VBox>
+            </VBox>
+        </HBox>
+    </StackPane>
+
+    <VBox spacing="18" styleClass="section">
+        <HBox alignment="CENTER_LEFT">
+            <Label styleClass="section-title" text="📈 PHIM THỊNH HÀNH" />
+            <Region HBox.hgrow="ALWAYS" />
+            <Label styleClass="see-all" text="Xem tất cả ›" />
+        </HBox>
+        <HBox alignment="CENTER_LEFT" spacing="14">
+            <VBox fx:id="card1" styleClass="movie-card">
+                <StackPane styleClass="movie-thumb" VBox.vgrow="ALWAYS">
+                    <ImageView fx:id="thumb1" fitHeight="240" fitWidth="175" preserveRatio="true" styleClass="thumb-img">
+                        <image>
+                            <Image backgroundLoading="true" url="https://image.tmdb.org/t/p/w300/1XDDXPXGiI8id7MrUxK36ke7gkX.jpg" />
+                        </image>
+                    </ImageView>
+                    <Label styleClass="quality-badge" text="HD" />
+                    <Label styleClass="star-badge" text="★ 8.5" />
+                </StackPane>
+                <VBox spacing="3" styleClass="movie-info">
+                    <Label styleClass="movie-title" text="Cuộc Chiến Vương Quyền" wrapText="true" />
+                    <Label styleClass="movie-meta" text="Hành động • 2024" />
+                </VBox>
+            </VBox>
+                       
+            <VBox styleClass="movie-card">
+                <StackPane styleClass="movie-thumb" VBox.vgrow="ALWAYS">
+                    <ImageView fitHeight="240" fitWidth="175" preserveRatio="true">
+                        <image>
+                            <Image backgroundLoading="true" url="https://image.tmdb.org/t/p/w300/d5NXSklXo0qyIYkgV94XAgMIckC.jpg" />
+                        </image>
+                    </ImageView>
+                    <Label styleClass="quality-badge quality-cam" text="CAM" />
+                    <Label styleClass="star-badge" text="★ 7.8" />
+                </StackPane>
+                <VBox spacing="3" styleClass="movie-info">
+                    <Label styleClass="movie-title" text="Bóng Ma Quái Khứ" wrapText="true" />
+                    <Label styleClass="movie-meta" text="Kinh dị • 2024" />
+                </VBox>
+            </VBox>
+            
+            <VBox styleClass="movie-card">
+                <StackPane styleClass="movie-thumb" VBox.vgrow="ALWAYS">
+                    <ImageView fitHeight="240" fitWidth="175" preserveRatio="true">
+                        <image>
+                            <Image url="https://image.tmdb.org/t/p/w300/fiVW06jE7z9F3EpbGgtpBwiwn8U.jpg" />
+                        </image>
+                    </ImageView>
+                    <Label styleClass="quality-badge" text="HD" />
+                    <Label styleClass="star-badge" text="★ 8.9" />
+                </StackPane>
+                <VBox spacing="3" styleClass="movie-info">
+                    <Label styleClass="movie-title" text="Mùa Hè Năm Ấy" wrapText="true" />
+                    <Label styleClass="movie-meta" text="Tình cảm • 2024" />
+                </VBox>
+            </VBox>
+            
+            <VBox styleClass="movie-card">
+                <StackPane styleClass="movie-thumb" VBox.vgrow="ALWAYS">
+                    <ImageView fitHeight="240" fitWidth="175" preserveRatio="true">
+                        <image>
+                            <Image backgroundLoading="true" url="https://image.tmdb.org/t/p/w300/qNBAXBIQlnOThrVvA6mA2B5ggV6.jpg" />
+                        </image>
+                    </ImageView>
+                    <Label styleClass="quality-badge" text="HD" />
+                    <Label styleClass="star-badge" text="★ 9.1" />
+                </StackPane>
+                <VBox spacing="3" styleClass="movie-info">
+                    <Label styleClass="movie-title" text="Vượt Ngàn Hà" wrapText="true" />
+                    <Label styleClass="movie-meta" text="Viễn tưởng • 2024" />
+                </VBox>
+            </VBox>
+            
+            <VBox styleClass="movie-card">
+                <StackPane styleClass="movie-thumb" VBox.vgrow="ALWAYS">
+                    <ImageView fitHeight="240" fitWidth="175" preserveRatio="true">
+                        <image>
+                            <Image backgroundLoading="true" url="https://image.tmdb.org/t/p/w300/8Gxv8gSFCU0XGDykEGv7zR1n2ua.jpg" />
+                        </image>
+                    </ImageView>
+                    <Label styleClass="quality-badge quality-fhd" text="FHD" />
+                    <Label styleClass="star-badge" text="★ 8.3" />
+                </StackPane>
+                <VBox spacing="3" styleClass="movie-info">
+                    <Label styleClass="movie-title" text="Hiệp Sĩ Bóng Đêm" wrapText="true" />
+                    <Label styleClass="movie-meta" text="Hành động • 2023" />
+                </VBox>
+            </VBox>
+        </HBox>
+    </VBox>
+</VBox>
