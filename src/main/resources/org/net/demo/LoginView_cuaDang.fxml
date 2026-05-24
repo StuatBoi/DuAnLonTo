@@ -11,9 +11,9 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<StackPane styleClass="auth-root" stylesheets="@styles-1.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.LoginController">
+<StackPane fx:id="loginView" id="loginView" styleClass="auth-root" stylesheets="@styles-1.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.net.demo.LoginController">
     
-    <VBox alignment="CENTER" styleClass="auth-overlay">
+    <VBox fx:id="Pages" alignment="CENTER" styleClass="auth-overlay">
         
         <Label style="-fx-font-size: 32px; -fx-margin-bottom: 10px;" styleClass="logo" text="CINEVERSE" />
         
@@ -57,7 +57,7 @@
                     <Hyperlink fx:id="linkRegister" style="-fx-font-weight: bold; -fx-font-size: 13px; -fx-padding: 0;" styleClass="see-all" text="Đăng ký ngay" />
                 </HBox>
             </VBox>
-        </VBox> <VBox fx:id="registerContainer" alignment="TOP_CENTER" maxWidth="400" spacing="25" styleClass="auth-container" visible="false" managed="false">
+        </VBox> <VBox fx:id="registerContainer" alignment="TOP_CENTER" managed="false" maxWidth="400" spacing="25" styleClass="auth-container" visible="false">
             <padding>
                 <Insets bottom="40" left="45" right="45" top="40" />
             </padding>
