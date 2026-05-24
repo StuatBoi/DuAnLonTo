@@ -130,6 +130,8 @@ public class MainController{
         Npage.setVisible(true);
         Npage.setManaged(true);
         System.out.print(Npage.getId());
+        Controller controller = getController(Npage.getId());
+        controller.OnShowing();
     }
 
 
