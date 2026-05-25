@@ -4,7 +4,7 @@ import javafx.fxml.FXML;
 
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.VBox;
 import javafx.scene.control.Label;
 
@@ -35,6 +35,11 @@ public class MainController{
 
     @FXML
     private TextField searchField;
+    @FXML
+    private VBox mainView;
+
+    private Parent CurrentPage;
+    private Parent lastPage;
 
 
     private HashMap<String, Controller> Controllers= new HashMap<String,Controller>();
@@ -54,6 +59,7 @@ public class MainController{
         AttachPage("HomeView.fxml");
         AttachPage("AccountView.fxml");
         AttachPage("LoginView_cuaDang.fxml");
+        AttachPage("DetailView.fxml");
 
         System.out.print("attaching finished");
 
@@ -96,6 +102,18 @@ public class MainController{
         //
         showDefaultPage(getPage("homeView"));
 
+
+        //hàm để bật trang bằng phím D vì chưa có phim card của Hoàng Anh
+        mainView.setOnKeyPressed(event->
+            {
+                System.out.println("key pressed");
+                if(event.getCode()==KeyCode.D)
+                {
+                    showPage(getPage("detailView"));
+                }
+            }
+        );
+
     }
 
     public void AttachPage  (String fxmlpath) throws IOException
@@ -132,6 +150,8 @@ public class MainController{
         System.out.print(Npage.getId());
         Controller controller = getController(Npage.getId());
         controller.OnShowing();
+        lastPage=CurrentPage;
+        CurrentPage=Npage;
     }
 
 
@@ -201,7 +221,14 @@ private void showDefaultPage(Parent defaultPage)
 {
     showPage(defaultPage);
 }
-
+public Parent getCurrentPage()
+{
+    return CurrentPage;
+}
+public Parent getLastPage()
+{
+    return lastPage;
+}
 
 
     }

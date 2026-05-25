@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox styleClass="root-container" stylesheets="@styles1.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.net.demo.MainController">
+<VBox fx:id="mainView" styleClass="root-container" stylesheets="@styles1.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.net.demo.MainController">
 
     <HBox alignment="CENTER_LEFT" styleClass="navbar">
         <Label styleClass="logo" text="CINEVERSE" />
