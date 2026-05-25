@@ -9,11 +9,15 @@ import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
 import java.lang.reflect.Type;
 
 public class DetailController extends Controller{
+
+    private String filmInfo= "{\"id\":\"MV-9999\",\"movieTitle\":\"Avatar: The Way of Water\",\"description\":\"Jake Sully lives with his newfound family formed on the extraterrestrial moon of Pandora.\",\"genre\":\"Sci-Fi, Action\",\"posterUrl\":\"https://i.imgur.com/vHdfM0V.jpg\",\"rating\":\"7.6\"}";
+   
 
     @FXML
     private Button btnBack;
@@ -58,6 +62,7 @@ public class DetailController extends Controller{
     @Override
     public void OnShowing() {
         // TODO Auto-generated method stub
+        parseInfo(getSingleMovieFromJson(filmInfo));
         
     }
 
@@ -94,6 +99,38 @@ public class DetailController extends Controller{
         return movie;
     }
 
+    public void parseInfo(MovieInfo movie)
+    {
+        lblMovieTitle.setText(movie.getMovieTitle());
+        lblRating.setText(movie.getRating());
+        lblGenre.setText(movie.getGenre());
+        lblDescription.setText(movie.getDescription());
+        setMoviePoster(movie.getPosterUrl());
+        
+
+    }
+
+    public void PushID(String MovieID)
+    {
+       
+    }
+
+    public void setMoviePoster(String urlString) {
+        try {
+    // Đổi tham số thứ 2 thành 'false' để ép tải đồng bộ, nếu lỗi sẽ báo ngay lập tức
+    Image image = new Image(urlString, false);
+    
+    if (image.isError()) {
+        // Nếu có lỗi (như lỗi mạng, lỗi proxy học đường, hoặc chặn SSL), dòng này sẽ chỉ rõ lý do
+        System.out.println("Lỗi JavaFX không tải được ảnh: " + image.getException().getMessage());
+    } else {
+        imgPoster.setImage(image);
+        System.out.println("Tải ảnh thành công!");
+    }
+} catch (Exception e) {
+    e.printStackTrace();
+}
+    }
     
 
 }
