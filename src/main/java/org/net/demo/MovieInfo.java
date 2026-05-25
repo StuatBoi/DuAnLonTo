@@ -7,6 +7,7 @@ public class MovieInfo {
     private String genre;
     private String posterUrl;
     private String rating;
+    
 
     // 1. Constructor có tham số
     public MovieInfo(String id, String movieTitle, String description, String genre, String posterUrl, String rating) {
