@@ -16,7 +16,7 @@
    <top>
       <HBox alignment="CENTER_LEFT" prefHeight="50.0" style="-fx-border-color: #222222; -fx-border-width: 0 0 1 0;" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="btnBack" mnemonicParsing="false" style="-fx-background-color: transparent; -fx-text-fill: #ffffff; -fx-cursor: hand;" text="← Quay lại trang chủ">
+            <Button fx:id="btnBack" mnemonicParsing="false" style="-fx-background-color: transparent; -fx-text-fill: #ffffff; -fx-cursor: hand;" text="← Quay lại">
                <font>
                   <Font name="Segoe UI Bold" size="14.0" />
                </font>

@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane id="seatView" fx:id="seatView" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-background-color: #0b0b0b;" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.net.demo.SeatViewController">
+   
+   <top>
+      <HBox alignment="CENTER_LEFT" prefHeight="50.0" style="-fx-border-color: #222222; -fx-border-width: 0 0 1 0;" BorderPane.alignment="CENTER">
+         <children>
+            <Button fx:id="btnBackToDetail" mnemonicParsing="false" style="-fx-background-color: transparent; -fx-text-fill: #ffffff; -fx-cursor: hand;" text="← Quay lại thông tin phim">
+               <font>
+                  <Font name="Segoe UI Bold" size="14.0" />
+               </font>
+            </Button>
+         </children>
+         <padding>
+            <Insets left="20.0" right="20.0" />
+         </padding>
+      </HBox>
+   </top>
+
+   <center>
+      <VBox alignment="TOP_CENTER" spacing="30.0" BorderPane.alignment="CENTER">
+         <padding>
+            <Insets bottom="30.0" left="40.0" right="40.0" top="20.0" />
+         </padding>
+         <children>
+            
+            <VBox alignment="CENTER" spacing="5.0">
+               <children>
+                  <Label text="MÀN HÌNH" textFill="#666666">
+                     <font>
+                        <Font name="Segoe UI Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <Separator maxWidth="500.0" prefHeight="4.0" style="-fx-background-color: #e50914; -fx-border-color: transparent; -fx-opacity: 0.7;" />
+               </children>
+            </VBox>
+            
+            <ScrollPane fitToWidth="true" style="-fx-background-color: transparent; -fx-background: transparent; -fx-border-color: transparent;" VBox.vgrow="ALWAYS">
+               <content>
+                  <HBox alignment="CENTER">
+                     <children>
+                        <GridPane fx:id="gridSeats" alignment="CENTER" hgap="10.0" vgap="10.0" />
+                     </children>
+                  </HBox>
+               </content>
+            </ScrollPane>
+            
+            <Separator style="-fx-background-color: #222222; -fx-border-color: transparent;" />
+            
+            <HBox alignment="CENTER" spacing="40.0">
+               <children>
+                  <HBox alignment="CENTER" spacing="10.0">
+                     <children>
+                        <Button minHeight="24.0" minWidth="24.0" mnemonicParsing="false" mouseTransparent="true" style="-fx-background-color: #1f1f1f; -fx-border-color: #444444; -fx-background-radius: 4; -fx-border-radius: 4;" />
+                        <Label text="Ghế trống" textFill="#aaaaaa">
+                           <font>
+                              <Font name="Segoe UI" size="13.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" spacing="10.0">
+                     <children>
+                        <Button minHeight="24.0" minWidth="24.0" mnemonicParsing="false" mouseTransparent="true" style="-fx-background-color: #e50914; -fx-border-color: #e50914; -fx-background-radius: 4; -fx-border-radius: 4;" />
+                        <Label text="Ghế đang chọn" textFill="#aaaaaa">
+                           <font>
+                              <Font name="Segoe UI" size="13.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" spacing="10.0">
+                     <children>
+                        <Button disable="true" minHeight="24.0" minWidth="24.0" mnemonicParsing="false" mouseTransparent="true" style="-fx-background-color: #3a3a3a; -fx-border-color: transparent; -fx-background-radius: 4; -fx-border-radius: 4; -fx-opacity: 0.5;" />
+                        <Label text="Ghế đã bán" textFill="#aaaaaa">
+                           <font>
+                              <Font name="Segoe UI" size="13.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </center>
+   
+   <bottom>
+      <HBox alignment="CENTER_RIGHT" prefHeight="70.0" spacing="30.0" style="-fx-border-color: #222222; -fx-border-width: 1 0 0 0;" BorderPane.alignment="CENTER">
+         <padding>
+            <Insets left="40.0" right="40.0" />
+         </padding>
+         <children>
+            <VBox alignment="CENTER_LEFT" spacing="5.0" HBox.hgrow="ALWAYS">
+               <children>
+                  <Label fx:id="lblSelectedSeatsInfo" text="Ghế đã chọn: Chưa có" textFill="#aaaaaa">
+                     <font>
+                        <Font name="Segoe UI" size="13.0" />
+                     </font>
+                  </Label>
+                  <HBox spacing="5.0">
+                     <children>
+                        <Label text="Tổng tiền:" textFill="WHITE">
+                           <font>
+                              <Font name="Segoe UI" size="15.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="lblTotalPrice" text="0 đ" textFill="#ffc107">
+                           <font>
+                              <Font name="Segoe UI Bold" size="16.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+            <Button fx:id="btnConfirmSeats" mnemonicParsing="false" prefHeight="42.0" prefWidth="180.0" style="-fx-background-color: #e50914; -fx-background-radius: 5; -fx-text-fill: white; -fx-cursor: hand;" text="TIẾP TỤC THANH TOÁN">
+               <font>
+                  <Font name="Segoe UI Bold" size="13.0" />
+               </font>
+            </Button>
+         </children>
+      </HBox>
+   </bottom>
+</BorderPane>
