@@ -1,33 +1,55 @@
 package org.net.demo;
 
 import javafx.fxml.FXML;
-import javafx.scene.image.ImageView;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.layout.VBox;
+import javafx.scene.layout.HBox;
 
-public class HomeController extends Controller{
+import java.io.IOException;
 
-    @FXML
-    private VBox card1;
-
-    @FXML
-    private VBox homeView;
+public class HomeController extends Controller {
 
     @FXML
-    private ImageView thumb1;
+    private HBox MovieContainer;
 
     @Override
     public void OnShowing() {
-        
-    }
+        System.out.println("ON SHOWING RUNNING");
+        System.out.println(MovieContainer);
+        MovieService.loadMovies();
+        MovieContainer.getChildren().clear();
+            for(Movie movie : MovieService.movies) {
+                try {
+
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("MovieCard.fxml"));
+
+                    Parent card = loader.load();
+
+                    MovieCardController controller = loader.getController();
+
+                    controller.setMovie(movie);
+
+                    MovieContainer.getChildren().add(card);
+
+
+                }
+                catch (Exception e) {
+
+                    System.out.println("LỖI MOVIE CARD:");
+                    e.printStackTrace();
+                }
+            }
+        }
+
 
     @Override
     public void Refresh() {
-       
+
     }
 
     @Override
     public void OnAttached() {
-       
+
     }
-    
 }

@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<StackPane fx:id="loginView" id="loginView" styleClass="auth-root" stylesheets="@styles-1.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.net.demo.LoginController">
+<StackPane fx:id="loginView" id="loginView" styleClass="auth-root" stylesheets="@styles1.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.net.demo.LoginController">
     
     <VBox fx:id="Pages" alignment="CENTER" styleClass="auth-overlay">
         
