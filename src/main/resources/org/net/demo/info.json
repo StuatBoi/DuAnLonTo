@@ -1,0 +1,32 @@
+[
+  {
+    "title": "Avengers: Endgame",
+    "genre": "Action",
+    "releaseDate": "2019",
+    "image": "https://image.tmdb.org/t/p/w300/or06FN3Dka5tukK1e9sl16pB3iy.jpg"
+  },
+  {
+    "title": "The Batman",
+    "genre": "Crime",
+    "releaseDate": "2022",
+    "image": "https://image.tmdb.org/t/p/w300/74xTEgt7R36Fpooo50r9T25onhq.jpg"
+  },
+  {
+    "title": "Interstellar",
+    "genre": "Sci-Fi",
+    "releaseDate": "2014",
+    "image": "https://image.tmdb.org/t/p/w300/gEU2QniE6E77NI6lCU6MxlNBvIx.jpg"
+  },
+  {
+    "title": "John Wick 4",
+    "genre": "Action",
+    "releaseDate": "2023",
+    "image": "https://image.tmdb.org/t/p/w300/vZloFAK7NmvMGKE7VkF5UHaz0I.jpg"
+  },
+  {
+    "title": "Spider-Man: No Way Home",
+    "genre": "Superhero",
+    "releaseDate": "2021",
+    "image": "https://image.tmdb.org/t/p/w300/1g0dhYtq4irTY1GPXvft6k4YLjm.jpg"
+  }
+]
