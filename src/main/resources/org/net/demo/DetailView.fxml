@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane id="detailView" fx:id="detailView"  maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-background-color: #0b0b0b;" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.net.demo.DetailController">
+<BorderPane id="detailView" fx:id="detailView" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-background-color: #0b0b0b;" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.net.demo.DetailController">
    
    <top>
       <HBox alignment="CENTER_LEFT" prefHeight="50.0" style="-fx-border-color: #222222; -fx-border-width: 0 0 1 0;" BorderPane.alignment="CENTER">
@@ -112,12 +112,7 @@
                   </Label>
                   
                   <FlowPane fx:id="flowShowtimes" hgap="15.0" vgap="15.0">
-                     <children>
-                        <Button mnemonicParsing="false" style="-fx-background-color: #1f1f1f; -fx-text-fill: #ffffff; -fx-border-color: #444444; -fx-border-radius: 5; -fx-background-radius: 5; -fx-padding: 10 20 10 20; -fx-cursor: hand;" text="09:30 AM" />
-                        <Button mnemonicParsing="false" style="-fx-background-color: #e50914; -fx-text-fill: #ffffff; -fx-border-color: #e50914; -fx-border-radius: 5; -fx-background-radius: 5; -fx-padding: 10 20 10 20; -fx-cursor: hand;" text="13:15 PM" />
-                        <Button mnemonicParsing="false" style="-fx-background-color: #1f1f1f; -fx-text-fill: #ffffff; -fx-border-color: #444444; -fx-border-radius: 5; -fx-background-radius: 5; -fx-padding: 10 20 10 20; -fx-cursor: hand;" text="16:00 PM" />
-                        <Button mnemonicParsing="false" style="-fx-background-color: #1f1f1f; -fx-text-fill: #ffffff; -fx-border-color: #444444; -fx-border-radius: 5; -fx-background-radius: 5; -fx-padding: 10 20 10 20; -fx-cursor: hand;" text="19:45 PM" />
-                     </children>
+                     
                   </FlowPane>
                </children>
             </VBox>
