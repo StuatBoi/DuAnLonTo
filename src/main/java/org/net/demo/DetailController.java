@@ -81,17 +81,18 @@ public class DetailController extends Controller{
     
     private final ToggleGroup showtimeGroup=new ToggleGroup();
 
+    
+
 
 
     @FXML
     private void initialize()
     {
         
-        btnBack.setOnAction(event->
-            {
-                mainController.showPage(mainController.getLastPage());
-            }
-        );
+       
+       
+       
+
     }
 
     @Override
@@ -111,6 +112,17 @@ public class DetailController extends Controller{
     @Override
     public void OnAttached() {
         // TODO Auto-generated method stub
+        Parent lastPage= mainController.getPage("homeView");
+         btnBack.setOnAction(event->
+            {
+                mainController.showPage(lastPage);
+            }
+        );
+        btnBookTicket.setOnAction(event->
+            {
+                mainController.showPage(mainController.getPage("seatView"));
+            }
+        );
         
     }
 
@@ -159,7 +171,7 @@ public class DetailController extends Controller{
     public void setMoviePoster(String urlString) {
         try {
     // Đổi tham số thứ 2 thành 'false' để ép tải đồng bộ, nếu lỗi sẽ báo ngay lập tức
-    Image image = new Image(urlString, false);
+    Image image = new Image(urlString, true);
     
     if (image.isError()) {
         // Nếu có lỗi (như lỗi mạng, lỗi proxy học đường, hoặc chặn SSL), dòng này sẽ chỉ rõ lý do

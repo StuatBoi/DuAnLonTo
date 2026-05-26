@@ -60,6 +60,7 @@ public class MainController{
         AttachPage("AccountView.fxml");
         AttachPage("LoginView_cuaDang.fxml");
         AttachPage("DetailView.fxml");
+        AttachPage("SeatView.fxml");
 
         System.out.print("attaching finished");
 
@@ -106,10 +107,14 @@ public class MainController{
         //hàm để bật trang bằng phím D vì chưa có phim card của Hoàng Anh
         mainView.setOnKeyPressed(event->
             {
-                System.out.println("key pressed");
+                
                 if(event.getCode()==KeyCode.D)
                 {
                     showPage(getPage("detailView"));
+                }
+                if(event.getCode()==KeyCode.S)
+                {
+                    showPage(getPage("seatView"));
                 }
             }
         );
