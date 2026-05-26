@@ -1,0 +1,30 @@
+/* Trạng thái ghế trống thông thường */
+.seat-btn {
+    -fx-background-color: #1f1f1f;
+    -fx-text-fill: #ffffff;
+    -fx-border-color: #444444;
+    -fx-border-radius: 4;
+    -fx-background-radius: 4;
+    -fx-cursor: hand;
+}
+
+/* Hiệu ứng đưa chuột qua */
+.seat-btn:hover {
+    -fx-background-color: #333333;
+    -fx-border-color: #666666;
+}
+
+/* Trạng thái được click chọn (Đổi sang màu đỏ rực) */
+.seat-btn:selected {
+    -fx-background-color: #e50914;
+    -fx-border-color: #e50914;
+    -fx-text-fill: #ffffff;
+}
+
+/* Trạng thái ghế đã bị người khác mua mất (Disable) */
+.seat-btn:disabled {
+    -fx-background-color: #3a3a3a;
+    -fx-border-color: transparent;
+    -fx-text-fill: #777777;
+    -fx-opacity: 0.5;
+}
