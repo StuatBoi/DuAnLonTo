@@ -27,6 +27,7 @@ public class AccountController extends Controller{
 
     @Override
     public void OnShowing() {
+        mainController.setActiveAccountButton(true);
         
     }
 
