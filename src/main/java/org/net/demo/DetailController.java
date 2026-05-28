@@ -21,7 +21,7 @@ import java.lang.reflect.Type;
 
 public class DetailController extends Controller{
 
-    private String filmInfo= "{\"id\":\"MV-9999\",\"movieTitle\":\"Avatar: The Way of Water\",\"description\":\"Jake Sully lives with his newfound family formed on the extraterrestrial moon of Pandora.\",\"genre\":\"Sci-Fi, Action\",\"image\":\"https://image.tmdb.org/t/p/w1280/luCqqHf10eQuGAYFO3U7JEqT4XC.jpg\",\"rating\":\"7.6\"}";
+    private String filmInfo= "{\"id\":\"MV-9999\",\"movieTitle\":\"Avatar: The Way of Water\",\"description\":\"Jake Sully lives with his newfound family formed on the extraterrestrial moon of Pandora.\",\"genre\":\"Sci-Fi, Action\",\"image\":\"https://image.tmdb.org/t/p/w1280/luCqqHf10eQuGAYFO3U7JEqT4XC.jpg\",\"rating\":\"7.6\",\"releaseDate\":\"2024\"}";
    
     private String ShowTimeInfo = """
 [
@@ -78,6 +78,9 @@ public class DetailController extends Controller{
 
     @FXML
     private Label lblRating;
+
+    @FXML
+    private Label lblReleaseDate;
     
     private final ToggleGroup showtimeGroup=new ToggleGroup();
 
@@ -149,11 +152,12 @@ public class DetailController extends Controller{
 
     public void parseInfo(MovieInfo movie)
     {
-        lblMovieTitle.setText(movie.getMovieTitle());
+        lblMovieTitle.setText(movie.getTitle());
         lblRating.setText(movie.getRating());
         lblGenre.setText(movie.getGenre());
         lblDescription.setText(movie.getDescription());
         setMoviePoster(movie.getImage());
+        lblReleaseDate.setText(movie.getReleaseDate());
         
 
     }
