@@ -5,17 +5,17 @@ public class MovieInfo {
     private String movieTitle;
     private String description;
     private String genre;
-    private String posterUrl;
+    private String image;
     private String rating;
     
 
     // 1. Constructor có tham số
-    public MovieInfo(String id, String movieTitle, String description, String genre, String posterUrl, String rating) {
+    public MovieInfo(String id, String movieTitle, String description, String genre, String image, String rating) {
         this.id = id;
         this.movieTitle = movieTitle;
         this.description = description;
         this.genre = genre;
-        this.posterUrl = posterUrl;
+        this.image = image;
         this.rating = rating;
     }
 
@@ -60,12 +60,12 @@ public class MovieInfo {
     }
 
     // Getter & Setter cho posterUrl
-    public String getPosterUrl() {
-        return posterUrl;
+    public String getImage() {
+        return image;
     }
 
-    public void setPosterUrl(String posterUrl) {
-        this.posterUrl = posterUrl;
+    public void setImage(String image) {
+        this.image = image;
     }
 
     // Getter & Setter cho rating
