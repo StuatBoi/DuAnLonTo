@@ -41,9 +41,9 @@ public class SeatViewController extends Controller{
     private ArrayList<Seat> seatsList = new ArrayList<Seat>();
 
     String jsonString = "["
-    + "{\"id\":\"A1\", \"row\":0, \"col\":0, \"status\":\"AVAILABLE\",\"price\":\"50000\"},"
-    + "{\"id\":\"A2\", \"row\":0, \"col\":1, \"status\":\"BOOKED\",\"price\":\"50000\"},"
-    + "{\"id\":\"E5\", \"row\":4, \"col\":4, \"status\":\"AVAILABLE\",\"price\":\"50000\"}"
+    + "{\"id\":\"A1\", \"row\":0, \"col\":0, \"status\":\"AVAILABLE\",\"price\":\"50000\",\"roomID\":\"50000\"},"
+    + "{\"id\":\"A2\", \"row\":0, \"col\":1, \"status\":\"BOOKED\",\"price\":\"50000\",\"roomID\":\"50000\"},"
+    + "{\"id\":\"E5\", \"row\":4, \"col\":4, \"status\":\"AVAILABLE\",\"price\":\"50000\",\"roomID\":\"50000\"}"
     + "]";
 
     @FXML
