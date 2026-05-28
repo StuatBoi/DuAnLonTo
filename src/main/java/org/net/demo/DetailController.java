@@ -21,7 +21,7 @@ import java.lang.reflect.Type;
 
 public class DetailController extends Controller{
 
-    private String filmInfo= "{\"id\":\"MV-9999\",\"movieTitle\":\"Avatar: The Way of Water\",\"description\":\"Jake Sully lives with his newfound family formed on the extraterrestrial moon of Pandora.\",\"genre\":\"Sci-Fi, Action\",\"posterUrl\":\"https://i.imgur.com/vHdfM0V.jpg\",\"rating\":\"7.6\"}";
+    private String filmInfo= "{\"id\":\"MV-9999\",\"movieTitle\":\"Avatar: The Way of Water\",\"description\":\"Jake Sully lives with his newfound family formed on the extraterrestrial moon of Pandora.\",\"genre\":\"Sci-Fi, Action\",\"image\":\"https://image.tmdb.org/t/p/w1280/luCqqHf10eQuGAYFO3U7JEqT4XC.jpg\",\"rating\":\"7.6\"}";
    
     private String ShowTimeInfo = """
 [
@@ -153,7 +153,7 @@ public class DetailController extends Controller{
         lblRating.setText(movie.getRating());
         lblGenre.setText(movie.getGenre());
         lblDescription.setText(movie.getDescription());
-        setMoviePoster(movie.getPosterUrl());
+        setMoviePoster(movie.getImage());
         
 
     }
