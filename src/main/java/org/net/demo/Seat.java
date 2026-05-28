@@ -2,11 +2,13 @@ package org.net.demo;
 
 
 public class Seat {
+    
     private String id;
     private int row; 
     private int col; 
     private String status; 
     private Double price;
+    private String roomID;
 
  
     public Seat() {}
@@ -17,4 +19,6 @@ public class Seat {
     public int getCol() { return col; }
     public String getStatus() { return status; }
     public Double getPrice(){return price ; }
+    public String getRoomID()
+    {return roomID;}
 }
