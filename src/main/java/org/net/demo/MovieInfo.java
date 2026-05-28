@@ -2,21 +2,23 @@ package org.net.demo;
 
 public class MovieInfo {
     private String id;
-    private String movieTitle;
     private String description;
     private String genre;
     private String image;
     private String rating;
+    private String title;
+    private String releaseDate;
     
 
     // 1. Constructor có tham số
-    public MovieInfo(String id, String movieTitle, String description, String genre, String image, String rating) {
+    public MovieInfo(String id, String title, String description, String genre, String image, String rating,String releaseDate) {
         this.id = id;
-        this.movieTitle = movieTitle;
         this.description = description;
         this.genre = genre;
         this.image = image;
         this.rating = rating;
+        this.title=title;
+        this.releaseDate=releaseDate;
     }
 
     
@@ -32,14 +34,6 @@ public class MovieInfo {
         this.id = id;
     }
 
-    
-    public String getMovieTitle() {
-        return movieTitle;
-    }
-
-    public void setMovieTitle(String movieTitle) {
-        this.movieTitle = movieTitle;
-    }
 
     // Getter & Setter cho description
     public String getDescription() {
@@ -75,5 +69,23 @@ public class MovieInfo {
 
     public void setRating(String rating) {
         this.rating = rating;
+    }
+
+    // Getter & Setter cho title
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    // Getter & Setter cho releaseDate
+    public String getReleaseDate() {
+        return releaseDate;
+    }
+
+    public void setReleaseDate(String releaseDate) {
+        this.releaseDate = releaseDate;
     }
 }
