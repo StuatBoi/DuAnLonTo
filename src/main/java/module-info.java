@@ -1,7 +1,7 @@
 module org.net.demo {
     requires javafx.controls;
     requires javafx.fxml;
-
+    requires java.net.http;
     requires com.google.gson;
 
     requires transitive javafx.graphics;
