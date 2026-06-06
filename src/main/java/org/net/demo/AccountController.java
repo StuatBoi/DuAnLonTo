@@ -6,13 +6,15 @@ import com.google.gson.Gson;
 
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.VBox;
 
 public class AccountController extends Controller{
-
+    @FXML
+    private Button btnTicketView;
     @FXML
     private VBox accountView;
 
@@ -52,7 +54,8 @@ public class AccountController extends Controller{
 
     @Override
     public void OnAttached() {
-       
+       btnTicketView.setOnAction(e->{
+        mainController.showPage(mainController.getPage("ticketView"));});
     }
 
     @Override

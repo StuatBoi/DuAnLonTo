@@ -4,8 +4,9 @@ import javafx.fxml.FXML;
 import javafx.scene.layout.FlowPane;
 import javafx.event.ActionEvent;
 
-public class TicketsListController {
+public class TicketsListController extends Controller {
 
+     
     @FXML
     private FlowPane ticketsContainer;
 
@@ -16,11 +17,38 @@ public class TicketsListController {
 
     @FXML
     private void onBackClick(ActionEvent event) {
-        if (event != null && event.getSource() instanceof javafx.scene.Node) {
-            javafx.scene.Node node = (javafx.scene.Node) event.getSource();
-            if (node.getScene() != null && node.getScene().getWindow() != null) {
-                node.getScene().getWindow().hide();
-            }
-        }
+        mainController.showPage(mainController.getLastPage());
+    }
+
+    @Override
+    public void OnShowing() {
+      loadTickets();
+    }
+
+    @Override
+    public void Refresh() {
+
+    }
+
+    @Override
+    public void OnAttached() {
+        
+    }
+
+    @Override
+    public void OnLogin() {
+        
+    }
+
+    @Override
+    public void OnLogout() {
+        
+    }
+
+    public void loadTickets() {
+
+        HTTPService.sendRequestAsync("GET", "/api/Tickets/getTickets", null, null, mainController.getToken()).thenAccept(
+            response->{System.out.println(response);}
+        );
     }
 }
