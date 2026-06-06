@@ -64,6 +64,7 @@ public class MainController{
         AttachPage("LoginView_cuaDang.fxml");
         AttachPage("DetailView.fxml");
         AttachPage("SeatView.fxml");
+        AttachPage("TicketView.fxml");
 
         System.out.print("attaching finished");
 
@@ -147,7 +148,8 @@ public class MainController{
 
     public void showPage(Parent Npage)
     {
-        
+        setActiveAccountButton(false);
+        setActiveHomeButton(false);
         if(Npage==null)
         {
             System.err.println("null page");

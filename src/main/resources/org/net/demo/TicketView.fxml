@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox spacing="20" styleClass="section" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.net.demo.TicketsListController">
+<VBox id="ticketView" spacing="20" styleClass="section" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.net.demo.TicketsListController">
     <padding>
         <Insets bottom="40" left="60" right="60" top="40" />
     </padding>
