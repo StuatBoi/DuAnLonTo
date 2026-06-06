@@ -167,4 +167,16 @@ public class SeatViewController extends Controller{
     {
         this.ShowTimeID=showTimeID;
     }
+
+    @Override
+    public void OnLogin() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'OnLogin'");
+    }
+
+    @Override
+    public void OnLogout() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'OnLogout'");
+    }
 }
