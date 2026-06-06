@@ -1,12 +1,11 @@
 package org.net.demo;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.layout.VBox;
 import javafx.scene.layout.HBox;
 
-import java.io.IOException;
 
 public class HomeController extends Controller {
 
@@ -15,14 +14,29 @@ public class HomeController extends Controller {
 
     @Override
     public void OnShowing() {
-        mainController.setActiveHomeButton(true);
-        
-    
+        mainController.setActiveHomeButton(true); 
         System.out.println("ON SHOWING RUNNING");
-        System.out.println(MovieContainer);
-        MovieService.loadMovies();
-        MovieContainer.getChildren().clear();
-            for(Movie movie : MovieService.movies) {
+        System.out.println(MovieContainer);   
+        }
+
+
+    @Override
+    public void Refresh() {
+      MovieService.loadMovies();
+      loadMoviesCard();
+    }
+
+    @Override
+    public void OnAttached() {
+      MovieService.loadMovies();
+      loadMoviesCard();
+    }
+
+     private void loadMoviesCard()
+    {
+        Platform.runLater(()->{
+            MovieContainer.getChildren().clear();
+      for(Movie movie : MovieService.movies) {
                 try {
 
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("MovieCard.fxml"));
@@ -44,15 +58,6 @@ public class HomeController extends Controller {
                 }
             }
         }
-
-
-    @Override
-    public void Refresh() {
-
-    }
-
-    @Override
-    public void OnAttached() {
-
+        );
     }
 }
