@@ -2,10 +2,12 @@ package org.net.demo;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -37,7 +39,7 @@ public class SeatViewController extends Controller{
     private BorderPane seatView;
 
 
-    private String ShowRoomID;
+    private String ShowTimeID;
     private ArrayList<Seat> seatsList = new ArrayList<Seat>();
 
     String jsonString = "["
@@ -58,13 +60,13 @@ public class SeatViewController extends Controller{
 
     @Override
     public void OnShowing() {
-        populateSeatGrid(jsonString, gridSeats);
+        LoadSeatView(ShowTimeID);
         
     }
 
     @Override
     public void Refresh() {
-      
+      LoadSeatView(ShowTimeID);
     }
 
     @Override
@@ -95,7 +97,7 @@ public class SeatViewController extends Controller{
                     
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("Seat.fxml"));
                     Parent seatNode = loader.load();
-                    ((ToggleButton)seatNode).setText(seat.getId());                    
+                    ((ToggleButton)seatNode).setText((char)('A'+row)+String.valueOf(col+1));                    
                     gridPane.add(seatNode, col, row);
                     if(seat.getStatus().equals("BOOKED"))
                     {
@@ -146,5 +148,23 @@ public class SeatViewController extends Controller{
         System.out.println("remove "+ seat.getId());
         if(seatsList.contains(seat))
         seatsList.remove(seat);
+    }
+
+    public void LoadSeatView(String showTimeID)
+    {
+        if(showTimeID==null) return;
+        Map<String,String> param=Map.of("showRoomID",showTimeID
+            
+        );
+        HTTPService.sendRequestAsync("GET", "/api/feature/getSeatView", param, null, null).
+        thenAccept(response->{
+            Platform.runLater(()->{
+                populateSeatGrid(response, gridSeats);
+            });
+        });
+    }
+    public void setShowTimeID(String showTimeID)
+    {
+        this.ShowTimeID=showTimeID;
     }
 }

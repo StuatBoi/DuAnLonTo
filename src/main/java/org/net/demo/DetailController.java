@@ -1,15 +1,18 @@
 package org.net.demo;
 
 import java.util.List;
+import java.util.Map;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.Image;
@@ -20,6 +23,8 @@ import java.io.IOException;
 import java.lang.reflect.Type;
 
 public class DetailController extends Controller{
+
+    private String CurrentMovieID=null;
 
     private String filmInfo= "{\"id\":\"MV-9999\",\"movieTitle\":\"Avatar: The Way of Water\",\"description\":\"Jake Sully lives with his newfound family formed on the extraterrestrial moon of Pandora.\",\"genre\":\"Sci-Fi, Action\",\"image\":\"https://image.tmdb.org/t/p/w1280/luCqqHf10eQuGAYFO3U7JEqT4XC.jpg\",\"rating\":\"7.6\",\"releaseDate\":\"2024\"}";
    
@@ -100,9 +105,7 @@ public class DetailController extends Controller{
 
     @Override
     public void OnShowing() {
-        // TODO Auto-generated method stub
-        parseInfo(getSingleMovieFromJson(filmInfo));
-        renderShowtimesFromJSON(ShowTimeInfo);
+        GetShowTimes(CurrentMovieID);
         
     }
 
@@ -123,6 +126,17 @@ public class DetailController extends Controller{
         );
         btnBookTicket.setOnAction(event->
             {
+                
+                ToggleButton button =(ToggleButton)showtimeGroup.getSelectedToggle();
+                if(button==null)
+                {
+                    //xử lí khi chưa chọn suất chiếu nào
+                    System.out.println("no showtimes selected!!");
+                    return;
+                }
+                ShowTime showTime= (ShowTime)button.getUserData();
+                SeatViewController seatViewController= (SeatViewController)mainController.getController("seatView");
+                seatViewController.setShowTimeID(showTime.getId());
                 mainController.showPage(mainController.getPage("seatView"));
             }
         );
@@ -162,14 +176,28 @@ public class DetailController extends Controller{
 
     }
 
-    public void PushID(String MovieID)
+    public void PushID(Long MovieID)
     {
-       
+       if(CurrentMovieID==null ||!CurrentMovieID.equals(MovieID.toString())) 
+       {
+        CurrentMovieID=MovieID.toString();
+       Map<String,String> param= Map.of("movieID",CurrentMovieID); 
+       HTTPService.sendRequestAsync("GET", "/api/feature/getMovieDetail", param, null, null).thenAccept(
+        response->{
+            Platform.runLater(()->parseInfo(getSingleMovieFromJson(response)));
+        }
+       );
     }
-
-    public void GetShowTimes(String MoveID)
+    }
+    
+    public void GetShowTimes(String movieID)
     {
-
+        Map<String,String> param=Map.of("movieID",movieID);
+        HTTPService.sendRequestAsync("GET", "/api/feature/getShowTimes",param, null, null).thenAccept(response->
+            {
+                Platform.runLater(()->renderShowtimesFromJSON(response));
+            }
+        );
     }
 
     public void setMoviePoster(String urlString) {
