@@ -1,9 +1,18 @@
 package org.net.demo;
 
 
+import java.util.Map;
+
+import org.net.demo.DTO.LoginRequest;
+import org.net.demo.DTO.RegisterRequest;
+
+import com.google.gson.Gson;
+
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.PasswordField;
@@ -90,20 +99,71 @@ public class LoginController extends Controller{
                 registerContainer.setManaged(true);
             }
         );
+        btnLogin.setOnAction(event->
+            {
+                String email=emailField.getText();
+                String password=passwordField.getText();
+                LoginRequest loginRequest=new LoginRequest(email,password);
+                Gson gson= new Gson();
+                String jsonString=gson.toJson(loginRequest);
+
+                HTTPService.sendRequestAsync("POST", "/api/auth/login", null,jsonString,null).thenAccept(response->{
+                    System.out.println("Dăng nhập thành công : "+response);
+                    Map<String,String> tokenMap = gson.fromJson(response, Map.class);
+                    String token=tokenMap.get("token");
+                    Platform.runLater(()->mainController.logIn(token));
+                    
+                });
+                
+            }
+        );
+        btnRegister.setOnAction(event->{
+            if(!regPasswordField.getText().equals(regConfirmPasswordField.getText()))
+            {
+                new Alert(Alert.AlertType.ERROR, "Password and Confirm Password do not match!").show();
+                return;
+            }
+           RegisterRequest registerRequest=new RegisterRequest(regEmailField.getText(),regNameField.getText(),regPasswordField.getText());
+              Gson gson= new Gson();
+                String jsonString=gson.toJson(registerRequest);
+                HTTPService.sendRequestAsync("POST", "/api/auth/Register", null,jsonString,null).thenAccept(response->{
+                    System.out.println("Đăng ký thành công");
+                    new Alert(Alert.AlertType.INFORMATION, "Registration successful! Please log in.").show();
+                    for(Node node : Pages.getChildren())
+                {
+                    node.setVisible(false);
+                    node.setManaged(false);
+                }
+                loginContainer.toFront();
+                loginContainer.setVisible(true);
+                loginContainer.setManaged(true);
+                    
+                });
+        });
+        
     }
     @Override
     public void OnShowing() {
-        // TODO Auto-generated method stub
+        
       
     }
     @Override
     public void Refresh() {
-        // TODO Auto-generated method stub
         
     }
     @Override
     public void OnAttached() {
-        // TODO Auto-generated method stub
+       
+        
+    }
+
+    
+    @Override
+    public void OnLogin() {
+        
+    }
+    @Override
+    public void OnLogout() {
         
     }
 

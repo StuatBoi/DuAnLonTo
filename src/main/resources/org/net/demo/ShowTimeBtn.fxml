@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.text.Font?>
+<?import java.net.URL?>
+
+<ToggleButton mnemonicParsing="false" text="00:00" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1">
+   <font>
+      <Font name="Segoe UI" size="14.0" />
+   </font>
+   
+   <stylesheets>
+      <URL value="@ShowTimeBtn.css" />
+   </stylesheets>
+   
+   <styleClass>
+      <String fx:value="showtime-btn" />
+   </styleClass>
+</ToggleButton>

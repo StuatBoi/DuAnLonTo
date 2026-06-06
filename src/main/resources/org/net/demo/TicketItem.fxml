@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.Button?>
+
+<HBox xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" 
+      fx:controller="org.net.demo.TicketItemController" 
+      styleClass="ticket-card-item" alignment="CENTER_LEFT" prefWidth="420" minWidth="400" spacing="15">
+    
+    <VBox alignment="CENTER" styleClass="ticket-left-stub" prefWidth="100" minWidth="100">
+        <Label fx:id="lblDay" styleClass="ticket-stub-day" text="25" />
+        <Label fx:id="lblMonthYear" styleClass="ticket-stub-month" text="TH 12 2026" />
+        <Label fx:id="lblTime" styleClass="ticket-stub-time" text="19:30" />
+    </VBox>
+    
+    <VBox styleClass="ticket-divider" />
+
+    <VBox styleClass="ticket-right-body" HBox.hgrow="ALWAYS" alignment="CENTER_LEFT" spacing="8">
+        <Label fx:id="lblMovieTitle" styleClass="ticket-movie-title" text="Tên Phim Bom Tấn Siêu Cấp" wrapText="true" />
+        
+        <HBox spacing="15">
+            <VBox>
+                <Label styleClass="ticket-meta-label" text="Phòng" />
+                <Label fx:id="lblRoom" styleClass="ticket-meta-value" text="Cinema 4" />
+            </VBox>
+            <VBox>
+                <Label styleClass="ticket-meta-label" text="Ghế" />
+                <Label fx:id="lblSeats" styleClass="ticket-meta-value" text="H12, H13" />
+            </VBox>
+        </HBox>
+        
+        <Button styleClass="btn-primary-small" text="Xem chi tiết (QR)" onAction="#onDetailClick" maxWidth="Infinity"/>
+    </VBox>
+</HBox>

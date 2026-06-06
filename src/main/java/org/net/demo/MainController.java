@@ -1,10 +1,10 @@
 package org.net.demo;
 
 import javafx.fxml.FXML;
-
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.VBox;
 import javafx.scene.control.Label;
 
@@ -35,6 +35,14 @@ public class MainController{
 
     @FXML
     private TextField searchField;
+    @FXML
+    private VBox mainView;
+
+    private String token;
+    private Boolean isLoggedIn=false;
+
+    private Parent CurrentPage;
+    private Parent lastPage;
 
 
     private HashMap<String, Controller> Controllers= new HashMap<String,Controller>();
@@ -54,6 +62,8 @@ public class MainController{
         AttachPage("HomeView.fxml");
         AttachPage("AccountView.fxml");
         AttachPage("LoginView_cuaDang.fxml");
+        AttachPage("DetailView.fxml");
+        AttachPage("SeatView.fxml");
 
         System.out.print("attaching finished");
 
@@ -66,6 +76,7 @@ public class MainController{
         //gán chức năng cho nút
         btnLogin.setOnAction(event -> 
             {
+                
                 showPage(getPage("loginView"));
                 setActiveAccountButton(false);
                 setActiveHomeButton(false);
@@ -80,6 +91,11 @@ public class MainController{
         );
         navAccount.setOnMouseClicked(event->
             {
+                if(!IsLoggedIn())
+                {
+                    new Alert(Alert.AlertType.INFORMATION,"Vui lòng đăng nhập để xem thông tin tài khoản!").showAndWait();
+                    return;
+                }
                 showPage(getPage("accountView"));
                 setActiveAccountButton(true);
                 setActiveHomeButton(false);
@@ -95,6 +111,22 @@ public class MainController{
 
         //
         showDefaultPage(getPage("homeView"));
+
+
+        //hàm để bật trang bằng phím D vì chưa có phim card của Hoàng Anh
+        mainView.setOnKeyPressed(event->
+            {
+                
+                if(event.getCode()==KeyCode.D)
+                {
+                    showPage(getPage("detailView"));
+                }
+                if(event.getCode()==KeyCode.S)
+                {
+                    showPage(getPage("seatView"));
+                }
+            }
+        );
 
     }
 
@@ -126,10 +158,19 @@ public class MainController{
       node.setVisible(false);
       node.setManaged(false);
     }
+
         Npage.toFront();
         Npage.setVisible(true);
         Npage.setManaged(true);
+        Controller controller = Controllers.get(Npage.getId());
+        System.out.println(Npage.isVisible());
+        if(controller != null) {
+            controller.OnShowing();
+        }
         System.out.print(Npage.getId());
+        controller.OnShowing();
+        lastPage=CurrentPage;
+        CurrentPage=Npage;
     }
 
 
@@ -149,7 +190,7 @@ public class MainController{
                 navHome.getStyleClass().remove("nav-active");
             }
         }
-        System.out.println("set active home button "+ value);
+        
 
         
     }
@@ -170,7 +211,7 @@ public class MainController{
                 navAccount.getStyleClass().remove("nav-active");
             }
         }
-        System.out.println("set active account button "+ value);
+        
 
         
 
@@ -198,6 +239,67 @@ public class MainController{
 private void showDefaultPage(Parent defaultPage)
 {
     showPage(defaultPage);
+}
+public Parent getCurrentPage()
+{
+    return CurrentPage;
+}
+public Parent getLastPage()
+{
+    return lastPage;
+}
+
+public Boolean IsLoggedIn()
+{
+    return isLoggedIn;
+}
+public void setIsLoggedIn(Boolean value)
+{
+    isLoggedIn=value;
+}
+public String getToken()
+{
+    return token;
+}
+public void setToken(String token)
+{
+    this.token=token;
+}
+
+public void logIn(String token)
+{
+    setToken(token);
+     setIsLoggedIn(true);
+     for(Controller controller : Controllers.values())
+    {
+        controller.OnLogin();
+    }
+    showPage(getPage("homeView"));
+    btnLogin.setText("Đăng xuất");
+    btnLogin.setOnAction(event->
+        {
+            logOut();
+        }
+    );
+    
+}
+public void logOut()
+{
+ setToken(null);
+ setIsLoggedIn(false);
+ for(Controller controller : Controllers.values())
+    {
+        controller.OnLogout();
+    }
+    showPage(getPage("homeView"));
+    btnLogin.setText("Đăng nhập");
+    btnLogin.setOnAction(event->
+        {
+            showPage(getPage("loginView"));
+                setActiveAccountButton(false);
+                setActiveHomeButton(false);
+        }
+    );
 }
 
 
