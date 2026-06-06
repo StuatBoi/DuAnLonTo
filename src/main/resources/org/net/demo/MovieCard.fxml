@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx/17"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="org.net.demo.MovieCardController"
+      styleClass="movie-card"
+      alignment="TOP_LEFT"
+      prefWidth="175"
+      maxWidth="175"
+      spacing="8">
+
+    <!-- IMAGE -->
+    <StackPane styleClass="movie-thumb">
+
+        <ImageView fx:id="movieImage"
+                   fitWidth="175"
+                   fitHeight="240"
+                   preserveRatio="false"/>
+
+        <Label text="HD"
+               styleClass="quality-badge"/>
+
+    </StackPane>
+
+    <!-- INFO -->
+    <VBox spacing="3"
+          alignment="TOP_LEFT"
+          styleClass="movie-info">
+
+        <Label fx:id="movieTitle"
+               wrapText="true"
+               styleClass="movie-title"/>
+
+        <Label fx:id="movieGenre"
+               styleClass="movie-meta"/>
+
+    </VBox>
+
+</VBox>
