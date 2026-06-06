@@ -8,6 +8,7 @@ import org.net.demo.DTO.RegisterRequest;
 
 import com.google.gson.Gson;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -106,11 +107,12 @@ public class LoginController extends Controller{
                 Gson gson= new Gson();
                 String jsonString=gson.toJson(loginRequest);
 
-                HTTPService.sendRequestAsync("POST", "/api/auth/Login", null,jsonString,null).thenAccept(response->{
-                    System.out.println("Dăng nhập thành công");
+                HTTPService.sendRequestAsync("POST", "/api/auth/login", null,jsonString,null).thenAccept(response->{
+                    System.out.println("Dăng nhập thành công : "+response);
                     Map<String,String> tokenMap = gson.fromJson(response, Map.class);
                     String token=tokenMap.get("token");
-                    mainController.logIn(token);
+                    Platform.runLater(()->mainController.logIn(token));
+                    
                 });
                 
             }

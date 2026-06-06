@@ -368,3 +368,49 @@
 .social-icon:hover {
     -fx-text-fill: #ffffff;
 }
+
+.ticket-card-item {
+    -fx-background-color: #1e1e24;
+    -fx-background-radius: 8px;
+    -fx-border-color: #32323a;
+    -fx-border-radius: 8px;
+    -fx-padding: 0 15 0 0;
+}
+.ticket-left-stub {
+    -fx-background-color: #e50914; /* Màu đỏ thương hiệu Cineverse */
+    -fx-background-radius: 8px 0px 0px 8px;
+    -fx-padding: 15;
+}
+.ticket-stub-day {
+    -fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: white;
+}
+.ticket-stub-month {
+    -fx-font-size: 11px; -fx-text-fill: #f0f0f0;
+}
+.ticket-stub-time {
+    -fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: white; -fx-padding: 5 0 0 0;
+}
+.ticket-divider {
+    -fx-border-style: dashed; -fx-border-color: #444446; -fx-border-width: 0 1 0 0; -fx-pref-height: 100;
+}
+.ticket-movie-title {
+    -fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: white;
+}
+.btn-primary-small {
+    -fx-background-color: #e50914; -fx-text-fill: white; -fx-cursor: hand; -fx-font-weight: bold; -fx-padding: 6 12; -fx-background-radius: 4;
+}
+.ticket-detail-modal {
+    -fx-background-color: #141414;
+}
+.qr-container {
+    -fx-background-color: white; -fx-padding: 10; -fx-background-radius: 10;
+}
+.detail-movie-title {
+    -fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #e50914;
+}
+.detail-text {
+    -fx-font-size: 14px; -fx-text-fill: white;
+}
+.detail-price {
+    -fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #00ff66;
+}

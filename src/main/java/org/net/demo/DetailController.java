@@ -10,6 +10,7 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Toggle;
@@ -101,6 +102,12 @@ public class DetailController extends Controller{
                 {
                     //xử lí khi chưa chọn suất chiếu nào
                     System.out.println("no showtimes selected!!");
+                    return;
+                }
+                if(!mainController.IsLoggedIn())
+                {
+                    //xử lí khi chưa đăng nhập
+                    new Alert(Alert.AlertType.INFORMATION,"Vui lòng đăng nhập để đặt vé!").showAndWait();
                     return;
                 }
                 ShowTime showTime= (ShowTime)button.getUserData();
@@ -238,8 +245,12 @@ public class DetailController extends Controller{
 
     @Override
     public void OnLogin() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'OnLogin'");
+        
+    }
+
+    @Override
+    public void OnLogout() {
+        
     }
 
 }

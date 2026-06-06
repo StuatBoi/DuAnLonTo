@@ -1,7 +1,7 @@
 package org.net.demo;
 
 import javafx.fxml.FXML;
-
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
@@ -76,6 +76,7 @@ public class MainController{
         //gán chức năng cho nút
         btnLogin.setOnAction(event -> 
             {
+                
                 showPage(getPage("loginView"));
                 setActiveAccountButton(false);
                 setActiveHomeButton(false);
@@ -90,6 +91,11 @@ public class MainController{
         );
         navAccount.setOnMouseClicked(event->
             {
+                if(!IsLoggedIn())
+                {
+                    new Alert(Alert.AlertType.INFORMATION,"Vui lòng đăng nhập để xem thông tin tài khoản!").showAndWait();
+                    return;
+                }
                 showPage(getPage("accountView"));
                 setActiveAccountButton(true);
                 setActiveHomeButton(false);
@@ -184,7 +190,7 @@ public class MainController{
                 navHome.getStyleClass().remove("nav-active");
             }
         }
-        System.out.println("set active home button "+ value);
+        
 
         
     }
@@ -205,7 +211,7 @@ public class MainController{
                 navAccount.getStyleClass().remove("nav-active");
             }
         }
-        System.out.println("set active account button "+ value);
+        
 
         
 
