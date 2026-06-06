@@ -5,7 +5,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-public class MovieCardController {
+public class MovieCardController{
 
     @FXML
     private ImageView movieImage;
@@ -25,4 +25,6 @@ public class MovieCardController {
         movieImage.setImage(new Image(movie.getImage())
         );
     }
+    
+
 }
