@@ -38,6 +38,9 @@ public class MainController{
     @FXML
     private VBox mainView;
 
+    private String token;
+    private Boolean isLoggedIn=false;
+
     private Parent CurrentPage;
     private Parent lastPage;
 
@@ -240,7 +243,22 @@ public Parent getLastPage()
     return lastPage;
 }
 
-
+public Boolean IsLoggedIn()
+{
+    return isLoggedIn;
+}
+public void setIsLoggedIn(Boolean value)
+{
+    isLoggedIn=value;
+}
+public String getToken()
+{
+    return token;
+}
+public void setToken(String token)
+{
+    this.token=token;
+}
     }
 
 
