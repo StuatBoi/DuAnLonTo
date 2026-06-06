@@ -29,11 +29,11 @@
             <VBox alignment="CENTER_LEFT" fillWidth="true" spacing="15">
                 <VBox spacing="2">
                     <Label styleClass="movie-meta" text="Họ và tên" />
-                    <Label styleClass="profile-name" text="Nguyễn Văn A" />
+                    <Label fx:id="lblUsername" styleClass="profile-name" text="Nguyễn Văn A" />
                 </VBox>
                 <VBox spacing="2">
                     <Label styleClass="movie-meta" text="Email" />
-                    <Label styleClass="hero-subtitle" text="nguyenvana@gmail.com" />
+                    <Label fx:id="lblEmail" styleClass="hero-subtitle" text="nguyenvana@gmail.com" />
                 </VBox>
                 <VBox spacing="2">
                     <Label styleClass="movie-meta" text="Hạng thành viên" />

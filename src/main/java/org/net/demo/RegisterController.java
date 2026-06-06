@@ -91,10 +91,7 @@ public class RegisterController {
             System.err.println("Không thể chuyển sang trang LoginView.fxml. Hãy kiểm tra lại đường dẫn file!");
         }
     }
-    /**
-     * Hàm Getter bắt buộc phải có để MainController (Controller cha)
-     * lấy được phần tử Hyperlink và thực hiện quay lại form đăng nhập.
-     */
+    
     public Hyperlink getLinkGoToLogin() {
         return linkGoToLogin;
     }

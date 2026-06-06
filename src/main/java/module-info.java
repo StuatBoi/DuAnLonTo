@@ -6,6 +6,6 @@ module org.net.demo {
     requires jdk.httpserver;
     requires java.net.http;
     opens org.net.demo to javafx.fxml,com.google.gson;
-
+    opens org.net.demo.DTO to com.google.gson;
     exports org.net.demo;
 }
