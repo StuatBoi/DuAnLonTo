@@ -10,6 +10,10 @@ public abstract class Controller {
 
     abstract public void OnAttached();
 
+    abstract public void OnLogin();
+
+    abstract public void OnLogout();
+
     public void getMainController(MainController mainController)
     {
       this.mainController= mainController;

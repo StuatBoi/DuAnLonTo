@@ -26,37 +26,6 @@ public class DetailController extends Controller{
 
     private String CurrentMovieID=null;
 
-    private String filmInfo= "{\"id\":\"MV-9999\",\"movieTitle\":\"Avatar: The Way of Water\",\"description\":\"Jake Sully lives with his newfound family formed on the extraterrestrial moon of Pandora.\",\"genre\":\"Sci-Fi, Action\",\"image\":\"https://image.tmdb.org/t/p/w1280/luCqqHf10eQuGAYFO3U7JEqT4XC.jpg\",\"rating\":\"7.6\",\"releaseDate\":\"2024\"}";
-   
-    private String ShowTimeInfo = """
-[
-  {
-    "id": "ROOM_01",
-    "address": "123 Đường Nguyễn Trãi, Quận 1",
-    "cinemaName": "CGV Cinema Hùng Vương",
-    "startTime": "09:30 AM"
-  },
-  {
-    "id": "ROOM_02",
-    "address": "123 Đường Nguyễn Trãi, Quận 1",
-    "cinemaName": "CGV Cinema Hùng Vương",
-    "startTime": "13:15 PM"
-  },
-  {
-    "id": "ROOM_01",
-    "address": "123 Đường Nguyễn Trãi, Quận 1",
-    "cinemaName": "CGV Cinema Hùng Vương",
-    "startTime": "16:00 PM"
-  },
-  {
-    "id": "ROOM_03",
-    "address": "123 Đường Nguyễn Trãi, Quận 1",
-    "cinemaName": "CGV Cinema Hùng Vương",
-    "startTime": "19:45 PM"
-  }
-]
-""";
-
     @FXML
     private Button btnBack;
 
@@ -265,6 +234,12 @@ public class DetailController extends Controller{
                 e.printStackTrace();
             }
         }
+    }
+
+    @Override
+    public void OnLogin() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'OnLogin'");
     }
 
 }

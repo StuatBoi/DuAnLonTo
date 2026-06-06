@@ -110,9 +110,7 @@ public class LoginController extends Controller{
                     System.out.println("Dăng nhập thành công");
                     Map<String,String> tokenMap = gson.fromJson(response, Map.class);
                     String token=tokenMap.get("token");
-                    mainController.setIsLoggedIn(true);
-                    mainController.setToken(token);
-                    OnLoginSuccess();
+                    mainController.logIn(token);
                 });
                 
             }
@@ -144,23 +142,26 @@ public class LoginController extends Controller{
     }
     @Override
     public void OnShowing() {
-        // TODO Auto-generated method stub
+        
       
     }
     @Override
     public void Refresh() {
-        // TODO Auto-generated method stub
         
     }
     @Override
     public void OnAttached() {
-        // TODO Auto-generated method stub
+       
         
     }
 
-    public void OnLoginSuccess() {
-        // Chuyển đến trang chính sau khi đăng nhập thành công
-        mainController.showPage(mainController.getPage("homeView"));
+    
+    @Override
+    public void OnLogin() {
+        
+    }
+    @Override
+    public void OnLogout() {
         
     }
 
