@@ -259,6 +259,45 @@ public void setToken(String token)
 {
     this.token=token;
 }
+
+public void logIn(String token)
+{
+    setToken(token);
+     setIsLoggedIn(true);
+     for(Controller controller : Controllers.values())
+    {
+        controller.OnLogin();
+    }
+    showPage(getPage("homeView"));
+    btnLogin.setText("Đăng xuất");
+    btnLogin.setOnAction(event->
+        {
+            logOut();
+        }
+    );
+    
+}
+public void logOut()
+{
+ setToken(null);
+ setIsLoggedIn(false);
+ for(Controller controller : Controllers.values())
+    {
+        controller.OnLogout();
+    }
+    showPage(getPage("homeView"));
+    btnLogin.setText("Đăng nhập");
+    btnLogin.setOnAction(event->
+        {
+            showPage(getPage("loginView"));
+                setActiveAccountButton(false);
+                setActiveHomeButton(false);
+        }
+    );
+}
+
+
+
     }
 
 

@@ -70,5 +70,19 @@ public class HomeController extends Controller {
         );
     }
 
+
+     @Override
+     public void OnLogin() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'OnLogin'");
+     }
+
+
+     @Override
+     public void OnLogout() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'OnLogout'");
+     }
+
     
 }
