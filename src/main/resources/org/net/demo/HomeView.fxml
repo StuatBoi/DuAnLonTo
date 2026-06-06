@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox id="homeView" fx:id="homeView" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.net.demo.HomeController">
+<VBox fx:id="homeView" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.net.demo.HomeController">
     <StackPane minHeight="420" prefHeight="482.0" prefWidth="991.0" styleClass="hero-section">
         <VBox maxWidth="1.7976931348623157E308" styleClass="hero-bg" />
        
@@ -50,8 +50,10 @@
             <Region HBox.hgrow="ALWAYS" />
             <Label styleClass="see-all" text="Xem tất cả ›" />
         </HBox>
-        
-        <FlowPane fx:id="movieList" hgap="14" vgap="18" prefWrapLength="900" alignment="TOP_LEFT">
-            </FlowPane>
+        <HBox fx:id="MovieContainer"
+              alignment="CENTER_LEFT"
+              spacing="14"
+              prefHeight="300">
+        </HBox>
     </VBox>
 </VBox>

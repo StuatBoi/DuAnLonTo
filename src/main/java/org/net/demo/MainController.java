@@ -149,11 +149,16 @@ public class MainController{
       node.setVisible(false);
       node.setManaged(false);
     }
+
         Npage.toFront();
         Npage.setVisible(true);
         Npage.setManaged(true);
+        Controller controller = Controllers.get(Npage.getId());
+        System.out.println(Npage.isVisible());
+        if(controller != null) {
+            controller.OnShowing();
+        }
         System.out.print(Npage.getId());
-        Controller controller = getController(Npage.getId());
         controller.OnShowing();
         lastPage=CurrentPage;
         CurrentPage=Npage;
