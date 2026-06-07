@@ -9,11 +9,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.control.Label;
 
 import java.io.IOException;
-import java.net.URL;
 import java.util.HashMap;
-import java.util.ResourceBundle;
-import javafx.scene.control.Hyperlink;
-
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
