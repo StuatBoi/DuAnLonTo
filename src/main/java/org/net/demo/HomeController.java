@@ -17,29 +17,8 @@ public class HomeController extends Controller {
     public void OnShowing() {
         System.out.println("ON SHOWING RUNNING");
         System.out.println(MovieContainer);
-        MovieService.loadMovies();
-        MovieContainer.getChildren().clear();
-            for(Movie movie : MovieService.movies) {
-                try {
-
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("MovieCard.fxml"));
-
-                    Parent card = loader.load();
-
-                    MovieCardController controller = loader.getController();
-
-                    controller.setMovie(movie);
-
-                    MovieContainer.getChildren().add(card);
 
 
-                }
-                catch (Exception e) {
-
-                    System.out.println("LỖI MOVIE CARD:");
-                    e.printStackTrace();
-                }
-            }
         }
 
 
@@ -50,6 +29,27 @@ public class HomeController extends Controller {
 
     @Override
     public void OnAttached() {
+        MovieService.loadMovies();
+        MovieContainer.getChildren().clear();
+        for(Movie movie : MovieService.movies) {
+            try {
 
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("MovieCard.fxml"));
+
+                Parent card = loader.load();
+
+                MovieCardController controller = loader.getController();
+
+                controller.setMovie(movie);
+
+                MovieContainer.getChildren().add(card);
+
+
+            } catch (Exception e) {
+
+                System.out.println("LỖI MOVIE CARD:");
+                e.printStackTrace();
+            }
+        }
     }
 }
