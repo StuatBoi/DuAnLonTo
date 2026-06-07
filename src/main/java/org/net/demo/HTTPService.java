@@ -80,4 +80,48 @@ public class HTTPService {
         return httpClient.sendAsync(builder.build(), HttpResponse.BodyHandlers.ofString())
                 .thenApply(HttpResponse::body);
     }
+
+    public static CompletableFuture<HttpResponse<String>> sendFullRequestAsync(
+        String method, 
+        String endpoint, 
+        Map<String, String> params, 
+        String jsonBody, 
+        String token) {
+
+    // 1. Xử lý nối Param vào URL (Giữ nguyên từ hàm cũ)
+    StringBuilder urlBuilder = new StringBuilder(BASE_URL).append(endpoint);
+    if (params != null && !params.isEmpty()) {
+        StringJoiner joiner = new StringJoiner("&", "?", "");
+        params.forEach((k, v) -> {
+            String encodedValue = URLEncoder.encode(v, StandardCharsets.UTF_8);
+            joiner.add(k + "=" + encodedValue);
+        });
+        urlBuilder.append(joiner.toString());
+    }
+
+    HttpRequest.Builder builder = HttpRequest.newBuilder()
+            .uri(URI.create(urlBuilder.toString()))
+            .header("Accept", "application/json");
+
+    // 2. Thêm Token (Giữ nguyên từ hàm cũ)
+    if (token != null && !token.isBlank()) {
+        builder.header("Authorization", "Bearer " + token);
+    }
+
+    // 3. Xử lý Method (Giữ nguyên từ hàm cũ)
+    if ("POST".equalsIgnoreCase(method)) {
+        builder.header("Content-Type", "application/json");
+        builder.POST(HttpRequest.BodyPublishers.ofString(jsonBody != null ? jsonBody : ""));
+    } else if ("PUT".equalsIgnoreCase(method)) {
+        builder.header("Content-Type", "application/json");
+        builder.PUT(HttpRequest.BodyPublishers.ofString(jsonBody != null ? jsonBody : ""));
+    } else if ("DELETE".equalsIgnoreCase(method)) {
+        builder.DELETE();
+    } else {
+        builder.GET();
+    }
+
+    // 4. KHÁC BIỆT Ở ĐÂY: Không dùng .thenApply(HttpResponse::body) nữa
+    return httpClient.sendAsync(builder.build(), HttpResponse.BodyHandlers.ofString());
+}
 }

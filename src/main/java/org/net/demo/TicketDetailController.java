@@ -6,7 +6,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Button;
 import javafx.event.ActionEvent;
 
-public class TicketDetailController {
+public class TicketDetailController extends Controller {
 
     @FXML
     private ImageView imgQRCode;
@@ -50,5 +50,30 @@ public class TicketDetailController {
         } else if (event != null && event.getSource() instanceof javafx.scene.Node) {
             ((javafx.scene.Node) event.getSource()).getScene().getWindow().hide();
         }
+    }
+
+    @Override
+    public void OnShowing() {
+        
+    }
+
+    @Override
+    public void Refresh() {
+        
+    }
+
+    @Override
+    public void OnAttached() {
+        
+    }
+
+    @Override
+    public void OnLogin() {
+        
+    }
+
+    @Override
+    public void OnLogout() {
+        
     }
 }

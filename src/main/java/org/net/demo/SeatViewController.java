@@ -3,6 +3,7 @@ package org.net.demo;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import org.net.demo.DTO.TicketBookingRequest;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -11,6 +12,7 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ToggleButton;
@@ -42,12 +44,6 @@ public class SeatViewController extends Controller{
     private String ShowTimeID;
     private ArrayList<Seat> seatsList = new ArrayList<Seat>();
 
-    String jsonString = "["
-    + "{\"id\":\"A1\", \"row\":0, \"col\":0, \"status\":\"AVAILABLE\",\"price\":\"50000\",\"roomID\":\"50000\"},"
-    + "{\"id\":\"A2\", \"row\":0, \"col\":1, \"status\":\"BOOKED\",\"price\":\"50000\",\"roomID\":\"50000\"},"
-    + "{\"id\":\"E5\", \"row\":4, \"col\":4, \"status\":\"AVAILABLE\",\"price\":\"50000\",\"roomID\":\"50000\"}"
-    + "]";
-
     @FXML
     private void initialize()
     {
@@ -56,6 +52,10 @@ public class SeatViewController extends Controller{
             mainController.showPage(mainController.getLastPage());
         }
        );
+       btnConfirmSeats.setOnAction(event->
+        {
+            BookTickets();
+        });
     }
 
     @Override
@@ -133,7 +133,7 @@ public class SeatViewController extends Controller{
         Double total =0d;
       for(Seat seat : seatsList)
       {
-        total+=seat.getPrice();
+        total+=seat.getBasePrice();
         System.out.println(total);
       }
       lblTotalPrice.setText(total+" đ");
@@ -177,4 +177,51 @@ public class SeatViewController extends Controller{
     public void OnLogout() {
         
     }
+
+    public TicketBookingRequest CreateBookingRequest()
+    {
+        TicketBookingRequest request = new TicketBookingRequest();
+        request.setShowtimeId(Long.parseLong(ShowTimeID));
+        List<Long> seatIDs = new ArrayList<>();
+        for(Seat seat : seatsList)
+        {
+            seatIDs.add(Long.parseLong(seat.getId()));
+        }
+        request.setSeatIds(seatIDs);
+        return request;
+    }
+    public void BookTickets()
+    {
+        TicketBookingRequest request = CreateBookingRequest();
+        if(request.getSeatIds().isEmpty())
+        {
+            new Alert(Alert.AlertType.INFORMATION,"vui lòng chọn ghế").showAndWait();
+            return;
+        }
+        String jsonRequest = new Gson().toJson(request);
+        System.out.println(jsonRequest);
+        
+        HTTPService.sendFullRequestAsync("POST", "/api/Ticket/bookTickets", null, jsonRequest, mainController.getToken()).thenAccept(
+            response->{
+              int statusCode = response.statusCode();
+              if(statusCode == 200) {
+                Platform.runLater(() -> {
+                    new Alert(Alert.AlertType.INFORMATION, "Đặt vé thành công!").showAndWait();
+                    
+                });
+            }
+                else{
+                    Platform.runLater(() -> {
+                        new Alert(Alert.AlertType.ERROR, "Đặt vé thất bại!").showAndWait();
+                    });
+                }
+              
+            
+            }
+        );
+       
+    }
+
+
+
 }
