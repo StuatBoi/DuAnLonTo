@@ -20,12 +20,7 @@ import javafx.stage.Window;
 
 public class CineverseAlert {
 
-    /**
-     * Hiển thị thông báo phủ kín toàn bộ Scene/Window (Áp dụng cho mọi loại Root Node kể cả VBox mainView)
-     * @param title Tiêu đề thông báo
-     * @param message Nội dung chi tiết
-     * @param currentRegion Một Node bất kỳ ở trang hiện tại để làm điểm tựa xác định Window
-     */
+    
     public static void show(String title, String message, Region currentRegion) {
         try {
             Scene currentScene = currentRegion.getScene();

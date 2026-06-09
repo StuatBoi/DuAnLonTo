@@ -81,20 +81,27 @@ public class HTTPService {
                 .thenApply(HttpResponse::body);
     }
 
-    public static CompletableFuture<HttpResponse<String>> sendFullRequestAsync(
+  
+
+public static CompletableFuture<HttpResponse<String>> sendFullRequestAsync(
         String method, 
         String endpoint, 
-        Map<String, String> params, 
+        Map<String, Object> params, // ĐÃ ĐỔI: Từ Map<String, String> sang Map<String, Object>
         String jsonBody, 
         String token) {
 
-    // 1. Xử lý nối Param vào URL (Giữ nguyên từ hàm cũ)
+    // 1. Xử lý nối Param vào URL (Đã tối ưu để nhận mọi kiểu dữ liệu)
     StringBuilder urlBuilder = new StringBuilder(BASE_URL).append(endpoint);
     if (params != null && !params.isEmpty()) {
         StringJoiner joiner = new StringJoiner("&", "?", "");
+        
         params.forEach((k, v) -> {
-            String encodedValue = URLEncoder.encode(v, StandardCharsets.UTF_8);
-            joiner.add(k + "=" + encodedValue);
+            // Kiểm tra null để tránh lỗi NullPointerException nếu value truyền vào bị rỗng
+            if (v != null) {
+                // v.toString() sẽ tự động chuyển Integer, Long, Boolean... thành String thích hợp
+                String encodedValue = URLEncoder.encode(v.toString(), StandardCharsets.UTF_8);
+                joiner.add(k + "=" + encodedValue);
+            }
         });
         urlBuilder.append(joiner.toString());
     }
@@ -103,12 +110,12 @@ public class HTTPService {
             .uri(URI.create(urlBuilder.toString()))
             .header("Accept", "application/json");
 
-    // 2. Thêm Token (Giữ nguyên từ hàm cũ)
+    // 2. Thêm Token
     if (token != null && !token.isBlank()) {
         builder.header("Authorization", "Bearer " + token);
     }
 
-    // 3. Xử lý Method (Giữ nguyên từ hàm cũ)
+    // 3. Xử lý Method
     if ("POST".equalsIgnoreCase(method)) {
         builder.header("Content-Type", "application/json");
         builder.POST(HttpRequest.BodyPublishers.ofString(jsonBody != null ? jsonBody : ""));
@@ -121,7 +128,7 @@ public class HTTPService {
         builder.GET();
     }
 
-    // 4. KHÁC BIỆT Ở ĐÂY: Không dùng .thenApply(HttpResponse::body) nữa
+    // 4. Trả về CompletableFuture chứa toàn bộ HttpResponse
     return httpClient.sendAsync(builder.build(), HttpResponse.BodyHandlers.ofString());
 }
 }
