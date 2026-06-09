@@ -144,13 +144,14 @@ public class MainController{
 
     public void showPage(Parent Npage)
     {
-        setActiveAccountButton(false);
-        setActiveHomeButton(false);
+        
         if(Npage==null)
         {
             System.err.println("null page");
             return;
         }
+        setActiveAccountButton(false);
+        setActiveHomeButton(false);
         for(Node node : page.getChildren())
     {
       node.setVisible(false);

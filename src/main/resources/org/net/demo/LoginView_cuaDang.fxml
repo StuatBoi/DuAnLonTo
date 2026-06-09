@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<StackPane fx:id="loginView" id="loginView" styleClass="auth-root" stylesheets="@styles1.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.net.demo.LoginController">
+<StackPane id="loginView" fx:id="loginView" styleClass="auth-root" stylesheets="@styles1.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.net.demo.LoginController">
     
     <VBox fx:id="Pages" alignment="CENTER" styleClass="auth-overlay">
         
@@ -29,10 +29,10 @@
             
             <VBox fillWidth="true" spacing="16">
                 <VBox spacing="6">
-                    <Label styleClass="movie-meta" text="Địa chỉ Email" />
+                    <Label styleClass="movie-meta" text="Tên đăng nhập" />
                     <HBox alignment="CENTER_LEFT" style="-fx-background-radius: 6px; -fx-border-radius: 6px; -fx-padding: 10px 14px;" styleClass="search-bar">
                         <Label style="-fx-font-size: 14px;" styleClass="search-icon" text="✉ " />
-                        <TextField fx:id="emailField" promptText="name@example.com" style="-fx-font-size: 14px;" styleClass="search-field" HBox.hgrow="ALWAYS" />
+                        <TextField fx:id="logInNameField" style="-fx-font-size: 14px;" styleClass="search-field" HBox.hgrow="ALWAYS" />
                     </HBox>
                 </VBox>
                 
