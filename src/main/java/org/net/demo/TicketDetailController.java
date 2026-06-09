@@ -119,7 +119,7 @@ public class TicketDetailController extends Controller {
     }
     public void getData(String ticketCode)
     {
-        Map<String,String> params=Map.of("ticketCode", ticketCode);
+        Map<String,Object> params=Map.of("ticketCode", ticketCode);
         HTTPService.sendFullRequestAsync("GET", "/api/Ticket/getTicketDetail", params, null, mainController.getToken()).thenAccept(
             response->{
                 try{

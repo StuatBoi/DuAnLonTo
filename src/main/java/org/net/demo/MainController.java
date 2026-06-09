@@ -62,6 +62,7 @@ public class MainController{
         AttachPage("SeatView.fxml");
         AttachPage("TicketView.fxml");
         AttachPage("TicketDetail.fxml");
+        AttachPage("SearchView.fxml");
 
         System.out.print("attaching finished");
 
@@ -106,6 +107,13 @@ public class MainController{
                 setActiveAccountButton(false);
             }
         );
+        searchField.setOnKeyPressed(event->{
+            if(event.getCode().equals(KeyCode.ENTER))
+            {
+                SearchController searchController = (SearchController)getController("searchView");
+                searchController.Search(searchField.getText());
+            }
+        });
 
         //
         showDefaultPage(getPage("homeView"));
@@ -303,6 +311,14 @@ public void logOut()
     CineverseAlert.showToast("Đã đăng xuất !", btnLogin);
 }
 
+public StackPane getPageContainer()
+{
+    return page;
+}
+public TextField getSearchField()
+{
+    return searchField;
+}
 
 
     }

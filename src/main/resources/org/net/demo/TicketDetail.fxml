@@ -1,60 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
 
-<VBox id="ticketDetail" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" 
-      fx:controller="org.net.demo.TicketDetailController" 
-      stylesheets="@ticketView.css"
-      styleClass="ticket-detail-modal" 
-      prefWidth="380" 
-      maxWidth="380" 
-      maxHeight="-Infinity" 
-      spacing="20" 
-      alignment="TOP_CENTER">
+<VBox id="ticketDetail" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="380" prefWidth="380" spacing="20" styleClass="ticket-detail-modal" stylesheets="@ticketView.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.net.demo.TicketDetailController">
     
     <padding>
-        <Insets top="30" right="25" bottom="30" left="25"/>
+        <Insets bottom="30" left="25" right="25" top="30" />
     </padding>
 
-    <Label text="VÉ XEM PHIM ĐIỆN TỬ" styleClass="detail-header-title"/>
+    <Label styleClass="detail-header-title" text="CINEVERSE TICKET" />
     
-    <VBox alignment="CENTER" styleClass="qr-container" maxWidth="200" maxHeight="200">
-        <ImageView fx:id="imgQRCode" fitWidth="180" fitHeight="180" preserveRatio="true" smooth="false" />
+    <VBox alignment="CENTER" maxHeight="200" maxWidth="200" styleClass="qr-container">
+        <ImageView fx:id="imgQRCode" fitHeight="180" fitWidth="180" preserveRatio="true" smooth="false" />
     </VBox>
     <Label fx:id="lblTicketCode" styleClass="ticket-code-text" text="CODE: UUID-XXXX-XXXX" />
 
     <HBox alignment="CENTER" spacing="5" styleClass="ticket-divider">
-        <Region styleClass="divider-line" HBox.hgrow="ALWAYS"/>
+        <Region styleClass="divider-line" HBox.hgrow="ALWAYS" />
     </HBox>
 
-    <VBox spacing="15" styleClass="detail-info-box" fillWidth="true">
+    <VBox fillWidth="true" spacing="15" styleClass="detail-info-box">
         <VBox spacing="4">
             <Label styleClass="ticket-meta-label" text="PHIM" />
-            <Label fx:id="lblMovieTitle" styleClass="detail-movie-title" text="Tên bộ phim" wrapText="true"/>
+            <Label fx:id="lblMovieTitle" styleClass="detail-movie-title" text="Tên bộ phim" wrapText="true" />
         </VBox>
         
         <HBox spacing="20">
-            <VBox HBox.hgrow="ALWAYS" styleClass="info-column">
+            <VBox styleClass="info-column" HBox.hgrow="ALWAYS">
                 <Label styleClass="ticket-meta-label" text="NGÀY CHIẾU" />
                 <Label fx:id="lblDate" styleClass="detail-text" text="01/01/2026" />
             </VBox>
-            <VBox HBox.hgrow="ALWAYS" styleClass="info-column">
+            <VBox styleClass="info-column" HBox.hgrow="ALWAYS">
                 <Label styleClass="ticket-meta-label" text="SUẤT CHIẾU" />
                 <Label fx:id="lblTime" styleClass="detail-text" text="20:00" />
             </VBox>
         </HBox>
 
         <HBox spacing="20">
-            <VBox HBox.hgrow="ALWAYS" styleClass="info-column">
+            <VBox styleClass="info-column" HBox.hgrow="ALWAYS">
                 <Label styleClass="ticket-meta-label" text="PHÒNG CHIẾU" />
                 <Label fx:id="lblRoom" styleClass="detail-text" text="Phòng 1" />
             </VBox>
-            <VBox HBox.hgrow="ALWAYS" styleClass="info-column">
+            <VBox styleClass="info-column" HBox.hgrow="ALWAYS">
                 <Label styleClass="ticket-meta-label" text="VỊ TRÍ GHẾ" />
                 <Label fx:id="lblSeats" styleClass="detail-text" text="G09 (VIP)" />
             </VBox>
@@ -65,7 +58,7 @@
             <Label fx:id="lblCustomer" styleClass="detail-text" text="Nguyễn Văn A" />
         </VBox>
 
-        <Region styleClass="horizontal-line"/>
+        <Region styleClass="horizontal-line" />
         
         <HBox alignment="CENTER_LEFT">
             <Label styleClass="ticket-total-label" text="TỔNG TIỀN" />
@@ -74,5 +67,5 @@
         </HBox>
     </VBox>
 
-    <Button fx:id="btnClose" text="ĐÓNG" styleClass="btn-danger" onAction="#onCloseClick" prefWidth="140"/>
+    <Button fx:id="btnClose" onAction="#onCloseClick" prefWidth="140" styleClass="btn-danger" text="ĐÓNG" />
 </VBox>
