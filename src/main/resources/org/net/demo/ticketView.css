@@ -1,0 +1,96 @@
+/* Giao diện tổng thể của tấm vé - Phong cách Dark Card tương thích Cineverse */
+.ticket-detail-modal {
+    -fx-background-color: #1a1a1a; /* Nền xám đen đặc trưng của các app xem phim */
+    -fx-background-radius: 16px;
+    -fx-border-radius: 16px;
+    -fx-border-color: #333333; /* Viền mỏng để định hình khối trên nền đen */
+    -fx-border-width: 1px;
+    /* Đổ bóng lan tỏa màu đỏ tối để tạo hiệu ứng chiều sâu (Glow effect) cực đẹp */
+    -fx-effect: dropshadow(three-pass-box, rgba(229, 9, 20, 0.25), 20, 0, 0, 0);
+}
+
+/* Tiêu đề chính */
+.detail-header-title {
+    -fx-font-family: "Segoe UI", "Helvetica Neue", Arial;
+    -fx-font-weight: 900;
+    -fx-font-size: 20px;
+    -fx-text-fill: #E50914; /* Đỏ rực giống màu chữ CINEVERSE hoặc nút ĐẶT VÉ */
+    -fx-letter-spacing: 1px;
+}
+
+/* Khung bọc mã QR */
+.qr-container {
+    -fx-background-color: #ffffff; /* Giữ nền trắng cho vùng này để QR code dễ quét nhất */
+    -fx-border-radius: 12px;
+    -fx-background-radius: 12px;
+    -fx-padding: 12px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 10, 0, 0, 4);
+}
+
+/* Text hiển thị mã Code của vé */
+.ticket-code-text {
+    -fx-font-family: "Courier New", Monospace;
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+    -fx-text-fill: #E0E0E0; /* Màu chữ trắng xám */
+}
+
+/* Đường gạch ngang phân cách giữa các phần */
+.horizontal-line {
+    -fx-background-color: #333333;
+    -fx-pref-height: 1px;
+}
+
+/* Nhãn nhỏ chỉ mục (PHIM, NGÀY CHIẾU, SUẤT CHIẾU,...) */
+.ticket-meta-label {
+    -fx-font-size: 11px;
+    -fx-text-fill: #777777; /* Màu xám trầm giống các meta-text 2024 trên web của bạn */
+    -fx-font-weight: bold;
+}
+
+/* Tên phim */
+.detail-movie-title {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #FFFFFF; /* Chữ trắng hoàn toàn nổi bật */
+}
+
+/* Thông tin chi tiết (Ngày, giờ, phòng, ghế...) */
+.detail-text {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #E0E0E0;
+}
+
+/* Label tổng tiền */
+.ticket-total-label {
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #999999;
+}
+
+/* Số tiền hiển thị nổi bật */
+.detail-price {
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #E50914; /* Màu đỏ thương hiệu */
+}
+
+/* Button ĐÓNG - Đồng bộ 100% với style nút "ĐẶT VÉ" đỏ vuông vức, bo góc nhẹ */
+.btn-danger {
+    -fx-background-color: #E50914;
+    -fx-text-fill: #FFFFFF;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 4px; /* Bo góc vuông nhẹ giống nút ĐẶT VÉ trên web */
+    -fx-cursor: hand;
+    -fx-padding: 10px 24px;
+}
+
+.btn-danger:hover {
+    -fx-background-color: #B20710; /* Đỏ sậm hơn khi hover */
+}
+
+.btn-danger:pressed {
+    -fx-background-color: #800000;
+}

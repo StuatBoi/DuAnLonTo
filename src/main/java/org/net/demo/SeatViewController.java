@@ -195,7 +195,7 @@ public class SeatViewController extends Controller{
         TicketBookingRequest request = CreateBookingRequest();
         if(request.getSeatIds().isEmpty())
         {
-            new Alert(Alert.AlertType.INFORMATION,"vui lòng chọn ghế").showAndWait();
+            CineverseAlert.showToast("Vui lòng chọn ít nhất một ghế để đặt vé!", btnConfirmSeats);
             return;
         }
         String jsonRequest = new Gson().toJson(request);
@@ -206,13 +206,14 @@ public class SeatViewController extends Controller{
               int statusCode = response.statusCode();
               if(statusCode == 200) {
                 Platform.runLater(() -> {
-                    new Alert(Alert.AlertType.INFORMATION, "Đặt vé thành công!").showAndWait();
+                    CineverseAlert.showToast("Đặt vé thành công! Truy cập trang tài khoản để xem vé", btnConfirmSeats);
+                    
                     
                 });
             }
                 else{
                     Platform.runLater(() -> {
-                        new Alert(Alert.AlertType.ERROR, "Đặt vé thất bại!").showAndWait();
+                        CineverseAlert.showToast("Đặt vé thất bại! Vui lòng thử lại.", btnConfirmSeats);
                     });
                 }
               

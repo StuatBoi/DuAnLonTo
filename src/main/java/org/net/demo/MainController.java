@@ -61,6 +61,7 @@ public class MainController{
         AttachPage("DetailView.fxml");
         AttachPage("SeatView.fxml");
         AttachPage("TicketView.fxml");
+        AttachPage("TicketDetail.fxml");
 
         System.out.print("attaching finished");
 
@@ -90,7 +91,7 @@ public class MainController{
             {
                 if(!IsLoggedIn())
                 {
-                    new Alert(Alert.AlertType.INFORMATION,"Vui lòng đăng nhập để xem thông tin tài khoản!").showAndWait();
+                    CineverseAlert.showToast("Vui lòng đăng nhập để truy cập trang tài khoản", navAccount);
                     return;
                 }
                 showPage(getPage("accountView"));
@@ -299,6 +300,7 @@ public void logOut()
                 setActiveHomeButton(false);
         }
     );
+    CineverseAlert.showToast("Đã đăng xuất !", btnLogin);
 }
 
 

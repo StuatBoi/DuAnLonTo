@@ -92,14 +92,14 @@ public class LoginController extends Controller{
                     if(response.statusCode()!=200)
                     {
                         Platform.runLater(()->{
-                            new Alert(Alert.AlertType.ERROR, "Login failed! Please check your credentials.").show();
+                            CineverseAlert.showToast("Đăng nhập thất bại hãy kiểm tra lại tên tài khoản và mật khẩu", btnLogin);
                         });
                         return;
                     }
                     Map<String,String> tokenMap = gson.fromJson(response.body(), Map.class);
                     String token=tokenMap.get("token");
                     Platform.runLater(()->{mainController.logIn(token);
-                     new Alert(Alert.AlertType.INFORMATION, "Login successful!").show();
+                     CineverseAlert.showToast("Đăng nhập thành công", btnLogin);
                     });
                     
                     
@@ -110,7 +110,7 @@ public class LoginController extends Controller{
         btnRegister.setOnAction(event->{
             if(!regPasswordField.getText().equals(regConfirmPasswordField.getText()))
             {
-                new Alert(Alert.AlertType.ERROR, "Password and Confirm Password do not match!").show();
+                CineverseAlert.showToast("Mật khẩu xác nhận không khớp!", btnRegister);
                 return;
             }
            RegisterRequest registerRequest=new RegisterRequest(regNameField.getText(),regPasswordField.getText(),regEmailField.getText());
@@ -120,14 +120,14 @@ public class LoginController extends Controller{
                     if(response.statusCode()!=200)
                     {
                         Platform.runLater(()->{
-                            new Alert(Alert.AlertType.ERROR, "Registration failed! Please try again."+ response.statusCode()).show();
+                            CineverseAlert.showToast("Đăng ký thất bại! Vui lòng thử lại.", btnRegister);
                         });
                         return;
                     }
                     
                     Platform.runLater(()->{
                         showLoginView();
-                        new Alert(Alert.AlertType.INFORMATION, "Registration successful! Please log in.").showAndWait();
+                        CineverseAlert.showToast("Đăng ký thành công! Vui lòng đăng nhập để tiếp tục.", btnRegister);
 
                     });
                     
