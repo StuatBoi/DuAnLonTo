@@ -29,9 +29,14 @@ public class TicketItemController extends Controller {
     @FXML
     private Label lblTime;
 
+    private String ticketCode;
+
     @FXML
     void onDetailClick(ActionEvent event) {
+            TicketDetailController controller=(TicketDetailController) mainController.getController("ticketDetail");
 
+            mainController.showPage(mainController.getPage("ticketDetail"));
+            controller.getData(ticketCode);
     }
 
     public void setData(TicketDTO ticket)
@@ -50,6 +55,7 @@ public class TicketItemController extends Controller {
         DateTimeFormatter monthYearFormatter = DateTimeFormatter.ofPattern("MM/yyyy");
         DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
 
+        ticketCode = ticket.getTicketCode();
         lblDay.setText(ticket.getStartTime().format(dayFormatter));
         lblMonthYear.setText(ticket.getStartTime().format(monthYearFormatter));
         lblTime.setText(ticket.getStartTime().format(timeFormatter));
@@ -60,8 +66,7 @@ public class TicketItemController extends Controller {
 
     @Override
     public void OnShowing() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'OnShowing'");
+       
     }
 
     @Override

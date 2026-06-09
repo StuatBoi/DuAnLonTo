@@ -105,8 +105,7 @@ public class DetailController extends Controller{
                 }
                 if(!mainController.IsLoggedIn())
                 {
-                    //xử lí khi chưa đăng nhập
-                    new Alert(Alert.AlertType.INFORMATION,"Vui lòng đăng nhập để đặt vé!").showAndWait();
+                    CineverseAlert.showToast("Vui lòng đăng nhập để đặt vé", btnBookTicket);
                     return;
                 }
                 ShowTime showTime= (ShowTime)button.getUserData();

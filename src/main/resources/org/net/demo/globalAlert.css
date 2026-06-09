@@ -1,0 +1,58 @@
+/* --- globalAlert.css --- */
+
+/* Khung nền thông báo */
+.custom-alert-box {
+    -fx-background-color: #1a1a1a;
+    -fx-border-color: #333333;
+    -fx-border-width: 1px;
+    -fx-background-radius: 10px;
+    -fx-border-radius: 10px;
+    -fx-effect: dropshadow(three-pass-box, rgba(229, 9, 20, 0.3), 15, 0, 0, 0);
+}
+
+/* Tiêu đề thông báo */
+.alert-title {
+    -fx-font-family: "Segoe UI", Arial, sans-serif;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #E50914; /* Đỏ Cineverse */
+}
+
+/* Nội dung thông báo */
+.alert-message {
+    -fx-font-family: "Segoe UI", Arial, sans-serif;
+    -fx-font-size: 14px;
+    -fx-text-fill: #FFFFFF; /* Chữ trắng */
+    -fx-text-alignment: center;
+}
+
+/* Nút bấm ĐỒNG Ý */
+.btn-alert-ok {
+    -fx-background-color: #E50914;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 4px;
+    -fx-cursor: hand;
+    -fx-padding: 8px 24px;
+}
+
+.btn-alert-ok:hover { 
+    -fx-background-color: #B20710; 
+}
+/* --- TOAST NOTIFICATION (TỰ ĐỘNG BIẾN MẤT) --- */
+.custom-toast-box {
+    -fx-background-color: #1a1a1a;
+    -fx-border-color: #333333;
+    -fx-border-width: 1px;
+    -fx-background-radius: 8px;
+    -fx-border-radius: 8px;
+    /* Đổ bóng đỏ neon tinh tế */
+    -fx-effect: dropshadow(three-pass-box, rgba(229, 9, 20, 0.4), 15, 0, 0, 0);
+}
+
+.toast-message {
+    -fx-font-family: "Segoe UI", Arial, sans-serif;
+    -fx-font-size: 14px;
+    -fx-text-fill: #FFFFFF; /* Chữ trắng */
+    -fx-font-weight: bold;
+}
