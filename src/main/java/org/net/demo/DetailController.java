@@ -86,11 +86,10 @@ public class DetailController extends Controller{
 
     @Override
     public void OnAttached() {
-        // TODO Auto-generated method stub
-        Parent lastPage= mainController.getPage("homeView");
+        
          btnBack.setOnAction(event->
             {
-                mainController.showPage(lastPage);
+                mainController.showPage(mainController.getLastPage());
             }
         );
         btnBookTicket.setOnAction(event->

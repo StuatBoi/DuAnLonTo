@@ -21,8 +21,8 @@ import javafx.scene.layout.VBox;
 
 public class SearchController extends Controller{
 
-    private String currentKey;
-    private int currentPage=1;
+    private String currentKey="";
+    private int currentPage=0;
     private int lastPage;
 
    @FXML
@@ -51,6 +51,7 @@ public class SearchController extends Controller{
 
     @FXML
     void handleFirstPage(ActionEvent event) {
+        clearPage();
         GotoPage(currentKey, 0);
     }
 
@@ -64,12 +65,13 @@ void handleJumpPage(ActionEvent event) {
     
     try {
         int targetPage = Integer.parseInt(value)-1;
-        if (targetPage < 1 || targetPage > lastPage) {
-            CineverseAlert.showToast("Số trang hợp lệ là từ 1 đến " + lastPage+1, txtJumpPage);
+        if (targetPage < 0 || targetPage > lastPage) {
+            CineverseAlert.showToast("Số trang hợp lệ là từ 1 đến " + (lastPage+1), txtJumpPage);
             return;
         }
     
         currentPage = targetPage;
+        clearPage();
         
         GotoPage(currentKey, targetPage);
         
@@ -80,6 +82,7 @@ void handleJumpPage(ActionEvent event) {
 
     @FXML
     void handleLastPage(ActionEvent event) {
+        clearPage();
         GotoPage(currentKey, lastPage);
     }
 
@@ -87,7 +90,12 @@ void handleJumpPage(ActionEvent event) {
     void handleNextPage(ActionEvent event) {
        if(currentPage+1<=lastPage)
        {
+        clearPage();
            GotoPage(currentKey,currentPage+1);
+       }
+       else 
+       {
+        CineverseAlert.showToast("Bạn đã đến trang cuối", btnFirstPage);
        }
     }
 
@@ -95,12 +103,17 @@ void handleJumpPage(ActionEvent event) {
     void handlePrevPage(ActionEvent event) {
        if(currentPage-1>=0)
        {
+        clearPage();
         GotoPage(currentKey, currentPage-1);
+       }
+       else{
+        CineverseAlert.showToast("Bạn đang ở trang đầu", btnFirstPage);
        }
     }
     @Override
     public void OnShowing() {
-        
+        clearPage();
+        GotoPage(mainController.getSearchField().getText(),0);
     }
 
     @Override
@@ -111,7 +124,6 @@ void handleJumpPage(ActionEvent event) {
     @Override
     public void OnAttached() {
         VBox searchView= (VBox)mainController.getPage("searchView");
-        StackPane page= mainController.getPageContainer();
 
 
         searchView.setMaxHeight(Double.MAX_VALUE);
@@ -144,7 +156,7 @@ void handleJumpPage(ActionEvent event) {
                 Gson gson= new Gson();
                 PageResponse<Movie> mPageResponse= gson.fromJson(response.body(), pageResponseType);
                 loadMoviesCard(mPageResponse.getContent());
-                setPageNavData(0, mPageResponse.getTotalPages()-1);
+                setPageNavData(0, mPageResponse.getTotalPages());
             }
         );
     }
@@ -216,6 +228,11 @@ void handleJumpPage(ActionEvent event) {
     {
         Platform.runLater(()->
         txtJumpPage.setText(value));
+    }
+
+    public void clearPage()
+    {
+        movieGridContainer.getChildren().clear();
     }
     
 
