@@ -1,0 +1,139 @@
+/* Container tổng của toàn bộ trang tìm kiếm */
+.search-page-container {
+    -fx-background-color: #0d0d0d; /* Trùng tông nền đen sẫm của web Cineverse */
+}
+
+/* Phần Header */
+.search-header {
+    -fx-padding: 0 0 20px 0;
+}
+
+.search-title {
+    -fx-font-family: "Segoe UI", Arial, sans-serif;
+    -fx-font-size: 22px;
+    -fx-font-weight: 900;
+    -fx-text-fill: #FFFFFF;
+    -fx-letter-spacing: 0.5px;
+}
+
+.search-status-text {
+    -fx-font-family: "Segoe UI", Arial, sans-serif;
+    -fx-font-size: 13px;
+    -fx-text-fill: #777777; /* Màu xám trầm meta */
+}
+
+/* Tùy chỉnh ScrollPane để ẩn border thô của JavaFX */
+.search-scroll-pane {
+    -fx-background: transparent;
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-viewport-background-color: transparent;
+}
+
+/* Vùng lưới chứa các Movie Card */
+.movie-grid {
+    -fx-background-color: transparent;
+    -fx-padding: 10px 0 20px 0;
+}
+
+/* --- THANH PHÂN TRANG (PAGINATION) --- */
+.pagination-bar {
+    -fx-border-color: #222222 transparent transparent transparent; /* Đường viền mỏng phía trên phân cách */
+    -fx-border-width: 1px;
+}
+
+/* Style chung cho nút di chuyển trang (<< , < , > , >>) */
+.btn-page-nav {
+    -fx-background-color: #1a1a1a;
+    -fx-text-fill: #999999;
+    -fx-font-weight: bold;
+    -fx-font-size: 13px;
+    -fx-background-radius: 4px;
+    -fx-border-color: #333333;
+    -fx-border-width: 1px;
+    -fx-border-radius: 4px;
+    -fx-cursor: hand;
+    -fx-min-width: 40px;
+    -fx-min-height: 35px;
+}
+
+.btn-page-nav:hover {
+    -fx-background-color: #262626;
+    -fx-text-fill: #FFFFFF;
+    -fx-border-color: #444444;
+}
+
+/* Style cho các nút bấm số trang (1, 2, 3...) được tạo từ Code */
+.btn-page-number {
+    -fx-background-color: #121212;
+    -fx-text-fill: #E0E0E0;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 4px;
+    -fx-cursor: hand;
+    -fx-min-width: 35px;
+    -fx-min-height: 35px;
+}
+
+.btn-page-number:hover {
+    -fx-background-color: #222222;
+    -fx-text-fill: #FFFFFF;
+}
+
+/* Style khi một trang đang được chọn (Active) - Bật tông đỏ Cineverse rực rỡ */
+.btn-page-number-active {
+    -fx-background-color: #E50914;
+    -fx-text-fill: #FFFFFF;
+    -fx-font-weight: bold;
+    -fx-background-radius: 4px;
+    -fx-effect: dropshadow(three-pass-box, rgba(229, 9, 20, 0.4), 10, 0, 0, 0);
+}
+/* --- BỔ SUNG CHO THANH PHÂN TRANG NÂNG CẤP --- */
+
+/* Label hiển thị vị trí trang (Trang 1 / 10) */
+.page-indicator-text {
+    -fx-font-family: "Segoe UI", Arial, sans-serif;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #FFFFFF; /* Chữ trắng nổi bật */
+    -fx-padding: 0 10px;
+}
+
+/* Khung chức năng nhảy trang */
+.jump-page-container {
+    -fx-border-color: transparent transparent transparent #333333; /* Vạch chia dọc nhỏ ngăn cách */
+    -fx-border-width: 1px;
+    -fx-padding: 0 0 0 20px;
+}
+
+/* Ô gõ số trang */
+.input-jump-page {
+    -fx-background-color: #1a1a1a;
+    -fx-text-fill: #FFFFFF;
+    -fx-border-color: #333333;
+    -fx-border-width: 1px;
+    -fx-border-radius: 4px;
+    -fx-background-radius: 4px;
+    -fx-alignment: center; /* Căn giữa chữ số gõ vào */
+    -fx-font-weight: bold;
+}
+/* Đổi màu viền sang đỏ khi người dùng click vào ô gõ số trang */
+.input-jump-page:focused {
+    -fx-border-color: #E50914;
+    -fx-background-color: #222222;
+}
+
+/* Nút "ĐI" vuông vức, nam tính theo style Cineverse */
+.btn-jump-go {
+    -fx-background-color: #E50914;
+    -fx-text-fill: #FFFFFF;
+    -fx-font-weight: bold;
+    -fx-font-size: 12px;
+    -fx-background-radius: 4px;
+    -fx-cursor: hand;
+    -fx-min-height: 32px;
+    -fx-padding: 0 12px;
+}
+.btn-jump-go:hover {
+    -fx-background-color: #B20710;
+}

@@ -44,7 +44,7 @@
             <Region VBox.vgrow="ALWAYS" />
 
             <VBox fillWidth="true" spacing="10">
-                <Button maxWidth="1.7976931348623157E308" styleClass="btn-primary" text="Cập Nhật Thông Tin" />
+                <Button fx:id="btnTicketView" maxWidth="1.7976931348623157E308" styleClass="btn-primary" text="Xem vé" />
                 <Button maxWidth="1.7976931348623157E308" styleClass="btn-outline" text="Đổi Mật Khẩu" />
                 <Button maxWidth="1.7976931348623157E308" styleClass="btn-danger" text="Đăng Xuất" />
             </VBox>

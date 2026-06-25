@@ -24,4 +24,5 @@ public class TicketDTO {
     public Double getPrice() { return price; }
     public LocalDateTime getBookingTime() { return bookingTime; }
 
+
 }

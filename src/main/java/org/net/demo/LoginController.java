@@ -11,8 +11,6 @@ import com.google.gson.Gson;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.PasswordField;
@@ -24,6 +22,7 @@ public class LoginController extends Controller{
 
      
 
+    
     @FXML
     private VBox Pages;
 
@@ -34,13 +33,13 @@ public class LoginController extends Controller{
     private Button btnRegister;
 
     @FXML
-    private TextField emailField;
-
-    @FXML
     private Hyperlink linkLogin;
 
     @FXML
     private Hyperlink linkRegister;
+
+    @FXML
+    private TextField logInNameField;
 
     @FXML
     private VBox loginContainer;
@@ -70,48 +69,37 @@ public class LoginController extends Controller{
     {
         linkLogin.setOnAction(event->
             {
-                for(Node node : Pages.getChildren())
-                {
-                    node.setVisible(false);
-                    node.setManaged(false);
-                }
-                loginContainer.toFront();
-                loginContainer.setVisible(true);
-                loginContainer.setManaged(true);
+                showLoginView();
             }
         );
 
         linkRegister.setOnAction(event->
             {
-                for(Node node : Pages.getChildren())
-                {
-                    node.setVisible(false);
-                    node.setManaged(false);
-                }
-                registerContainer.toFront();
-                for(Node node : Pages.getChildren())
-                {
-                    node.setVisible(false);
-                    node.setManaged(false);
-                }
-                registerContainer.toFront();
-                registerContainer.setVisible(true);
-                registerContainer.setManaged(true);
+                showRegisterView();
             }
         );
         btnLogin.setOnAction(event->
             {
-                String email=emailField.getText();
+                String name=logInNameField.getText();
                 String password=passwordField.getText();
-                LoginRequest loginRequest=new LoginRequest(email,password);
+                LoginRequest loginRequest=new LoginRequest(name,password);
                 Gson gson= new Gson();
                 String jsonString=gson.toJson(loginRequest);
 
-                HTTPService.sendRequestAsync("POST", "/api/auth/login", null,jsonString,null).thenAccept(response->{
-                    System.out.println("Dăng nhập thành công : "+response);
-                    Map<String,String> tokenMap = gson.fromJson(response, Map.class);
+                HTTPService.sendFullRequestAsync("POST", "/api/auth/login", null,jsonString,null).thenAccept(response->{
+                    if(response.statusCode()!=200)
+                    {
+                        Platform.runLater(()->{
+                            CineverseAlert.showToast("Đăng nhập thất bại hãy kiểm tra lại tên tài khoản và mật khẩu", btnLogin);
+                        });
+                        return;
+                    }
+                    Map<String,String> tokenMap = gson.fromJson(response.body(), Map.class);
                     String token=tokenMap.get("token");
-                    Platform.runLater(()->mainController.logIn(token));
+                    Platform.runLater(()->{mainController.logIn(token);
+                     CineverseAlert.showToast("Đăng nhập thành công", btnLogin);
+                    });
+                    
                     
                 });
                 
@@ -120,23 +108,27 @@ public class LoginController extends Controller{
         btnRegister.setOnAction(event->{
             if(!regPasswordField.getText().equals(regConfirmPasswordField.getText()))
             {
-                new Alert(Alert.AlertType.ERROR, "Password and Confirm Password do not match!").show();
+                CineverseAlert.showToast("Mật khẩu xác nhận không khớp!", btnRegister);
                 return;
             }
-           RegisterRequest registerRequest=new RegisterRequest(regEmailField.getText(),regNameField.getText(),regPasswordField.getText());
+           RegisterRequest registerRequest=new RegisterRequest(regNameField.getText(),regPasswordField.getText(),regEmailField.getText());
               Gson gson= new Gson();
                 String jsonString=gson.toJson(registerRequest);
-                HTTPService.sendRequestAsync("POST", "/api/auth/Register", null,jsonString,null).thenAccept(response->{
-                    System.out.println("Đăng ký thành công");
-                    new Alert(Alert.AlertType.INFORMATION, "Registration successful! Please log in.").show();
-                    for(Node node : Pages.getChildren())
-                {
-                    node.setVisible(false);
-                    node.setManaged(false);
-                }
-                loginContainer.toFront();
-                loginContainer.setVisible(true);
-                loginContainer.setManaged(true);
+                HTTPService.sendFullRequestAsync("POST", "/api/auth/register", null,jsonString,null).thenAccept(response->{
+                    if(response.statusCode()!=200)
+                    {
+                        Platform.runLater(()->{
+                            CineverseAlert.showToast("Đăng ký thất bại! Vui lòng thử lại.", btnRegister);
+                        });
+                        return;
+                    }
+                    
+                    Platform.runLater(()->{
+                        showLoginView();
+                        CineverseAlert.showToast("Đăng ký thành công! Vui lòng đăng nhập để tiếp tục.", btnRegister);
+
+                    });
+                    
                     
                 });
         });
@@ -165,6 +157,27 @@ public class LoginController extends Controller{
     @Override
     public void OnLogout() {
         
+    }
+
+    public void showLoginView() {
+        for(Node node : Pages.getChildren())
+        {
+            node.setVisible(false);
+            node.setManaged(false);
+        }
+        loginContainer.toFront();
+        loginContainer.setVisible(true);
+        loginContainer.setManaged(true);
+    }
+    public void showRegisterView() {
+        for(Node node : Pages.getChildren())
+        {
+            node.setVisible(false);
+            node.setManaged(false);
+        }
+        registerContainer.toFront();
+        registerContainer.setVisible(true);
+        registerContainer.setManaged(true);
     }
 
 }

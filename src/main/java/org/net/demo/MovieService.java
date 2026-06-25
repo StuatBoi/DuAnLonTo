@@ -6,19 +6,24 @@ import com.google.gson.reflect.TypeToken;
 import javafx.application.Platform;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Map;
 
 public class MovieService {
 
     public static ArrayList<Movie> movies = new ArrayList<>();
-    private static String endpoint="/api/feature/getMovies";
+    private static String endpoint="/api/feature/getMoviesWithPage";
 
     public static void loadMovies(Runnable callback) {
-    HTTPService.sendRequestAsync("GET", endpoint,null, null, null).thenAccept(response -> {
-        ArrayList<Movie> savedMovies = parseJsonToMovieList(response);
+        Map<String,Object> param= Map.of("page",0);
+    HTTPService.sendFullRequestAsync("GET", endpoint,param, null,null).thenAccept(response -> {
+        Gson gson= new Gson();
+        Type pageResponseType = new TypeToken<PageResponse<Movie>>(){}.getType();
+        PageResponse<Movie> mPageResponse= gson.fromJson(response.body(), pageResponseType);
+        
         
         Platform.runLater(() -> {
             movies.clear();
-            movies.addAll(savedMovies);
+            movies.addAll(mPageResponse.getContent());
             
             // Tải xong rồi mới báo cho Controller biết
             if (callback != null) {
@@ -27,17 +32,6 @@ public class MovieService {
         });
     });
 }
-       private static ArrayList<Movie> parseJsonToMovieList(String json) {
-        try {
-            // Định nghĩa kiểu dữ liệu là ArrayList<Movie> để Gson hiểu
-            Type movieListType = new TypeToken<ArrayList<Movie>>(){}.getType();
-            Gson gson=new Gson();
-            return gson.fromJson(json, movieListType);
-        } catch (Exception e) {
-            System.err.println("Lỗi parse JSON bằng Gson: " + e.getMessage());
-            return new ArrayList<>();
-        }
-    }
-
+      
    
 }

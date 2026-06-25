@@ -13,7 +13,6 @@ import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.Image;
@@ -87,11 +86,10 @@ public class DetailController extends Controller{
 
     @Override
     public void OnAttached() {
-        // TODO Auto-generated method stub
-        Parent lastPage= mainController.getPage("homeView");
+        
          btnBack.setOnAction(event->
             {
-                mainController.showPage(lastPage);
+                mainController.showPage(mainController.getLastPage());
             }
         );
         btnBookTicket.setOnAction(event->
@@ -106,8 +104,7 @@ public class DetailController extends Controller{
                 }
                 if(!mainController.IsLoggedIn())
                 {
-                    //xử lí khi chưa đăng nhập
-                    new Alert(Alert.AlertType.INFORMATION,"Vui lòng đăng nhập để đặt vé!").showAndWait();
+                    CineverseAlert.showToast("Vui lòng đăng nhập để đặt vé", btnBookTicket);
                     return;
                 }
                 ShowTime showTime= (ShowTime)button.getUserData();

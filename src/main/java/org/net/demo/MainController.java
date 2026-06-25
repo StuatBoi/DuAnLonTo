@@ -1,7 +1,6 @@
 package org.net.demo;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
@@ -9,11 +8,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.control.Label;
 
 import java.io.IOException;
-import java.net.URL;
 import java.util.HashMap;
-import java.util.ResourceBundle;
-import javafx.scene.control.Hyperlink;
-
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -64,6 +59,9 @@ public class MainController{
         AttachPage("LoginView_cuaDang.fxml");
         AttachPage("DetailView.fxml");
         AttachPage("SeatView.fxml");
+        AttachPage("TicketView.fxml");
+        AttachPage("TicketDetail.fxml");
+        AttachPage("SearchView.fxml");
 
         System.out.print("attaching finished");
 
@@ -93,7 +91,7 @@ public class MainController{
             {
                 if(!IsLoggedIn())
                 {
-                    new Alert(Alert.AlertType.INFORMATION,"Vui lòng đăng nhập để xem thông tin tài khoản!").showAndWait();
+                    CineverseAlert.showToast("Vui lòng đăng nhập để truy cập trang tài khoản", navAccount);
                     return;
                 }
                 showPage(getPage("accountView"));
@@ -108,6 +106,13 @@ public class MainController{
                 setActiveAccountButton(false);
             }
         );
+        searchField.setOnKeyPressed(event->{
+            if(event.getCode().equals(KeyCode.ENTER))
+            {
+                SearchController searchController = (SearchController)getController("searchView");
+                searchController.Search(searchField.getText());
+            }
+        });
 
         //
         showDefaultPage(getPage("homeView"));
@@ -153,6 +158,8 @@ public class MainController{
             System.err.println("null page");
             return;
         }
+        setActiveAccountButton(false);
+        setActiveHomeButton(false);
         for(Node node : page.getChildren())
     {
       node.setVisible(false);
@@ -300,8 +307,17 @@ public void logOut()
                 setActiveHomeButton(false);
         }
     );
+    CineverseAlert.showToast("Đã đăng xuất !", btnLogin);
 }
 
+public StackPane getPageContainer()
+{
+    return page;
+}
+public TextField getSearchField()
+{
+    return searchField;
+}
 
 
     }
