@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox id="ticketView" spacing="20" styleClass="section" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.net.demo.TicketsListController">
+    <padding>
+        <Insets bottom="40" left="60" right="60" top="40" />
+    </padding>
+    <children>
+        
+        <HBox alignment="CENTER_LEFT" spacing="15">
+            <children>
+                <Button onAction="#onBackClick" style="-fx-cursor: hand;" styleClass="btn-outline" text="← Quay lại" />
+                <VBox spacing="2">
+                    <children>
+                        <Label styleClass="account-title" text="VÉ CỦA BẠN" />
+                        <Label styleClass="hero-subtitle" text="Danh sách các vé phim bạn đã đặt thành công tại Cineverse." />
+                    </children>
+                </VBox>
+            </children>
+        </HBox>
+   
+        <ScrollPane fitToWidth="true" styleClass="scroll-pane-transparent" VBox.vgrow="ALWAYS">
+            <content>
+                <FlowPane fx:id="ticketsContainer" hgap="20" prefWrapLength="900" vgap="20" />
+            </content>
+        </ScrollPane>
+
+        <HBox alignment="CENTER" spacing="20" styleClass="pagination-bar">
+            <padding>
+                <Insets top="20"/>
+            </padding>
+            <children>
+                <HBox spacing="8" alignment="CENTER">
+                    <children>
+                        <Button fx:id="btnFirstPage" text="&lt;&lt;" styleClass="btn-page-nav" onAction="#handleFirstPage"/>
+                        <Button fx:id="btnPrevPage" text="&lt;" styleClass="btn-page-nav" onAction="#handlePrevPage"/>
+                        <Label fx:id="lblPageIndicator" text="Trang 1 / 1" styleClass="page-indicator-text"/>
+                        <Button fx:id="btnNextPage" text="&gt;" styleClass="btn-page-nav" onAction="#handleNextPage"/>
+                        <Button fx:id="btnLastPage" text="&gt;&gt;" styleClass="btn-page-nav" onAction="#handleLastPage"/>
+                    </children>
+                </HBox>
+
+                <HBox spacing="8" alignment="CENTER" styleClass="jump-page-container">
+                    <children>
+                        <Label text="Đến trang:" styleClass="search-status-text"/>
+                        <TextField fx:id="txtJumpPage" prefWidth="50" styleClass="input-jump-page" promptText="1"/>
+                        <Button text="ĐI" styleClass="btn-jump-go" onAction="#handleJumpPage"/>
+                    </children>
+                </HBox>
+            </children>
+        </HBox>
+
+    </children>
+</VBox>

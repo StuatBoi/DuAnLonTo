@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox id="ticketDetail" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="380" prefWidth="380" spacing="20" styleClass="ticket-detail-modal" stylesheets="@ticketView.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.net.demo.TicketDetailController">
+
+    <padding>
+        <Insets bottom="30" left="25" right="25" top="30" />
+    </padding>
+
+    <Label styleClass="detail-header-title" text="CINEVERSE TICKET" />
+
+    <VBox alignment="CENTER" maxHeight="200" maxWidth="200" styleClass="qr-container">
+        <ImageView fx:id="imgQRCode" fitHeight="180" fitWidth="180" preserveRatio="true" smooth="false" />
+    </VBox>
+    <Label fx:id="lblTicketCode" styleClass="ticket-code-text" text="CODE: UUID-XXXX-XXXX" />
+
+    <HBox alignment="CENTER" spacing="5" styleClass="ticket-divider">
+        <Region styleClass="divider-line" HBox.hgrow="ALWAYS" />
+    </HBox>
+
+    <VBox fillWidth="true" spacing="15" styleClass="detail-info-box">
+        <VBox spacing="4">
+            <Label styleClass="ticket-meta-label" text="PHIM" />
+            <Label fx:id="lblMovieTitle" styleClass="detail-movie-title" text="Tên bộ phim" wrapText="true" />
+        </VBox>
+
+        <HBox spacing="20">
+            <VBox styleClass="info-column" HBox.hgrow="ALWAYS">
+                <Label styleClass="ticket-meta-label" text="NGÀY CHIẾU" />
+                <Label fx:id="lblDate" styleClass="detail-text" text="01/01/2026" />
+            </VBox>
+            <VBox styleClass="info-column" HBox.hgrow="ALWAYS">
+                <Label styleClass="ticket-meta-label" text="SUẤT CHIẾU" />
+                <Label fx:id="lblTime" styleClass="detail-text" text="20:00" />
+            </VBox>
+        </HBox>
+
+        <HBox spacing="20">
+            <VBox styleClass="info-column" HBox.hgrow="ALWAYS">
+                <Label styleClass="ticket-meta-label" text="PHÒNG CHIẾU" />
+                <Label fx:id="lblRoom" styleClass="detail-text" text="Phòng 1" />
+            </VBox>
+            <VBox styleClass="info-column" HBox.hgrow="ALWAYS">
+                <Label styleClass="ticket-meta-label" text="VỊ TRÍ GHẾ" />
+                <Label fx:id="lblSeats" styleClass="detail-text" text="G09 (VIP)" />
+            </VBox>
+        </HBox>
+
+        <!-- 👇 THÊM TRẠNG THÁI VÉ -->
+        <VBox spacing="4">
+            <Label styleClass="ticket-meta-label" text="TRẠNG THÁI VÉ" />
+            <Label fx:id="lblStatus" styleClass="ticket-status-pending" text="⏳ Chưa xác thực" />
+        </VBox>
+
+        <VBox spacing="4">
+            <Label styleClass="ticket-meta-label" text="KHÁCH HÀNG" />
+            <Label fx:id="lblCustomer" styleClass="detail-text" text="Nguyễn Văn A" />
+        </VBox>
+
+        <Region styleClass="horizontal-line" />
+
+        <HBox alignment="CENTER_LEFT">
+            <Label styleClass="ticket-total-label" text="TỔNG TIỀN" />
+            <Region HBox.hgrow="ALWAYS" />
+            <Label fx:id="lblPrice" styleClass="detail-price" text="120.000đ" />
+        </HBox>
+    </VBox>
+
+    <Button fx:id="btnClose" onAction="#onCloseClick" prefWidth="140" styleClass="btn-danger" text="ĐÓNG" />
+</VBox>
