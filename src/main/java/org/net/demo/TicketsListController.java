@@ -10,8 +10,11 @@ import javafx.scene.layout.FlowPane;
 
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
 import org.net.demo.DTO.TicketDTO;
+import org.net.demo.Service.LoadingOverlayManager;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -21,7 +24,7 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import java.lang.reflect.Type;
 
-public class TicketsListController extends Controller {
+public class TicketsListController extends BaseController {
  
     private int currentPage=0;
     private int totalPage=0;
@@ -154,6 +157,8 @@ public class TicketsListController extends Controller {
 
     public void goToPage(Integer page)
     {
+        ticketsContainer.getChildren().clear();
+        LoadingOverlayManager.start(btnFirstPage);
         Map<String,Object> params= Map.of("page",page);
         HTTPService.sendFullRequestAsync("GET", "/api/Ticket/getUsersTicketPage", params, null, mainController.getToken())
         .thenAccept(response->
@@ -176,9 +181,28 @@ public class TicketsListController extends Controller {
              else{
                 CineverseAlert.showToast("Không thể lấy thông tin vé "+ response.statusCode(), btnFirstPage);
              }
+             Platform.runLater(()->
+            {
+                LoadingOverlayManager.stop();
+            });
              
             }
-        );
+        )
+        .orTimeout(10,TimeUnit.SECONDS)
+     .exceptionallyAsync(ex->
+        { 
+            if (ex.getCause() instanceof TimeoutException) {
+            System.err.println("Lỗi: Server không phản hồi trong vòng 10 giây!");
+            Platform.runLater(() -> CineverseAlert.showToast("Kết nối server thất bại (Timeout)", btnFirstPage));
+        } else {
+            System.err.println("Lỗi hệ thống khác: " + ex.getMessage());
+            Platform.runLater(() -> CineverseAlert.showToast("Kết nối server thất bại (No Connection)", btnFirstPage));
+            LoadingOverlayManager.stop();
+        }
+        LoadingOverlayManager.stop();
+        return null;
+    }
+     );
     }
 
     public void setPageNavData(int currentPage,int totalPage)
@@ -191,6 +215,11 @@ public class TicketsListController extends Controller {
     public void clearPage()
     {
         ticketsContainer.getChildren().clear();
+    }
+
+    @Override
+    public void OnExit() {
+        
     }
     
 }

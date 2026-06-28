@@ -1,9 +1,12 @@
 package org.net.demo;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
+import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.VBox;
 import javafx.scene.control.Label;
 
@@ -12,9 +15,12 @@ import java.util.HashMap;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
 
 public class MainController{
+
+
 
      @FXML
     private Button btnLogin;
@@ -40,7 +46,7 @@ public class MainController{
     private Parent lastPage;
 
 
-    private HashMap<String, Controller> Controllers= new HashMap<String,Controller>();
+    private HashMap<String, BaseController> Controllers= new HashMap<String,BaseController>();
 
     private HashMap<String,Parent> Pages =new HashMap<String,Parent>();
 
@@ -62,6 +68,7 @@ public class MainController{
         AttachPage("TicketView.fxml");
         AttachPage("TicketDetail.fxml");
         AttachPage("SearchView.fxml");
+        AttachPage("PaymentView.fxml");
 
         System.out.print("attaching finished");
 
@@ -70,6 +77,8 @@ public class MainController{
         {
             e.printStackTrace();
         }
+        
+        
         
         //gán chức năng cho nút
         btnLogin.setOnAction(event -> 
@@ -115,7 +124,8 @@ public class MainController{
         });
 
         //
-        showDefaultPage(getPage("homeView"));
+        CurrentPage=getPage("homeView");
+        showDefaultPage(CurrentPage);
 
 
         //hàm để bật trang bằng phím D vì chưa có phim card của Hoàng Anh
@@ -133,6 +143,8 @@ public class MainController{
             }
         );
 
+        setHotKey();
+
     }
 
     public void AttachPage  (String fxmlpath) throws IOException
@@ -142,7 +154,7 @@ public class MainController{
         page.getChildren().add(node);
         node.setVisible(false);
         node.setManaged(false);
-        Controller controller = loader.getController();
+        BaseController controller = loader.getController();
         Controllers.put(node.getId(),controller);
         Pages.put(node.getId(),node);
         controller.getMainController(this);
@@ -169,15 +181,16 @@ public class MainController{
         Npage.toFront();
         Npage.setVisible(true);
         Npage.setManaged(true);
-        Controller controller = Controllers.get(Npage.getId());
+        BaseController controller = Controllers.get(Npage.getId());
         System.out.println(Npage.isVisible());
         if(controller != null) {
             controller.OnShowing();
         }
         System.out.print(Npage.getId());
-        controller.OnShowing();
+        getController(CurrentPage.getId()).OnExit();
         lastPage=CurrentPage;
         CurrentPage=Npage;
+        
     }
 
 
@@ -234,7 +247,7 @@ public class MainController{
      else return null;
     }
 
-    public Controller getController(String pageID)
+    public BaseController getController(String pageID)
     {
      if(Controllers.containsKey(pageID))
      {
@@ -277,7 +290,7 @@ public void logIn(String token)
 {
     setToken(token);
      setIsLoggedIn(true);
-     for(Controller controller : Controllers.values())
+     for(BaseController controller : Controllers.values())
     {
         controller.OnLogin();
     }
@@ -294,7 +307,7 @@ public void logOut()
 {
  setToken(null);
  setIsLoggedIn(false);
- for(Controller controller : Controllers.values())
+ for(BaseController controller : Controllers.values())
     {
         controller.OnLogout();
     }
@@ -317,6 +330,28 @@ public StackPane getPageContainer()
 public TextField getSearchField()
 {
     return searchField;
+}
+public void setHotKey()
+{
+Platform.runLater(() -> {
+        Scene scene = getPage("homeView").getScene();
+        if (scene != null) {
+            
+            // 1. Định nghĩa phím tắt (Ví dụ: phím F5)
+            KeyCombination refreshKey = new KeyCodeCombination(KeyCode.F5);
+            
+            // 2. Đăng ký Accelerator cho Scene
+            scene.getAccelerators().put(refreshKey, () -> {
+                // 3. Gọi hàm bạn muốn thực thi tại đây
+                System.out.println("Phím F5 được bấm toàn cục!");
+                if(CurrentPage!=null)
+                {
+                    getController(CurrentPage.getId()).Refresh();
+                }
+            });
+            
+        }
+    });
 }
 
 

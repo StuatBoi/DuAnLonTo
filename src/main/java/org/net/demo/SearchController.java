@@ -3,6 +3,10 @@ package org.net.demo;
 import java.lang.reflect.Type;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
+
+import org.net.demo.Service.LoadingOverlayManager;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -16,10 +20,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
-public class SearchController extends Controller{
+public class SearchController extends BaseController{
 
     private String currentKey="";
     private int currentPage=0;
@@ -118,7 +121,8 @@ void handleJumpPage(ActionEvent event) {
 
     @Override
     public void Refresh() {
-        
+        clearPage();
+        GotoPage(currentKey, currentPage);
     }
 
     @Override
@@ -144,7 +148,7 @@ void handleJumpPage(ActionEvent event) {
     public void Search(String key)
     {
         currentKey=key;
-        Map<String,Object> params=Map.of("page",0,"key",key);
+        Map<String,Object> params=Map.of("page",0,"size",14,"key",key);
         HTTPService.sendFullRequestAsync("GET", "/api/feature/getSearchResultWithPage", params, null, null).thenAccept(
             response->
             {
@@ -158,7 +162,22 @@ void handleJumpPage(ActionEvent event) {
                 loadMoviesCard(mPageResponse.getContent());
                 setPageNavData(0, mPageResponse.getTotalPages());
             }
-        );
+        )
+        .orTimeout(10,TimeUnit.SECONDS)
+     .exceptionallyAsync(ex->
+        { 
+            if (ex.getCause() instanceof TimeoutException) {
+            System.err.println("Lỗi: Server không phản hồi trong vòng 10 giây!");
+            Platform.runLater(() -> CineverseAlert.showToast("Kết nối server thất bại (Timeout)", btnFirstPage));
+        } else {
+            System.err.println("Lỗi hệ thống khác: " + ex.getMessage());
+            Platform.runLater(() -> CineverseAlert.showToast("Kết nối server thất bại (No Connection)", btnFirstPage));
+            
+        }
+        LoadingOverlayManager.stop();
+        return null;
+    }
+     );
     }
 
     private void loadMoviesCard(List<Movie> movies)
@@ -200,22 +219,46 @@ void handleJumpPage(ActionEvent event) {
 
     public void GotoPage(String key,Integer page)
     {
-        Map<String,Object> params=Map.of("page",page,"key",key);
-        HTTPService.sendFullRequestAsync("GET", "/api/feature/getSearchResultWithPage", params, null, null).thenAccept(
+        LoadingOverlayManager.start(btnFirstPage);
+        Map<String,Object> params=Map.of("page",page,"size",14,"key",key);
+        HTTPService.sendFullRequestAsync("GET", "/api/feature/getSearchResultWithPage", params, null, null).thenAcceptAsync(
             response->
             {
                 if(response.statusCode()!=200)
                 {
+                    Platform.runLater(()->{
                     CineverseAlert.showToast("Có lỗi trong quá trình lấy dữ liệu", btnFirstPage);
+                    LoadingOverlayManager.stop();
+                    });
+                    return;
                 }
                 Type pageResponseType = new TypeToken<PageResponse<Movie>>(){}.getType();
                 Gson gson= new Gson();
                 PageResponse<Movie> mPageResponse= gson.fromJson(response.body(), pageResponseType);
                 loadMoviesCard(mPageResponse.getContent());
                 setPageNavData(page, mPageResponse.getTotalPages());
+                Platform.runLater(()->{
+                LoadingOverlayManager.stop();}
+                );
+                
                 
             }
-        );
+            
+        )
+        .orTimeout(10,TimeUnit.SECONDS)
+     .exceptionallyAsync(ex->
+        { 
+            if (ex.getCause() instanceof TimeoutException) {
+            System.err.println("Lỗi: Server không phản hồi trong vòng 10 giây!");
+            Platform.runLater(() -> CineverseAlert.showToast("Kết nối server thất bại (Timeout)", btnFirstPage));
+        } else {
+            System.err.println("Lỗi hệ thống khác: " + ex.getMessage());
+            Platform.runLater(() -> CineverseAlert.showToast("Kết nối server thất bại (No Connection)", btnFirstPage));
+        }
+        LoadingOverlayManager.stop();
+        return null;
+    }
+     );
     }
     public void setPageNavData(int currentPage,int lastPage)
     {
@@ -233,6 +276,11 @@ void handleJumpPage(ActionEvent event) {
     public void clearPage()
     {
         movieGridContainer.getChildren().clear();
+    }
+
+    @Override
+    public void OnExit() {
+        
     }
     
 

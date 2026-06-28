@@ -12,6 +12,7 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.StringJoiner;
 import java.util.concurrent.CompletableFuture;
+import java.util.function.Function;
 
 public class HTTPService {
 
@@ -76,9 +77,17 @@ public class HTTPService {
         } else {
             builder.GET();
         }
+//////////////////////
+        Function<HttpResponse<String>, String> mapper = (HttpResponse<String> response) -> {
+    if (response == null) {
+        return ""; // Hoặc xử lý null theo logic của bạn
+    }
+    return response.body();
+};
+//////////////////////
 
         return httpClient.sendAsync(builder.build(), HttpResponse.BodyHandlers.ofString())
-                .thenApply(HttpResponse::body);
+                .thenApply(mapper);//////HttpResponse::body
     }
 
   

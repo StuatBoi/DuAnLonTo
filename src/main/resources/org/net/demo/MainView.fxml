@@ -82,7 +82,7 @@
                         <HBox alignment="CENTER_LEFT">
                             <Label styleClass="section-title" text="📈 PHIM THỊNH HÀNH" />
                             <Region HBox.hgrow="ALWAYS" />
-                            <Label styleClass="see-all" text="Xem tất cả ›" />
+                            <Label fx:id="navAll" styleClass="see-all" text="Xem tất cả ›" />
                         </HBox>
                         <HBox alignment="CENTER_LEFT" spacing="14">
                             <!-- Card 1 -->

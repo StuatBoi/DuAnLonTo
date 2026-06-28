@@ -9,7 +9,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
-public class TicketItemController extends Controller {
+public class TicketItemController extends BaseController {
 
     @FXML
     private Label lblDay;
@@ -87,6 +87,11 @@ public class TicketItemController extends Controller {
     @Override
     public void OnLogout() {
       
+    }
+
+    @Override
+    public void OnExit() {
+        
     }
 
 }

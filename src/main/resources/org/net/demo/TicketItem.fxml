@@ -5,30 +5,37 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<HBox alignment="CENTER_LEFT" minWidth="400" prefWidth="420" spacing="15" styleClass="ticket-card-item" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.net.demo.TicketItemController">
+<!-- Đổi prefWidth thành một con số cố định hoặc dùng maxWidth để kiểm soát chiều rộng trong FlowPane -->
+<HBox alignment="CENTER_LEFT" minWidth="400" prefWidth="434.0" spacing="15" styleClass="ticket-card-item" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.net.demo.TicketItemController">
     
-    <VBox alignment="CENTER" minWidth="100" prefWidth="100" styleClass="ticket-left-stub">
+    <VBox alignment="CENTER" maxWidth="100" minWidth="100" prefWidth="100" styleClass="ticket-left-stub" HBox.hgrow="NEVER">
         <Label fx:id="lblDay" styleClass="ticket-stub-day" text="25" />
         <Label fx:id="lblMonthYear" styleClass="ticket-stub-month" text="TH 12 2026" />
         <Label fx:id="lblTime" styleClass="ticket-stub-time" text="19:30" />
     </VBox>
     
-    <VBox styleClass="ticket-divider" />
+    <VBox styleClass="ticket-divider" HBox.hgrow="NEVER" />
 
-    <VBox alignment="CENTER_LEFT" spacing="8" styleClass="ticket-right-body" HBox.hgrow="ALWAYS">
-        <Label fx:id="lblMovieTitle" styleClass="ticket-movie-title" text="Tên Phim Bom Tấn Siêu Cấp" wrapText="true" />
+    <VBox alignment="CENTER_LEFT" minWidth="0" spacing="8" styleClass="ticket-right-body" HBox.hgrow="ALWAYS">
         
-        <HBox spacing="15">
-            <VBox>
-                <Label styleClass="ticket-meta-label" text="Phòng" />
-                <Label fx:id="lblRoom" styleClass="ticket-meta-value" text="Cinema 4" />
-            </VBox>
-            <VBox>
-                <Label styleClass="ticket-meta-label" text="Ghế" />
-                <Label fx:id="lblSeats" styleClass="ticket-meta-value" text="H12, H13" />
-            </VBox>
-        </HBox>
+        <!-- Thay đổi: Thêm textOverrun="CLIP" đảm bảo hiển thị trọn vẹn ký tự xuống dòng, không bị ... -->
+        <Label fx:id="lblMovieTitle" maxWidth="Infinity" styleClass="ticket-movie-title" text="Tên Phim Bom Tấn Siêu Cấp Dài Dài Dài Dài" wrapText="true" textOverrun="CLIP" />
         
-        <Button maxWidth="Infinity" onAction="#onDetailClick" styleClass="btn-primary-small" text="Xem chi tiết (QR)" />
+        <HBox maxWidth="Infinity" spacing="10">
+    <!-- Cột Phòng: Chỉ lấy vừa đủ không gian, không tranh chấp với cột Ghế -->
+    <VBox minWidth="-Infinity" prefWidth="100.0" HBox.hgrow="NEVER">
+        <Label styleClass="ticket-meta-label" text="Phòng" />
+        <Label fx:id="lblRoom" maxWidth="Infinity" styleClass="ticket-meta-value" text="Cinema 4" textOverrun="CLIP" wrapText="true" />
+    </VBox>
+    
+    <!-- Cột Ghế: Chiếm trọn phần không gian còn lại (HBox.hgrow="ALWAYS") và tăng minWidth để không bị ép nhỏ -->
+    <VBox minWidth="120.0" HBox.hgrow="ALWAYS">
+        <Label styleClass="ticket-meta-label" text="Ghế" />
+        <!-- Bật wrapText="true" và đổi sang textOverrun="CLIP" để triệt tiêu hoàn toàn dấu "..." -->
+        <Label fx:id="lblSeats" maxWidth="Infinity" styleClass="ticket-meta-value" text="H12, H13, H14" textOverrun="CLIP" wrapText="true" />
+    </VBox>
+</HBox>
+        
+        <Button maxWidth="Infinity" onAction="#onDetailClick" styleClass="btn-primary-small" text="Xem chi tiết (QR)" HBox.hgrow="ALWAYS" />
     </VBox>
 </HBox>

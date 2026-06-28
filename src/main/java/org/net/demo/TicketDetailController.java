@@ -4,15 +4,16 @@ import javafx.fxml.FXML;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.control.Label;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 
 import java.io.ByteArrayInputStream;
 import java.util.Base64;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
-import org.net.demo.DTO.TicketDTO;
 import org.net.demo.DTO.TicketDetail;
+import org.net.demo.Service.LoadingOverlayManager;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -20,7 +21,7 @@ import com.google.gson.GsonBuilder;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 
-public class TicketDetailController extends Controller {
+public class TicketDetailController extends BaseController {
 
     @FXML
     private ImageView imgQRCode;
@@ -52,6 +53,8 @@ public class TicketDetailController extends Controller {
     @FXML
     private Button btnClose;
 
+    private String currentTicketCode;
+
     @FXML
     public void initialize() {
         
@@ -69,7 +72,8 @@ public class TicketDetailController extends Controller {
 
     @Override
     public void Refresh() {
-        
+        placeHolder();
+        getData(currentTicketCode);
     }
 
     @Override
@@ -119,6 +123,8 @@ public class TicketDetailController extends Controller {
     }
     public void getData(String ticketCode)
     {
+        currentTicketCode=ticketCode;
+        LoadingOverlayManager.start(btnClose);
         Map<String,Object> params=Map.of("ticketCode", ticketCode);
         HTTPService.sendFullRequestAsync("GET", "/api/Ticket/getTicketDetail", params, null, mainController.getToken()).thenAccept(
             response->{
@@ -145,12 +151,28 @@ public class TicketDetailController extends Controller {
             catch(Exception e)
             {
                 Platform.runLater(()->{
+                    LoadingOverlayManager.stop();
                     CineverseAlert.showToast("An error occurred while loading ticket details!", btnClose);
                     e.printStackTrace();
                 });
             }
+            Platform.runLater(()->LoadingOverlayManager.stop());
         }
-        );
+        )
+        .orTimeout(10,TimeUnit.SECONDS)
+     .exceptionallyAsync(ex->
+        { 
+            if (ex.getCause() instanceof TimeoutException) {
+            System.err.println("Lỗi: Server không phản hồi trong vòng 10 giây!");
+            Platform.runLater(() -> CineverseAlert.showToast("Kết nối server thất bại (Timeout)", btnClose));
+        } else {
+            System.err.println("Lỗi hệ thống khác: " + ex.getMessage());
+            Platform.runLater(() -> CineverseAlert.showToast("Kết nối server thất bại (No Connection)", btnClose));
+        }
+        LoadingOverlayManager.stop();
+        return null;
+    }
+     );
 
     
 }
@@ -170,4 +192,9 @@ public void loadBase64ToImageView(String base64Data, ImageView imageView) {
             System.err.println("Lỗi khi load ảnh vào ImageView: " + e.getMessage());
         }
     }
+
+@Override
+public void OnExit() {
+    
+}
 }

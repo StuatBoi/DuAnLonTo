@@ -59,8 +59,6 @@ public class RegisterController {
             errorLabel.setText("Lỗi: Bạn phải đồng ý với Điều khoản dịch vụ!");
             return;
         }
-
-        // TODO: Viết code thêm tài khoản mới vào Database của bạn ở đây
         errorLabel.setText("Đăng ký thành công tài khoản: " + email);
     }
     @FXML
