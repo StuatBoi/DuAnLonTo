@@ -23,36 +23,17 @@ import javafx.event.ActionEvent;
 
 public class TicketDetailController extends BaseController {
 
-    @FXML
-    private ImageView imgQRCode;
-
-    @FXML
-    private Label lblTicketCode;
-
-    @FXML
-    private Label lblMovieTitle;
-
-    @FXML
-    private Label lblDate;
-
-    @FXML
-    private Label lblTime;
-
-    @FXML
-    private Label lblRoom;
-
-    @FXML
-    private Label lblSeats;
-
-    @FXML
-    private Label lblCustomer;
-
-    @FXML
-    private Label lblPrice;
-
-    @FXML
-    private Button btnClose;
-
+    @FXML private ImageView imgQRCode;
+    @FXML private Label lblTicketCode;
+    @FXML private Label lblMovieTitle;
+    @FXML private Label lblDate;
+    @FXML private Label lblTime;
+    @FXML private Label lblRoom;
+    @FXML private Label lblSeats;
+    @FXML private Label lblCustomer;
+    @FXML private Label lblPrice;
+    @FXML private Label lblStatus;
+    @FXML private Button btnClose;
     private String currentTicketCode;
 
     @FXML
@@ -62,7 +43,7 @@ public class TicketDetailController extends BaseController {
 
     @FXML
     private void onCloseClick(ActionEvent event) {
-        mainController.showPage(mainController.getLastPage());
+        mainController.showPage(mainController.getPage("ticketView"));
     }
 
     @Override
@@ -103,11 +84,8 @@ public class TicketDetailController extends BaseController {
          imgQRCode.setImage(null);
     }
 
-    public void setData(TicketDetail ticketDetail)
-    {
-        if(ticketDetail==null)
-        {
-            System.out.println("ticketDetail is null");
+    public void setData(TicketDetail ticketDetail) {
+        if (ticketDetail == null) {
             placeHolder();
             return;
         }
@@ -120,6 +98,16 @@ public class TicketDetailController extends BaseController {
         lblSeats.setText(ticketDetail.getSeatName());
         lblPrice.setText(String.format("%.2f", ticketDetail.getPrice()));
         loadBase64ToImageView(ticketDetail.getQrCodeBase64(), imgQRCode);
+
+        // Cập nhật trạng thái
+        if (ticketDetail.isUsed()) {
+            lblStatus.setText("✅ Đã xác thực");
+            lblStatus.getStyleClass().setAll("ticket-status-confirmed");
+            
+        } else {
+            lblStatus.setText("⏳ Chưa xác thực");
+            lblStatus.getStyleClass().setAll("ticket-status-pending");
+        }
     }
     public void getData(String ticketCode)
     {
