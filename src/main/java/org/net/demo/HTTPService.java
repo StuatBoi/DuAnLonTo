@@ -140,4 +140,9 @@ public static CompletableFuture<HttpResponse<String>> sendFullRequestAsync(
     // 4. Trả về CompletableFuture chứa toàn bộ HttpResponse
     return httpClient.sendAsync(builder.build(), HttpResponse.BodyHandlers.ofString());
 }
+
+public static String getBaseUrl()
+{
+    return HTTPService.BASE_URL;
+}
 }

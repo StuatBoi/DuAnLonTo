@@ -128,7 +128,7 @@ public class PaymentViewController extends BaseController{
     public void connectToServer()
     {
         AccountController accountController= (AccountController)mainController.getController("accountView");
-        paymentService= new PaymentService("http://localhost:8080/ws-payment", accountController.getUsername(), btnCancel);
+        paymentService= new PaymentService(HTTPService.getBaseUrl()+"/ws-payment", accountController.getUsername(), btnCancel);
         paymentService.startPaymentConfirmation(currentOrderID, 
             ()->{
                 Platform.runLater(()->{
