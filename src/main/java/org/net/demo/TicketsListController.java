@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.FlowPane;
@@ -22,6 +23,7 @@ import com.google.gson.reflect.TypeToken;
 
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
+
 import java.lang.reflect.Type;
 
 public class TicketsListController extends BaseController {
@@ -49,6 +51,17 @@ public class TicketsListController extends BaseController {
 
     @FXML
     private TextField txtJumpPage;
+    @FXML
+    private CheckBox chkShowUsedTickets;
+
+    private final String endpointUsedTicket="/api/Ticket/getUsersUsedTicketPage";
+    private final String endpointNotUsedTicket="/api/Ticket/getUsersTicketPage";
+    private String currentEndpoint="/api/Ticket/getUsersTicketPage";
+
+    public void setCurrentEndpoint(String endpoint)
+    {
+        currentEndpoint=endpoint;
+    }
 
     @FXML
     public void initialize() {
@@ -63,6 +76,13 @@ public class TicketsListController extends BaseController {
     @FXML
     void handleFirstPage(ActionEvent event) {
           goToPage(0);
+    }
+    @FXML
+    void handleToggleUsedTickets(ActionEvent event)
+    { 
+      boolean isSelected= chkShowUsedTickets.isSelected();
+      currentEndpoint= isSelected? endpointUsedTicket: endpointNotUsedTicket;
+      goToPage(0);
     }
 
     @FXML
@@ -160,7 +180,7 @@ public class TicketsListController extends BaseController {
         ticketsContainer.getChildren().clear();
         LoadingOverlayManager.start(btnFirstPage);
         Map<String,Object> params= Map.of("page",page);
-        HTTPService.sendFullRequestAsync("GET", "/api/Ticket/getUsersTicketPage", params, null, mainController.getToken())
+        HTTPService.sendFullRequestAsync("GET", currentEndpoint, params, null, mainController.getToken())
         .thenAccept(response->
             {
              if(response.statusCode()==200)

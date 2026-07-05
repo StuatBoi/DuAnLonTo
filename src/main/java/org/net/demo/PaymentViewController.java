@@ -48,10 +48,8 @@ public class PaymentViewController extends BaseController{
     private void startCountdown() {
         btnCancel.setText("Hủy thanh toán");
     // 1. KIỂM TRA VÀ DỪNG TIMELINE CŨ (NẾU ĐANG CHẠY)
-    if (timeline != null) {
-        timeline.stop();
-    }
-
+    
+    timeSeconds=600;
     timeline = new Timeline();
     timeline.setCycleCount(Timeline.INDEFINITE);
     timeline.getKeyFrames().add(

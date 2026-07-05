@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
@@ -24,6 +25,10 @@
                         <Label styleClass="hero-subtitle" text="Danh sách các vé phim bạn đã đặt thành công tại Cineverse." />
                     </children>
                 </VBox>
+                
+                <HBox HBox.hgrow="ALWAYS" />
+                
+                <CheckBox fx:id="chkShowUsedTickets" onAction="#handleToggleUsedTickets" style="-fx-cursor: hand;" styleClass="chk-used-tickets" text="Hiển thị vé đã dùng" />
             </children>
         </HBox>
    
