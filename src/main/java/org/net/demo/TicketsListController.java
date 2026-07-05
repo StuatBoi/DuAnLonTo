@@ -70,7 +70,7 @@ public class TicketsListController extends BaseController {
 
     @FXML
     private void onBackClick(ActionEvent event) {
-        mainController.showPage(mainController.getLastPage());
+        mainController.showPage(mainController.getPage("accountView"));
     }
 
     @FXML

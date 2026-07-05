@@ -154,6 +154,6 @@ public class PaymentViewController extends BaseController{
 
     @Override
     public void OnExit() {
-       
+       paymentService.stopPaymentConfirmation();
     }
 }
