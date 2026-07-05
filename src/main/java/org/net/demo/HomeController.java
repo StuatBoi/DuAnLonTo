@@ -1,6 +1,7 @@
 package org.net.demo;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
@@ -116,13 +117,13 @@ public class HomeController extends BaseController {
         return null;
     }
      );
-        
+        List<Movie> safeMoviesCopy = new ArrayList<>(movies);
         Platform.runLater(()->{
             MovieContainer.getChildren().clear();
             boolean featured=false;
             Parent DetailPage= mainController.getPage("detailView");
             DetailController detailController=(DetailController)mainController.getController("detailView");
-      for(Movie movie : movies) {
+      for(Movie movie : safeMoviesCopy) {
                 try {
                     if(!featured)
                     {

@@ -104,7 +104,7 @@ public class SeatViewController extends BaseController{
                     
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("Seat.fxml"));
                     Parent seatNode = loader.load();
-                    ((ToggleButton)seatNode).setText((char)('A'+row)+String.valueOf(col+1));                    
+                    ((ToggleButton)seatNode).setText((char)('A'+row)+String.valueOf(col));                    
                     gridPane.add(seatNode, col, row);
                     if(seat.getStatus().equals("BOOKED"))
                     {
@@ -165,6 +165,7 @@ public class SeatViewController extends BaseController{
         {
             LoadingOverlayManager.stop();
             CineverseAlert.showToast("Mã số suất chiếu không hợp lệ", btnBackToDetail);
+            return;
         }
         Map<String,Object> param=Map.of("showTimeID",showTimeID
             

@@ -197,12 +197,36 @@ public class DetailController extends BaseController{
     
     public void GetShowTimes(String movieID)
     {
-        Map<String,String> param=Map.of("movieID",movieID);
-        HTTPService.sendRequestAsync("GET", "/api/feature/getShowTimes",param, null, null).thenAccept(response->
+        LoadingOverlayManager.start(btnBack);
+        Map<String,Object> param=Map.of("movieID",movieID);
+        HTTPService.sendFullRequestAsync("GET", "/api/feature/getShowTimes",param, null, mainController.getToken()).thenAccept(response->
             {
-                Platform.runLater(()->renderShowtimesFromJSON(response));
+                if(response.statusCode()==200)
+                {
+                Platform.runLater(()->
+                {renderShowtimesFromJSON(response.body());
+                    LoadingOverlayManager.stop();
+                });
+                }
+                else{
+                    LoadingOverlayManager.stop();
+                    CineverseAlert.showToast("Không thể lấy thông tin xuất chiểu", btnBack);
+                }
             }
-        );
+        ).orTimeout(10, TimeUnit.SECONDS)
+        .exceptionallyAsync(ex->
+        { 
+            if (ex.getCause() instanceof TimeoutException) {
+            System.err.println("Lỗi: Server không phản hồi trong vòng 10 giây!");
+            Platform.runLater(() -> CineverseAlert.showToast("Kết nối server thất bại (Timeout)",btnBack));
+        } else {
+            System.err.println("Lỗi hệ thống khác: " + ex.getMessage());
+            Platform.runLater(() -> CineverseAlert.showToast("Kết nối server thất bại (No Connection)", btnBack));
+        }
+        LoadingOverlayManager.stop();
+        return null;
+    }
+     );
     }
 
     public void setMoviePoster(String urlString) {

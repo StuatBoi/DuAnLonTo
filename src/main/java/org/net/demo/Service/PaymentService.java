@@ -98,8 +98,8 @@ public class PaymentService {
                     Platform.runLater(()->CineverseAlert.showToast("null server url", currentRegion));
                 }
                 
-                // Wait for payment confirmation (up to 5 minutes)
-                boolean received = socket.waitForMessage(300);
+                // Wait for payment confirmation (up to 10 minutes)
+                boolean received = socket.waitForMessage(600);
                 
                 if (!received) {
                     Platform.runLater(() -> {
@@ -122,28 +122,7 @@ public class PaymentService {
      * Create a waiting UI component
      * @return VBox with loading indicator
      */
-    public VBox createWaitingU() {
-        VBox waitingBox = new VBox();
-        waitingBox.setAlignment(Pos.CENTER);
-        waitingBox.setSpacing(10);
-        
-        ProgressIndicator progressIndicator = new ProgressIndicator();
-        progressIndicator.setPrefSize(100, 100);
-        
-        javafx.scene.control.Label label = new javafx.scene.control.Label(
-            "Đang xử lý thanh toán...\nVui lòng chờ xác nhận"
-        );
-        label.setStyle("-fx-font-size: 14;");
-        label.setAlignment(Pos.CENTER);
-        
-        javafx.scene.control.Label timeoutLabel = new javafx.scene.control.Label(
-            "Quá trình này có thể mất tới 5 phút"
-        );
-        timeoutLabel.setStyle("-fx-font-size: 12; -fx-text-fill: #666666;");
-        
-        waitingBox.getChildren().addAll(progressIndicator, label, timeoutLabel);
-        return waitingBox;
-    }
+    
     
     /**
      * Stop payment confirmation listener

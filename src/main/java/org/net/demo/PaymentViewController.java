@@ -46,6 +46,7 @@ public class PaymentViewController extends BaseController{
 
     // Logic đếm ngược 10 phút sử dụng Timeline
     private void startCountdown() {
+        btnCancel.setText("Hủy thanh toán");
     // 1. KIỂM TRA VÀ DỪNG TIMELINE CŨ (NẾU ĐANG CHẠY)
     if (timeline != null) {
         timeline.stop();
@@ -79,16 +80,7 @@ public class PaymentViewController extends BaseController{
 
     @FXML
     void handleCancelPayment(ActionEvent event) {
-        if (timeline != null) {
-            timeline.stop();
-        }
-        CineverseAlert.showToast("Đã hủy thanh toán", btnCancel);
-        if(paymentService!=null)
-          {
-            paymentService.stopPaymentConfirmation();
-          }
-          mainController.showPage(mainController.getLastPage());
-        mainController.showPage(mainController.getPage("homeView"));
+        
     }
 
     @Override
@@ -107,11 +99,16 @@ public class PaymentViewController extends BaseController{
     public void OnAttached() {
         btnCancel.setOnAction(event->
     {
-          if(paymentService!=null)
+         if (timeline != null) {
+            timeline.stop();
+        }
+        CineverseAlert.showToast("Đã hủy thanh toán", btnCancel);
+        if(paymentService!=null)
           {
             paymentService.stopPaymentConfirmation();
           }
-          mainController.showPage(mainController.getLastPage());
+        
+        mainController.showPage(mainController.getPage("homeView"));
     });
     }
 
@@ -153,6 +150,7 @@ public class PaymentViewController extends BaseController{
         String temp = result? " thành công": " thất bại";
         lblCountdown.setText("Thanh toán "+ temp);
         btnCancel.setText("Hoàn tất");
+        paymentService.stopPaymentConfirmation();
         
     }
 
