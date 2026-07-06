@@ -444,3 +444,220 @@
 .auth-checkbox .mark {
     -fx-background-color: white;
 }
+
+/* --- CSS CHO THANH CHUYỂN TRANG (DARK MODE) --- */
+
+/* Phong cách chung cho các nút chuyển trang */
+.btn-page-nav {
+    -fx-background-color: #2a2a32;       /* Màu nền xám tối mịn */
+    -fx-text-fill: #e0e0e6;              /* Màu chữ trắng mờ */
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 6px;          /* Bo góc nhẹ hiện đại */
+    -fx-padding: 6px 12px;
+    -fx-cursor: hand;                    /* Đổi con trỏ chuột thành dạng bàn tay */
+    -fx-border-color: #3f3f46;           /* Viền tối mảnh để định hình nút */
+    -fx-border-radius: 6px;
+    -fx-transition: all 0.2s ease-in-out; /* Hiệu ứng mượt mà */
+}
+
+/* Hiệu ứng khi di chuột qua (Hover) */
+.btn-page-nav:hover {
+    -fx-background-color: #e50914;       /* Đổi sang màu đỏ rực thương hiệu (hoặc màu vàng gold tùy bạn chọn) */
+    -fx-text-fill: white;                /* Chữ trắng sáng hẳn */
+    -fx-border-color: #e50914;
+    -fx-effect: dropshadow(three-pass-box, rgba(229, 9, 20, 0.4), 8, 0, 0, 0); /* Đổ bóng phát sáng nhẹ */
+}
+
+/* Hiệu ứng khi click giữ nút (Armed/Pressed) */
+.btn-page-nav:pressed {
+    -fx-background-color: #b20710;       /* Đỏ sậm xuống một chút khi nhấn */
+    -fx-scale-x: 0.95;                   /* Thu nhỏ nhẹ tạo cảm giác đàn hồi vật lý */
+    -fx-scale-y: 0.95;
+}
+
+/* Giao diện nút khi bị vô hiệu hóa (Disabled - ví dụ đang ở trang 1 thì nút Trước bị ẩn) */
+.btn-page-nav:disabled {
+    -fx-background-color: #1c1c22;       /* Chìm hẳn vào nền */
+    -fx-text-fill: #52525b;              /* Chữ xám tối (ẩn đi) */
+    -fx-border-color: #27272a;
+    -fx-opacity: 0.5;
+    -fx-cursor: default;                 /* Trả con trỏ chuột về mặc định */
+}
+
+/* Định dạng cho đoạn text hiển thị số trang (Trang 1 / 5) */
+.page-indicator-text {
+    -fx-text-fill: #a1a1aa;              /* Màu chữ xám thanh lịch */
+    -fx-font-size: 14px;
+    -fx-font-weight: 600;
+    -fx-padding: 0 10px;
+}
+
+.btn-jump-go {
+    -fx-background-color: #E50914;
+    -fx-text-fill: #FFFFFF;
+    -fx-font-weight: bold;
+    -fx-font-size: 12px;
+    -fx-background-radius: 4px;
+    -fx-cursor: hand;
+    -fx-min-height: 32px;
+    -fx-padding: 0 12px;
+}
+.btn-jump-go:hover {
+    -fx-background-color: #B20710;
+}
+.search-status-text {
+    -fx-font-family: "Segoe UI", Arial, sans-serif;
+    -fx-font-size: 13px;
+    -fx-text-fill: #777777; /* Màu xám trầm meta */
+}
+
+.input-jump-page {
+    -fx-background-color: #1a1a1a;
+    -fx-text-fill: #FFFFFF;
+    -fx-border-color: #333333;
+    -fx-border-width: 1px;
+    -fx-border-radius: 4px;
+    -fx-background-radius: 4px;
+    -fx-alignment: center; /* Căn giữa chữ số gõ vào */
+    -fx-font-weight: bold;
+}
+/* Đổi màu viền sang đỏ khi người dùng click vào ô gõ số trang */
+.input-jump-page:focused {
+    -fx-border-color: #E50914;
+    -fx-background-color: #222222;
+}
+.jump-page-container {
+    -fx-border-color: transparent transparent transparent #333333; /* Vạch chia dọc nhỏ ngăn cách */
+    -fx-border-width: 1px;
+    -fx-padding: 0 0 0 20px;
+}
+
+/*scrollpane.scrollbar
+
+/* --- TRANG TRÍ THANH CUỘN (SCROLLBAR) NỀN TỐI --- */
+
+/* 1. Định dạng chung cho toàn bộ thanh cuộn (Nền của đường ray) */
+.scroll-pane .scroll-bar:vertical,
+.scroll-pane .scroll-bar:horizontal {
+    -fx-background-color: #1e1e24; /* Màu nền của thanh cuộn (trùng hoặc tối hơn nền app) */
+    -fx-padding: 0;
+}
+
+/* 2. Định dạng cục kéo (Thumb) */
+.scroll-pane .scroll-bar:vertical .thumb,
+.scroll-pane .scroll-bar:horizontal .thumb {
+    -fx-background-color: #3f3f46; /* Màu xám đặc trưng của Dark Mode */
+    -fx-background-radius: 8px;    /* Bo tròn cục kéo cho hiện đại */
+}
+
+/* Hiệu ứng khi di chuột vào cục kéo (Hover) */
+.scroll-pane .scroll-bar:vertical .thumb:hover,
+.scroll-pane .scroll-bar:horizontal .thumb:hover {
+    -fx-background-color: #e50914; /* Đổi sang màu đỏ thương hiệu (hoặc màu nổi bật tùy bạn) */
+}
+
+/* Hiệu ứng khi đang nhấp giữ cục kéo để cuộn (Pressed) */
+.scroll-pane .scroll-bar:vertical .thumb:pressed,
+.scroll-pane .scroll-bar:horizontal .thumb:pressed {
+    -fx-background-color: #b20710; /* Màu sậm lại khi nhấn */
+}
+
+/* 3. Ẩn các nút mũi tên (Increment/Decrement) ở hai đầu để thanh cuộn nhìn tối giản (Minimalist) */
+.scroll-pane .scroll-bar .increment-button,
+.scroll-pane .scroll-bar .decrement-button {
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+}
+
+.scroll-pane .scroll-bar .increment-arrow,
+.scroll-pane .scroll-bar .decrement-arrow {
+    -fx-shape: " "; /* Xóa hình mũi tên */
+    -fx-padding: 0;
+}
+
+/* 4. Định dạng góc giao nhau khi có cả thanh cuộn dọc và ngang (Corner) */
+.scroll-pane .corner {
+    -fx-background-color: #1e1e24;
+}
+/* Nâng cấp Auth Container với viền sáng mờ */
+.auth-container {
+    -fx-background-color: #141416;
+    -fx-border-color: rgba(255, 255, 255, 0.1); /* Viền cực nhạt */
+    -fx-border-width: 1px;
+    -fx-border-radius: 16px;
+    -fx-background-radius: 16px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.6), 40, 0, 0, 10);
+    -fx-padding: 40px;
+}
+
+/* Nâng cấp Input Field */
+.text-field {
+    -fx-background-color: #1a1a1d;
+    -fx-text-fill: white;
+    -fx-border-color: #333338;
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+    -fx-padding: 12px;
+}
+
+.text-field:focused {
+    -fx-border-color: #e50914; /* Đỏ rực khi nhấn vào */
+    -fx-effect: dropshadow(three-pass-box, rgba(229, 9, 20, 0.2), 10, 0, 0, 0);
+}
+
+/* Nâng cấp nút Đăng nhập để có độ "nảy" */
+.btn-primary {
+    -fx-background-color: #e50914;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 8px;
+    -fx-cursor: hand;
+    /* Hiệu ứng đổ bóng đỏ nhẹ */
+    -fx-effect: dropshadow(three-pass-box, rgba(229, 9, 20, 0.3), 15, 0, 0, 5);
+}
+
+.btn-primary:hover {
+    -fx-background-color: #ff0f1a; /* Sáng hơn khi di chuột */
+}
+
+.btn-primary:pressed {
+    -fx-scale-x: 0.98;
+    -fx-scale-y: 0.98;
+}
+.search-icon-btn {
+    -fx-background-color: #e50914;
+    -fx-background-radius: 8px;
+    -fx-border-radius: 8px;
+    -fx-border-color: transparent;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-min-width: 38px;
+    -fx-min-height: 34px;
+    -fx-max-width: 38px;
+    -fx-max-height: 34px;
+    -fx-cursor: hand;
+    -fx-padding: 0;
+}
+
+.search-icon-btn:hover {
+    -fx-background-color: #ff1a25;
+}
+
+.search-icon-btn:pressed {
+    -fx-background-color: #b8070f;
+}
+.search-icon {
+    -fx-icon-color: #999999;
+}
+.search-bar:focused .search-icon {
+    -fx-icon-color: #e50914;
+}
+.auth-root {
+    -fx-background-image: url("backgroundloginimage.png");
+    -fx-background-size: cover;
+    -fx-background-position: 50% 0%;
+    -fx-background-repeat: no-repeat;
+}
+
+

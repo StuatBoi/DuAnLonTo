@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox id="paymentView" fx:id="paymentView" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="org.net.demo.PaymentViewController"
+      alignment="CENTER" 
+      spacing="25.0" 
+      style="-fx-background-color: #0c0c0c;" 
+      maxHeight="Infinity" maxWidth="Infinity"
+      prefWidth="1200.0" prefHeight="800.0">
+    
+    <padding>
+        <Insets top="40.0" right="60.0" bottom="40.0" left="60.0" />
+    </padding>
+
+    <VBox alignment="CENTER" spacing="8.0">
+        <Label text="QUÉT MÃ QR ĐỂ THANH TOÁN" 
+               style="-fx-text-fill: #ffffff; -fx-font-size: 26px; -fx-font-weight: bold; -fx-letter-spacing: 0.5px;" />
+        <Label text="Sử dụng ứng dụng Ngân hàng hoặc Ví điện tử hỗ trợ VNPAY để quét mã" 
+               style="-fx-text-fill: #aaaaaa; -fx-font-size: 14px;" />
+    </VBox>
+
+    <VBox alignment="CENTER" maxWidth="320.0" maxHeight="320.0"
+          style="-fx-background-color: #ffffff; -fx-padding: 15px; -fx-background-radius: 12px; -fx-effect: dropshadow(three-pass-box, rgba(229,9,20,0.2), 15, 0, 0, 0);">
+        <ImageView fx:id="qrImageView" 
+                   fitWidth="280.0" 
+                   fitHeight="280.0" 
+                   pickOnBounds="true" 
+                   preserveRatio="true" />
+    </VBox>
+
+    <HBox alignment="CENTER" spacing="8.0">
+        <Label text="Giao dịch hết hạn sau:" style="-fx-text-fill: #aaaaaa; -fx-font-size: 15px;" />
+        <Label fx:id="lblCountdown" text="10:00" 
+               style="-fx-text-fill: #e50914; -fx-font-size: 18px; -fx-font-weight: bold;" />
+    </HBox>
+
+    <Label text="⏳ Hệ thống đang chờ phản hồi từ VNPAY..." 
+           style="-fx-text-fill: #888888; -fx-font-style: italic; -fx-font-size: 13px;" />
+
+    <HBox style="-fx-background-color: #333333; -fx-min-height: 1px; -fx-pref-height: 1px;" maxWidth="600.0" />
+
+    <HBox alignment="CENTER">
+        <Button fx:id="btnCancel" onAction="#handleCancelPayment" text="HỦY THANH TOÁN" 
+                style="-fx-background-color: transparent; -fx-border-color: #555555; -fx-border-radius: 4px; -fx-text-fill: #aaaaaa; -fx-font-size: 13px; -fx-font-weight: bold; -fx-padding: 12 30 12 30; -fx-cursor: hand;" />
+    </HBox>
+</VBox>

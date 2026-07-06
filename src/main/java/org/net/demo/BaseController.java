@@ -1,6 +1,6 @@
 package org.net.demo;
 
-public abstract class Controller {
+public abstract class BaseController {
 
     protected MainController mainController;
 
@@ -13,6 +13,8 @@ public abstract class Controller {
     abstract public void OnLogin();
 
     abstract public void OnLogout();
+
+    abstract public void OnExit();
 
     public void getMainController(MainController mainController)
     {

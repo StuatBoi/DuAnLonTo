@@ -94,3 +94,21 @@
 .btn-danger:pressed {
     -fx-background-color: #800000;
 }
+
+.ticket-status-pending {
+    -fx-text-fill: #ff9900;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-background-color: rgba(255, 153, 0, 0.15);
+    -fx-background-radius: 6px;
+    -fx-padding: 4 10;
+}
+
+.ticket-status-confirmed {
+    -fx-text-fill: #44dd44;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-background-color: rgba(68, 221, 68, 0.15);
+    -fx-background-radius: 6px;
+    -fx-padding: 4 10;
+}

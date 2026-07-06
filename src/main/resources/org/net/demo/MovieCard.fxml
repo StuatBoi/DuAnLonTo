@@ -9,16 +9,16 @@
       fx:controller="org.net.demo.MovieCardController"
       styleClass="movie-card"
       alignment="TOP_LEFT"
-      prefWidth="175"
-      maxWidth="175"
+      prefWidth="170"
+      maxWidth="170"
       spacing="8">
 
     <!-- IMAGE -->
     <StackPane styleClass="movie-thumb">
 
         <ImageView fx:id="movieImage"
-                   fitWidth="175"
-                   fitHeight="240"
+                   fitWidth="170"
+                   fitHeight="234"
                    preserveRatio="false"/>
 
         <Label text="HD"

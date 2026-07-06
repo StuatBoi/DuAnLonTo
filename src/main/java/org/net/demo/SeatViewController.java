@@ -3,7 +3,12 @@ package org.net.demo;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
+
+import org.net.demo.DTO.BookingPaymentResponse;
 import org.net.demo.DTO.TicketBookingRequest;
+import org.net.demo.Service.LoadingOverlayManager;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -12,7 +17,6 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ToggleButton;
@@ -20,7 +24,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import java.lang.reflect.Type;
 
-public class SeatViewController extends Controller{
+public class SeatViewController extends BaseController{
 
     @FXML
     private Button btnBackToDetail;
@@ -49,17 +53,20 @@ public class SeatViewController extends Controller{
     {
        btnBackToDetail.setOnAction(event->
         {
-            mainController.showPage(mainController.getLastPage());
+            mainController.showPage(mainController.getPage("detailView"));
         }
        );
        btnConfirmSeats.setOnAction(event->
         {
-            BookTickets();
+           toPaymentPage();
         });
     }
 
     @Override
     public void OnShowing() {
+        seatsList.clear();
+        
+        CalculateTotalPrice();
         LoadSeatView(ShowTimeID);
         
     }
@@ -76,49 +83,48 @@ public class SeatViewController extends Controller{
 
 
     public void populateSeatGrid(String jsonString, GridPane gridPane) {
-        gridPane.getChildren().clear(); // Làm sạch lưới cũ
+        gridPane.getChildren().clear();
 
         try {
-            // 1. Parse JSON bằng Gson giống như trước
             Gson gson = new Gson();
             Type seatListType = new TypeToken<List<Seat>>(){}.getType();
             List<Seat> seatList = gson.fromJson(jsonString, seatListType);
 
             if (seatList == null) return;
 
-            // 2. Duyệt qua từng ghế để load FXML
             for (Seat seat : seatList) {
                 int row = seat.getRow();
                 int col = seat.getCol();
 
-                // Kiểm tra giới hạn grid 10x10
                 if (row >= 0 && row < 10 && col >= 0 && col < 10) {
-                    
-                    
+
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("Seat.fxml"));
                     Parent seatNode = loader.load();
-                    ((ToggleButton)seatNode).setText((char)('A'+row)+String.valueOf(col+1));                    
-                    gridPane.add(seatNode, col, row);
-                    if(seat.getStatus().equals("BOOKED"))
-                    {
-                        seatNode.setDisable(true);
-                    }
-                    seatNode.setOnMouseClicked(event->
-                        {
-                         
-                         if(((ToggleButton)seatNode).isSelected())
-                         {
-                            SelectSeat(seat);
-                            
-                         }
-                         else{
-                            RemoveSeat(seat);
+                    ToggleButton seatButton = (ToggleButton) seatNode;
 
-                         }
-                         CalculateTotalPrice();
+                    seatButton.setText((char) ('A' + row) + String.valueOf(col));
+
+                    // 🌟 Đánh dấu ghế VIP dựa theo dữ liệu thật từ backend
+                    boolean isVip = "VIP".equalsIgnoreCase(seat.getType());
+                    if (isVip) {
+                        seatButton.getStyleClass().add("seat-vip");
+                    }
+
+                    gridPane.add(seatNode, col, row);
+
+                    if (seat.getStatus().equals("BOOKED")) {
+                        seatButton.setDisable(true);
+                        seatButton.getStyleClass().add("seat-sold");
+                    }
+
+                    seatButton.setOnMouseClicked(event -> {
+                        if (seatButton.isSelected()) {
+                            SelectSeat(seat);
+                        } else {
+                            RemoveSeat(seat);
                         }
-                        
-                    );
+                        CalculateTotalPrice();
+                    });
                 }
             }
 
@@ -152,16 +158,44 @@ public class SeatViewController extends Controller{
 
     public void LoadSeatView(String showTimeID)
     {
-        if(showTimeID==null) return;
-        Map<String,String> param=Map.of("showRoomID",showTimeID
+        gridSeats.getChildren().clear();
+        LoadingOverlayManager.start(btnBackToDetail);
+        if(showTimeID==null) 
+        {
+            LoadingOverlayManager.stop();
+            CineverseAlert.showToast("Mã số suất chiếu không hợp lệ", btnBackToDetail);
+            return;
+        }
+        Map<String,Object> param=Map.of("showTimeID",showTimeID
             
         );
-        HTTPService.sendRequestAsync("GET", "/api/feature/getSeatView", param, null, null).
+        HTTPService.sendFullRequestAsync("GET", "/api/feature/getSeatView", param, null, mainController.getToken()).
         thenAccept(response->{
+            if(response.statusCode()==200)
             Platform.runLater(()->{
-                populateSeatGrid(response, gridSeats);
+                populateSeatGrid(response.body(), gridSeats);
+                LoadingOverlayManager.stop();
             });
-        });
+            else 
+            {
+                LoadingOverlayManager.stop();
+                CineverseAlert.showToast("Không thể lấy thông tin phòng chiếu", btnBackToDetail);
+            }
+        })
+        .orTimeout(10,TimeUnit.SECONDS)
+     .exceptionallyAsync(ex->
+        { 
+            if (ex.getCause() instanceof TimeoutException) {
+            System.err.println("Lỗi: Server không phản hồi trong vòng 10 giây!");
+            Platform.runLater(() -> CineverseAlert.showToast("Kết nối server thất bại (Timeout)", btnBackToDetail));
+        } else {
+            System.err.println("Lỗi hệ thống khác: " + ex.getMessage());
+            Platform.runLater(() -> CineverseAlert.showToast("Kết nối server thất bại (No Connection)", btnBackToDetail));
+        }
+        LoadingOverlayManager.stop();
+        return null;
+    }
+     );
     }
     public void setShowTimeID(String showTimeID)
     {
@@ -201,7 +235,7 @@ public class SeatViewController extends Controller{
         String jsonRequest = new Gson().toJson(request);
         System.out.println(jsonRequest);
         
-        HTTPService.sendFullRequestAsync("POST", "/api/Ticket/bookTickets", null, jsonRequest, mainController.getToken()).thenAccept(
+        HTTPService.sendFullRequestAsync("POST", "/api/payment/bookTickets", null, jsonRequest, mainController.getToken()).thenAccept(
             response->{
               int statusCode = response.statusCode();
               if(statusCode == 200) {
@@ -219,10 +253,81 @@ public class SeatViewController extends Controller{
               
             
             }
-        );
+        )
+        .orTimeout(10,TimeUnit.SECONDS)
+     .exceptionallyAsync(ex->
+        { 
+            if (ex.getCause() instanceof TimeoutException) {
+            System.err.println("Lỗi: Server không phản hồi trong vòng 10 giây!");
+            Platform.runLater(() -> CineverseAlert.showToast("Kết nối server thất bại (Timeout)", btnBackToDetail));
+        } else {
+            System.err.println("Lỗi hệ thống khác: " + ex.getMessage());
+            Platform.runLater(() -> CineverseAlert.showToast("Kết nối server thất bại (No Connevtion)", btnBackToDetail));
+        }
+        LoadingOverlayManager.stop();
+        return null;
+    }
+     );
        
     }
 
+public void toPaymentPage()
+{
+    TicketBookingRequest request = CreateBookingRequest();
+        if(request.getSeatIds().isEmpty())
+        {
+            CineverseAlert.showToast("Vui lòng chọn ít nhất một ghế để đặt vé!", btnConfirmSeats);
+            return;
+        }
+        String jsonRequest = new Gson().toJson(request);
+        System.out.println(jsonRequest);
+    LoadingOverlayManager.start(btnBackToDetail);
+    HTTPService.sendFullRequestAsync("POST", "/api/payment/bookTickets", null, jsonRequest, mainController.getToken()).thenAcceptAsync(response->
+        {
+            if(response.statusCode()==200)
+            {
+                System.out.println(response.body());
+                Gson gson= new Gson();
+                Type bpResponse=new TypeToken<BookingPaymentResponse>(){}.getType();
+                BookingPaymentResponse bookingPaymentResponse= gson.fromJson(response.body(),bpResponse);
+            PaymentViewController paymentViewController =(PaymentViewController)mainController.getController("paymentView");
+            Platform.runLater(()->{
+            paymentViewController.setData(bookingPaymentResponse.getPaymentUrl(),bookingPaymentResponse.getOrderId());
+            mainController.showPage(mainController.getPage("paymentView"));
+            });
+            LoadingOverlayManager.stop();
+            }
+            else
+                { Platform.runLater(()->
+                {
+                     LoadingOverlayManager.stop();
+                    CineverseAlert.showToast("không thể lấy liên kết thanh toán do xung đột", btnBackToDetail);
+                   
+                });
+            System.out.print(response.statusCode());
+        }
+        }
+    )
+    .orTimeout(10,TimeUnit.SECONDS)
+     .exceptionallyAsync(ex->
+        { 
+            if (ex.getCause() instanceof TimeoutException) {
+            System.err.println("Lỗi: Server không phản hồi trong vòng 10 giây!");
+            Platform.runLater(() -> CineverseAlert.showToast("Kết nối server thất bại (Timeout)", btnBackToDetail));
+        } else {
+            System.err.println("Lỗi hệ thống khác: " + ex.getMessage());
+            Platform.runLater(() -> CineverseAlert.showToast("Kết nối server thất bại (No Connection)", btnBackToDetail));
+        }
+        LoadingOverlayManager.stop();
+        return null;
+    }
+     );
+    
 
+}
 
+@Override
+public void OnExit() {
+    ShowTimeID=null;
+}
 }

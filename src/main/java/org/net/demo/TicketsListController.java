@@ -4,14 +4,18 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.FlowPane;
 
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
 import org.net.demo.DTO.TicketDTO;
+import org.net.demo.Service.LoadingOverlayManager;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -19,9 +23,10 @@ import com.google.gson.reflect.TypeToken;
 
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
+
 import java.lang.reflect.Type;
 
-public class TicketsListController extends Controller {
+public class TicketsListController extends BaseController {
  
     private int currentPage=0;
     private int totalPage=0;
@@ -46,6 +51,17 @@ public class TicketsListController extends Controller {
 
     @FXML
     private TextField txtJumpPage;
+    @FXML
+    private CheckBox chkShowUsedTickets;
+
+    private final String endpointUsedTicket="/api/Ticket/getUsersUsedTicketPage";
+    private final String endpointNotUsedTicket="/api/Ticket/getUsersTicketPage";
+    private String currentEndpoint="/api/Ticket/getUsersTicketPage";
+
+    public void setCurrentEndpoint(String endpoint)
+    {
+        currentEndpoint=endpoint;
+    }
 
     @FXML
     public void initialize() {
@@ -54,12 +70,19 @@ public class TicketsListController extends Controller {
 
     @FXML
     private void onBackClick(ActionEvent event) {
-        mainController.showPage(mainController.getLastPage());
+        mainController.showPage(mainController.getPage("accountView"));
     }
 
     @FXML
     void handleFirstPage(ActionEvent event) {
           goToPage(0);
+    }
+    @FXML
+    void handleToggleUsedTickets(ActionEvent event)
+    { 
+      boolean isSelected= chkShowUsedTickets.isSelected();
+      currentEndpoint= isSelected? endpointUsedTicket: endpointNotUsedTicket;
+      goToPage(0);
     }
 
     @FXML
@@ -154,8 +177,10 @@ public class TicketsListController extends Controller {
 
     public void goToPage(Integer page)
     {
+        ticketsContainer.getChildren().clear();
+        LoadingOverlayManager.start(btnFirstPage);
         Map<String,Object> params= Map.of("page",page);
-        HTTPService.sendFullRequestAsync("GET", "/api/Ticket/getUsersTicketPage", params, null, mainController.getToken())
+        HTTPService.sendFullRequestAsync("GET", currentEndpoint, params, null, mainController.getToken())
         .thenAccept(response->
             {
              if(response.statusCode()==200)
@@ -176,9 +201,28 @@ public class TicketsListController extends Controller {
              else{
                 CineverseAlert.showToast("Không thể lấy thông tin vé "+ response.statusCode(), btnFirstPage);
              }
+             Platform.runLater(()->
+            {
+                LoadingOverlayManager.stop();
+            });
              
             }
-        );
+        )
+        .orTimeout(10,TimeUnit.SECONDS)
+     .exceptionallyAsync(ex->
+        { 
+            if (ex.getCause() instanceof TimeoutException) {
+            System.err.println("Lỗi: Server không phản hồi trong vòng 10 giây!");
+            Platform.runLater(() -> CineverseAlert.showToast("Kết nối server thất bại (Timeout)", btnFirstPage));
+        } else {
+            System.err.println("Lỗi hệ thống khác: " + ex.getMessage());
+            Platform.runLater(() -> CineverseAlert.showToast("Kết nối server thất bại (No Connection)", btnFirstPage));
+            LoadingOverlayManager.stop();
+        }
+        LoadingOverlayManager.stop();
+        return null;
+    }
+     );
     }
 
     public void setPageNavData(int currentPage,int totalPage)
@@ -191,6 +235,11 @@ public class TicketsListController extends Controller {
     public void clearPage()
     {
         ticketsContainer.getChildren().clear();
+    }
+
+    @Override
+    public void OnExit() {
+        
     }
     
 }

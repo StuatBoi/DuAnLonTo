@@ -2,6 +2,10 @@ package org.net.demo;
 
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
+
+import org.net.demo.Service.LoadingOverlayManager;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -9,8 +13,6 @@ import com.google.gson.reflect.TypeToken;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ToggleButton;
@@ -22,7 +24,7 @@ import javafx.scene.layout.FlowPane;
 import java.io.IOException;
 import java.lang.reflect.Type;
 
-public class DetailController extends Controller{
+public class DetailController extends BaseController{
 
     private String CurrentMovieID=null;
 
@@ -80,17 +82,23 @@ public class DetailController extends Controller{
 
     @Override
     public void Refresh() {
-        // TODO Auto-generated method stub
-        
+    
+        PushID(Long.parseLong(CurrentMovieID));
+        GetShowTimes(CurrentMovieID);
     }
 
     @Override
     public void OnAttached() {
         
          btnBack.setOnAction(event->
-            {
-                mainController.showPage(mainController.getLastPage());
-            }
+         {
+             if (mainController.getLastPage()==mainController.getPage("seatView")) {
+                 mainController.showPage(mainController.getPage("homeView"));
+             }
+             else{
+                 mainController.showPage(mainController.getLastPage());
+             }
+         }
         );
         btnBookTicket.setOnAction(event->
             {
@@ -98,8 +106,7 @@ public class DetailController extends Controller{
                 ToggleButton button =(ToggleButton)showtimeGroup.getSelectedToggle();
                 if(button==null)
                 {
-                    //xử lí khi chưa chọn suất chiếu nào
-                    System.out.println("no showtimes selected!!");
+                    CineverseAlert.showToast("Không có suất chiếu nào được chọn", btnBookTicket);
                     return;
                 }
                 if(!mainController.IsLoggedIn())
@@ -154,23 +161,77 @@ public class DetailController extends Controller{
        if(CurrentMovieID==null ||!CurrentMovieID.equals(MovieID.toString())) 
        {
         CurrentMovieID=MovieID.toString();
-       Map<String,String> param= Map.of("movieID",CurrentMovieID); 
-       HTTPService.sendRequestAsync("GET", "/api/feature/getMovieDetail", param, null, null).thenAccept(
+        LoadingOverlayManager.start(btnBack);
+       Map<String,Object> param= Map.of("movieID",CurrentMovieID); 
+       HTTPService.sendFullRequestAsync("GET", "/api/feature/getMovieDetail", param, null, null).thenAccept(
         response->{
-            Platform.runLater(()->parseInfo(getSingleMovieFromJson(response)));
+            if(response.statusCode()==200)
+            {
+            Platform.runLater(()->parseInfo(getSingleMovieFromJson(response.body())));
+            LoadingOverlayManager.stop();
+            }
+            else{
+            
+            LoadingOverlayManager.stop();
+            Platform.runLater(()->CineverseAlert.showToast("Không thể lấy thông tin phim từ server", btnBack));
+            }
         }
-       );
+       ).orTimeout(10,TimeUnit.SECONDS)
+     .exceptionallyAsync(ex->
+        { 
+            if (ex.getCause() instanceof TimeoutException) {
+            System.err.println("Lỗi: Server không phản hồi trong vòng 10 giây!");
+            Platform.runLater(() -> CineverseAlert.showToast("Kết nối server thất bại (Timeout)",btnBack));
+        } else {
+            System.err.println("Lỗi hệ thống khác: " + ex.getMessage());
+            Platform.runLater(() -> CineverseAlert.showToast("Kết nối server thất bại (No Connection)", btnBack));
+        }
+        LoadingOverlayManager.stop();
+        return null;
     }
+     );
+       
+    }
+    else
+       {
+        LoadingOverlayManager.stop();
+        if(CurrentMovieID==null)
+        CineverseAlert.showToast("mã số phim không hợp lệ", btnBack);
+       }
     }
     
     public void GetShowTimes(String movieID)
     {
-        Map<String,String> param=Map.of("movieID",movieID);
-        HTTPService.sendRequestAsync("GET", "/api/feature/getShowTimes",param, null, null).thenAccept(response->
+        LoadingOverlayManager.start(btnBack);
+        Map<String,Object> param=Map.of("movieID",movieID);
+        HTTPService.sendFullRequestAsync("GET", "/api/feature/getShowTimes",param, null, mainController.getToken()).thenAccept(response->
             {
-                Platform.runLater(()->renderShowtimesFromJSON(response));
+                if(response.statusCode()==200)
+                {
+                Platform.runLater(()->
+                {renderShowtimesFromJSON(response.body());
+                    LoadingOverlayManager.stop();
+                });
+                }
+                else{
+                    LoadingOverlayManager.stop();
+                    CineverseAlert.showToast("Không thể lấy thông tin xuất chiểu", btnBack);
+                }
             }
-        );
+        ).orTimeout(10, TimeUnit.SECONDS)
+        .exceptionallyAsync(ex->
+        { 
+            if (ex.getCause() instanceof TimeoutException) {
+            System.err.println("Lỗi: Server không phản hồi trong vòng 10 giây!");
+            Platform.runLater(() -> CineverseAlert.showToast("Kết nối server thất bại (Timeout)",btnBack));
+        } else {
+            System.err.println("Lỗi hệ thống khác: " + ex.getMessage());
+            Platform.runLater(() -> CineverseAlert.showToast("Kết nối server thất bại (No Connection)", btnBack));
+        }
+        LoadingOverlayManager.stop();
+        return null;
+    }
+     );
     }
 
     public void setMoviePoster(String urlString) {
@@ -248,6 +309,12 @@ public class DetailController extends Controller{
     @Override
     public void OnLogout() {
         
+    }
+
+    @Override
+    public void OnExit() {
+        
+        showtimeGroup.selectToggle(null);
     }
 
 }

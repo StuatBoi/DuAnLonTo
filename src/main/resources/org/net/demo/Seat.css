@@ -28,3 +28,48 @@
     -fx-text-fill: #777777;
     -fx-opacity: 0.5;
 }
+.seat-btn {
+    -fx-background-color: #1f1f1f;
+    -fx-border-color: #444444;
+    -fx-border-width: 1;
+    -fx-background-radius: 5;
+    -fx-border-radius: 5;
+    -fx-text-fill: #dddddd;
+    -fx-cursor: hand;
+}
+
+.seat-btn:hover {
+    -fx-border-color: #e50914;
+}
+
+.seat-btn:selected {
+    -fx-background-color: #e50914;
+    -fx-border-color: #e50914;
+    -fx-text-fill: white;
+}
+
+/* Ghế VIP - viền vàng đồng, chưa chọn */
+.seat-vip {
+    -fx-border-color: #C9A84C;
+    -fx-border-width: 1.5;
+    -fx-text-fill: #C9A84C;
+}
+
+.seat-vip:hover {
+    -fx-border-color: #e6c266;
+}
+
+/* Ghế VIP khi được chọn - vẫn nổi bật màu đỏ như ghế thường đang chọn */
+.seat-vip:selected {
+    -fx-background-color: #e50914;
+    -fx-border-color: #e50914;
+    -fx-text-fill: white;
+}
+
+/* Ghế đã bán */
+.seat-sold {
+    -fx-background-color: #3a3a3a;
+    -fx-border-color: transparent;
+    -fx-opacity: 0.5;
+    -fx-cursor: default;
+}

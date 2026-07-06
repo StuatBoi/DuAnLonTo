@@ -511,3 +511,64 @@
 .btn-primary-small:pressed {
     -fx-background-color: #B80710; /* Tối đi khi click */
 }
+/* Nâng cấp Auth Container với viền sáng mờ */
+.auth-container {
+    -fx-background-color: #141416;
+    -fx-border-color: rgba(255, 255, 255, 0.1); /* Viền cực nhạt */
+    -fx-border-width: 1px;
+    -fx-border-radius: 16px;
+    -fx-background-radius: 16px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.6), 40, 0, 0, 10);
+    -fx-padding: 40px;
+}
+
+/* Nâng cấp Input Field */
+.text-field {
+    -fx-background-color: #1a1a1d;
+    -fx-text-fill: white;
+    -fx-border-color: #333338;
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+    -fx-padding: 12px;
+}
+
+.text-field:focused {
+    -fx-border-color: #e50914; /* Đỏ rực khi nhấn vào */
+    -fx-effect: dropshadow(three-pass-box, rgba(229, 9, 20, 0.2), 10, 0, 0, 0);
+}
+
+/* Nâng cấp nút Đăng nhập để có độ "nảy" */
+.btn-primary {
+    -fx-background-color: #e50914;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 8px;
+    -fx-cursor: hand;
+    /* Hiệu ứng đổ bóng đỏ nhẹ */
+    -fx-effect: dropshadow(three-pass-box, rgba(229, 9, 20, 0.3), 15, 0, 0, 5);
+}
+
+.btn-primary:hover {
+    -fx-background-color: #ff0f1a; /* Sáng hơn khi di chuột */
+}
+
+.btn-primary:pressed {
+    -fx-scale-x: 0.98;
+    -fx-scale-y: 0.98;
+}
+.avatar-circle {
+    -fx-background-radius: 70px;
+}
+.avatar-edit-icon {
+    -fx-background-color: #e50914;
+    -fx-background-radius: 50%;
+    -fx-padding: 6px;
+    -fx-icon-color: white;
+}
+.btn-secondary {
+    -fx-background-color: transparent;
+    -fx-border-color: #e50914;
+    -fx-border-radius: 6px;
+    -fx-text-fill: #e50914;
+    -fx-font-weight: bold;
+}

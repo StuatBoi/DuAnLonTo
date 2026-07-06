@@ -9,13 +9,13 @@
 <?import javafx.scene.layout.VBox?>
 
 <VBox id="ticketDetail" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="380" prefWidth="380" spacing="20" styleClass="ticket-detail-modal" stylesheets="@ticketView.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.net.demo.TicketDetailController">
-    
+
     <padding>
         <Insets bottom="30" left="25" right="25" top="30" />
     </padding>
 
     <Label styleClass="detail-header-title" text="CINEVERSE TICKET" />
-    
+
     <VBox alignment="CENTER" maxHeight="200" maxWidth="200" styleClass="qr-container">
         <ImageView fx:id="imgQRCode" fitHeight="180" fitWidth="180" preserveRatio="true" smooth="false" />
     </VBox>
@@ -30,7 +30,7 @@
             <Label styleClass="ticket-meta-label" text="PHIM" />
             <Label fx:id="lblMovieTitle" styleClass="detail-movie-title" text="Tên bộ phim" wrapText="true" />
         </VBox>
-        
+
         <HBox spacing="20">
             <VBox styleClass="info-column" HBox.hgrow="ALWAYS">
                 <Label styleClass="ticket-meta-label" text="NGÀY CHIẾU" />
@@ -52,14 +52,20 @@
                 <Label fx:id="lblSeats" styleClass="detail-text" text="G09 (VIP)" />
             </VBox>
         </HBox>
-        
+
+        <!-- 👇 THÊM TRẠNG THÁI VÉ -->
+        <VBox spacing="4">
+            <Label styleClass="ticket-meta-label" text="TRẠNG THÁI VÉ" />
+            <Label fx:id="lblStatus" styleClass="ticket-status-pending" text="⏳ Chưa xác thực" />
+        </VBox>
+
         <VBox spacing="4">
             <Label styleClass="ticket-meta-label" text="KHÁCH HÀNG" />
             <Label fx:id="lblCustomer" styleClass="detail-text" text="Nguyễn Văn A" />
         </VBox>
 
         <Region styleClass="horizontal-line" />
-        
+
         <HBox alignment="CENTER_LEFT">
             <Label styleClass="ticket-total-label" text="TỔNG TIỀN" />
             <Region HBox.hgrow="ALWAYS" />
