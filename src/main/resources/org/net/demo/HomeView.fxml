@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox fx:id="homeView" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.net.demo.HomeController">
+<VBox fx:id="homeView" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.net.demo.HomeController">
     
     <!-- SỬA TẠI ĐÂY: Hạ thấp minHeight xuồng 320 và prefHeight xuống 350 để thu gọn Banner -->
     <StackPane minHeight="320" prefHeight="350.0" prefWidth="991.0" styleClass="hero-section">

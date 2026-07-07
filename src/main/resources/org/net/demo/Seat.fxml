@@ -5,7 +5,7 @@
 <?import javafx.scene.text.Font?>
 <?import java.net.URL?>
 
-<ToggleButton mnemonicParsing="false" prefHeight="35.0" prefWidth="40.0" text="A1" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1">
+<ToggleButton mnemonicParsing="false" prefHeight="35.0" prefWidth="40.0" text="A1" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
    <font>
       <Font name="Segoe UI Bold" size="11.0" />
    </font>

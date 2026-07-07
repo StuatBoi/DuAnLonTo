@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox fx:id="movieCard" styleClass="movie-card" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1">
+<VBox fx:id="movieCard" styleClass="movie-card" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
     <StackPane styleClass="movie-thumb" VBox.vgrow="ALWAYS">
         <ImageView fx:id="movieThumb" fitHeight="240" fitWidth="175" preserveRatio="true" styleClass="thumb-img" />
         <Label fx:id="qualityBadge" styleClass="quality-badge" text="HD" />

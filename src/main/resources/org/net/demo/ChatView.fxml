@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox fx:id="chatView" alignment="TOP_CENTER" spacing="16" styleClass="chat-container" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.net.demo.ChatViewController">
+<VBox fx:id="chatView" alignment="TOP_CENTER" spacing="16" styleClass="chat-container" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.net.demo.ChatViewController">
     <padding>
         <Insets bottom="20" left="20" right="20" top="20" />
     </padding>

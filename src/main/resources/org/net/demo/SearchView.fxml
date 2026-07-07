@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.layout.Region?>
 
-<VBox fx:id="searchView" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" 
+<VBox fx:id="searchView" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" 
       fx:controller="org.net.demo.SearchController"
       stylesheets="@searchView.css"
       styleClass="search-page-container" 

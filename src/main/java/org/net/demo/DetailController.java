@@ -270,7 +270,7 @@ public class DetailController extends BaseController{
         for (ShowTime showTime : showTimeList) {
             try {
                 // Tải file thành phần ShowtimeButton.fxml
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("ShowtimeBtn.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("ShowTimeBtn.fxml"));
                 ToggleButton btnShowtime = loader.load();
 
                 btnShowtime.setText(showTime.getStartTime()+" , "+showTime.getAddress()); 

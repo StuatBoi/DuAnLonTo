@@ -21,19 +21,37 @@ public class HTTPService {
             .connectTimeout(Duration.ofSeconds(10))
             .build();
 
-    static {
-        try (InputStream input = HTTPService.class.getClassLoader().getResourceAsStream("config.properties")) {
-            Properties prop = new Properties();
-            if (input == null) {
+        static {
+        Properties prop = new Properties();
+        boolean loaded = false;
+
+        // 1. Thử đọc file config.properties ở BÊN NGOÀI (ngay cạnh file .exe)
+        try (java.io.FileInputStream externalInput = new java.io.FileInputStream("config.properties")) {
+            prop.load(externalInput);
+            BASE_URL = prop.getProperty("base.url");
+            loaded = true;
+            System.out.println("Đã nạp config.properties từ bên ngoài file exe. BASE_URL = " + BASE_URL);
+        } catch (Exception e) {
+            // Không tìm thấy file ở ngoài, bỏ qua để tìm trong JAR
+        }
+
+        // 2. Nếu bên ngoài không có, quay lại đọc file dự phòng bên TRONG JAR (Mặc định ban đầu)
+        if (!loaded) {
+            try (InputStream internalInput = HTTPService.class.getClassLoader().getResourceAsStream("config.properties")) {
+                if (internalInput != null) {
+                    prop.load(internalInput);
+                    BASE_URL = prop.getProperty("base.url");
+                } else {
+                    BASE_URL = "http://localhost:8080"; // Giá trị fallback cuối cùng
+                }
+                System.out.println("Không có file ngoài, dùng config.properties mặc định trong JAR. BASE_URL = " + BASE_URL);
+            } catch (Exception ex) {
                 BASE_URL = "http://localhost:8080";
-            } else {
-                prop.load(input);
-                BASE_URL = prop.getProperty("base.url");
+                ex.printStackTrace();
             }
-        } catch (Exception ex) {
-            ex.printStackTrace();
         }
     }
+
 
     /**
      * @param params Map chứa các tham số query (vd: Map.of("id", "1", "name", "test"))
