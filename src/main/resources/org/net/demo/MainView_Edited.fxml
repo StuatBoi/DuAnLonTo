@@ -19,6 +19,8 @@
             <HBox.margin><Insets left="32" /></HBox.margin>
             <Label fx:id="navHome" styleClass="nav-item, nav-active" text="🏠 Trang chủ" />
             <Label fx:id="navAccount" styleClass="nav-item" text="👤 Tài Khoản" />
+            
+            <Label fx:id="navChatBot" styleClass="nav-item" text="🤖 Chatbot" />
         </HBox>
 
         <Region HBox.hgrow="ALWAYS" />
@@ -32,8 +34,8 @@
         </Button>
     </HBox>
 
-    <ScrollPane fitToWidth="true" styleClass="scroll-pane" VBox.vgrow="ALWAYS">
-        <StackPane fx:id="page">
+    <ScrollPane fitToWidth="true" fitToHeight="true" styleClass="scroll-pane" VBox.vgrow="ALWAYS">
+        <StackPane  fx:id="page">
             <children>
             </children>
         </StackPane>

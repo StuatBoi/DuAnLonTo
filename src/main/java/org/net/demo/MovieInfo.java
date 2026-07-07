@@ -10,7 +10,7 @@ public class MovieInfo {
     private String releaseDate;
     
 
-    // 1. Constructor có tham số
+    // Constructor có tham số
     public MovieInfo(String id, String title, String description, String genre, String image, String rating,String releaseDate) {
         this.id = id;
         this.description = description;

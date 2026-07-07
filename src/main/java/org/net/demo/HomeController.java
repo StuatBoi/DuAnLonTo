@@ -56,7 +56,7 @@ public class HomeController extends BaseController {
     @Override
     public void OnShowing() {
         mainController.setActiveHomeButton(true); 
-         
+         loadMoviesCard();
         }
 
 

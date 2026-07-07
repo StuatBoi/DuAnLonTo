@@ -83,6 +83,7 @@ public class PaymentViewController extends BaseController{
 
     @Override
     public void OnShowing() {
+       
        startCountdown();
        connectToServer();
        

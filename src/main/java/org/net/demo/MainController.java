@@ -21,7 +21,8 @@ import javafx.scene.layout.StackPane;
 public class MainController{
 
 
-
+    @FXML 
+    private Label navChatBot;
     @FXML
     private Button btnLogin;
 
@@ -72,6 +73,7 @@ public class MainController{
             AttachPage("TicketDetail.fxml");
             AttachPage("SearchView.fxml");
             AttachPage("PaymentView.fxml");
+            AttachPage("ChatView.fxml");
 
             System.out.print("attaching finished");
 
@@ -80,6 +82,20 @@ public class MainController{
         {
             e.printStackTrace();
         }
+
+        navChatBot.setOnMouseClicked(e->
+            {
+                if(!IsLoggedIn())
+                    {
+                        CineverseAlert.showToast("Vui lòng đăng nhập để truy cập tính năng này", navAccount);
+                        return;
+                    }
+               showPage(getPage("chatView"));
+               setActiveChatBotButton(true);
+               setActiveAccountButton(false);
+                setActiveHomeButton(false);
+            }
+        );
 
 
 
@@ -90,12 +106,14 @@ public class MainController{
                     showPage(getPage("loginView"));
                     setActiveAccountButton(false);
                     setActiveHomeButton(false);
+                    setActiveChatBotButton(false);
                 }
         );
         navHome.setOnMouseClicked(event->
                 {
                     showPage(getPage("homeView"));
                     setActiveAccountButton(false);
+                    setActiveChatBotButton(false);
                     setActiveHomeButton(true);
                 }
         );
@@ -109,27 +127,30 @@ public class MainController{
                     showPage(getPage("accountView"));
                     setActiveAccountButton(true);
                     setActiveHomeButton(false);
+                    setActiveChatBotButton(false);
                 }
         );
 
-        // 🌟 Nút tìm kiếm: bấm mới chuyển trang + thực hiện tìm kiếm
+        
         btnSearch.setOnAction(event->
                 {
                     showPage(getPage("searchView"));
                     setActiveAccountButton(false);
                     setActiveHomeButton(false);
+                    setActiveChatBotButton(false);
                     SearchController searchController = (SearchController)getController("searchView");
                     searchController.Search(searchField.getText());
                 }
         );
 
-        // 🌟 TextField chỉ dùng để nhập; bấm Enter cũng kích hoạt tìm kiếm cho tiện
+        
         searchField.setOnKeyPressed(event->{
             if(event.getCode().equals(KeyCode.ENTER))
             {
                 showPage(getPage("searchView"));
                 setActiveAccountButton(false);
                 setActiveHomeButton(false);
+                setActiveChatBotButton(false);
                 SearchController searchController = (SearchController)getController("searchView");
                 searchController.Search(searchField.getText());
             }
@@ -250,6 +271,22 @@ public class MainController{
 
     }
 
+    public void setActiveChatBotButton(boolean value) 
+    {
+        if (value) 
+        {
+            if (!navChatBot.getStyleClass().contains("nav-active")) 
+            {
+                navChatBot.getStyleClass().add("nav-active");
+            }
+        } else {
+            if (navChatBot.getStyleClass().contains("nav-active")) 
+            {
+                navChatBot.getStyleClass().remove("nav-active");
+            }
+        }
+    }
+
     public Parent getPage(String pageID)
     {
         if(Pages.containsKey(pageID))
@@ -349,12 +386,12 @@ public class MainController{
             Scene scene = getPage("homeView").getScene();
             if (scene != null) {
 
-                // 1. Định nghĩa phím tắt (Ví dụ: phím F5)
+              //Định nghĩa phím tắt (Ví dụ: phím F5)
                 KeyCombination refreshKey = new KeyCodeCombination(KeyCode.F5);
 
-                // 2. Đăng ký Accelerator cho Scene
+               //Đăng ký Accelerator cho Scene
                 scene.getAccelerators().put(refreshKey, () -> {
-                    // 3. Gọi hàm bạn muốn thực thi tại đây
+                    // Gọi hàm bạn muốn thực thi tại đây
                     System.out.println("Phím F5 được bấm toàn cục!");
                     if(CurrentPage!=null)
                     {

@@ -12,7 +12,7 @@ import java.util.Map;
 
 import org.net.demo.Service.LoadingOverlayManager;
 
-
+//Class này bỏ vì quá ngu
 public class MovieService {
 
     public static ArrayList<Movie> movies = new ArrayList<>();

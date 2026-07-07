@@ -41,11 +41,11 @@ public class HTTPService {
     public static CompletableFuture<String> sendRequestAsync(
             String method, 
             String endpoint, 
-            Map<String, String> params, // Thêm tham số này
+            Map<String, String> params,
             String jsonBody, 
             String token) {
 
-        // 1. Xử lý nối Param vào URL
+        // Xử lý nối Param vào URL
         StringBuilder urlBuilder = new StringBuilder(BASE_URL).append(endpoint);
         if (params != null && !params.isEmpty()) {
             StringJoiner joiner = new StringJoiner("&", "?", "");
@@ -60,12 +60,12 @@ public class HTTPService {
                 .uri(URI.create(urlBuilder.toString()))
                 .header("Accept", "application/json");
 
-        // 2. Thêm Token
+        // Thêm Token
         if (token != null && !token.isBlank()) {
             builder.header("Authorization", "Bearer " + token);
         }
 
-        // 3. Xử lý Method
+        // Xử lý Method
         if ("POST".equalsIgnoreCase(method)) {
             builder.header("Content-Type", "application/json");
             builder.POST(HttpRequest.BodyPublishers.ofString(jsonBody != null ? jsonBody : ""));
@@ -77,14 +77,14 @@ public class HTTPService {
         } else {
             builder.GET();
         }
-//////////////////////
+
         Function<HttpResponse<String>, String> mapper = (HttpResponse<String> response) -> {
     if (response == null) {
-        return ""; // Hoặc xử lý null theo logic của bạn
+        return ""; // xử lý null theo logic
     }
     return response.body();
 };
-//////////////////////
+
 
         return httpClient.sendAsync(builder.build(), HttpResponse.BodyHandlers.ofString())
                 .thenApply(mapper);//////HttpResponse::body
@@ -95,11 +95,11 @@ public class HTTPService {
 public static CompletableFuture<HttpResponse<String>> sendFullRequestAsync(
         String method, 
         String endpoint, 
-        Map<String, Object> params, // ĐÃ ĐỔI: Từ Map<String, String> sang Map<String, Object>
+        Map<String, Object> params, 
         String jsonBody, 
         String token) {
 
-    // 1. Xử lý nối Param vào URL (Đã tối ưu để nhận mọi kiểu dữ liệu)
+    // Xử lý nối Param vào URL
     StringBuilder urlBuilder = new StringBuilder(BASE_URL).append(endpoint);
     if (params != null && !params.isEmpty()) {
         StringJoiner joiner = new StringJoiner("&", "?", "");
@@ -107,7 +107,7 @@ public static CompletableFuture<HttpResponse<String>> sendFullRequestAsync(
         params.forEach((k, v) -> {
             // Kiểm tra null để tránh lỗi NullPointerException nếu value truyền vào bị rỗng
             if (v != null) {
-                // v.toString() sẽ tự động chuyển Integer, Long, Boolean... thành String thích hợp
+                
                 String encodedValue = URLEncoder.encode(v.toString(), StandardCharsets.UTF_8);
                 joiner.add(k + "=" + encodedValue);
             }
@@ -119,12 +119,12 @@ public static CompletableFuture<HttpResponse<String>> sendFullRequestAsync(
             .uri(URI.create(urlBuilder.toString()))
             .header("Accept", "application/json");
 
-    // 2. Thêm Token
+    // Thêm Token
     if (token != null && !token.isBlank()) {
         builder.header("Authorization", "Bearer " + token);
     }
 
-    // 3. Xử lý Method
+    // Xử lý Method
     if ("POST".equalsIgnoreCase(method)) {
         builder.header("Content-Type", "application/json");
         builder.POST(HttpRequest.BodyPublishers.ofString(jsonBody != null ? jsonBody : ""));
@@ -137,7 +137,7 @@ public static CompletableFuture<HttpResponse<String>> sendFullRequestAsync(
         builder.GET();
     }
 
-    // 4. Trả về CompletableFuture chứa toàn bộ HttpResponse
+    // Trả về CompletableFuture chứa toàn bộ HttpResponse
     return httpClient.sendAsync(builder.build(), HttpResponse.BodyHandlers.ofString());
 }
 
