@@ -24,6 +24,12 @@
     -fx-background-color: transparent;
     -fx-border-color: transparent;
     -fx-viewport-background-color: transparent;
+    -fx-padding: 0;
+    -fx-fit-to-width: true;
+}
+
+.search-scroll-pane > .viewport {
+    -fx-background-color: transparent;
 }
 
 /* Vùng lưới chứa các Movie Card */
@@ -34,8 +40,11 @@
 
 /* --- THANH PHÂN TRANG (PAGINATION) --- */
 .pagination-bar {
-    -fx-border-color: #222222 transparent transparent transparent; /* Đường viền mỏng phía trên phân cách */
-    -fx-border-width: 1px;
+    -fx-background-color: #111111;
+    -fx-border-color: #222222;
+    -fx-border-width: 1px 0 0 0;
+    -fx-padding: 12 0 0 0;
+    -fx-min-height: 70px;
 }
 
 .btn-page-number {
